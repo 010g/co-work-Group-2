@@ -48,7 +48,7 @@ class Add2cartViewModel(
 
     val variantsBySelectedColor : LiveData<List<Variant>> = Transformations.map(selectedColor) { color ->
         color?.let {
-            product.value?.variants?.filter { variant -> {}
+            product.value?.variants?.filter { variant ->
                 variant.colorCode == it.code
             }
         }

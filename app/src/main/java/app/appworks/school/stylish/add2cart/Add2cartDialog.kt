@@ -27,7 +27,7 @@ class Add2cartDialog : AppCompatDialogFragment() {
     /**
      * Lazily initialize our [Add2cartViewModel].
      */
-    private val viewModel by viewModels<Add2cartViewModel> { getVmFactory(Add2cartDialogArgs.fromBundle(arguments!!).productKey) }
+    private val viewModel by viewModels<Add2cartViewModel> { getVmFactory(Add2cartDialogArgs.fromBundle(requireArguments()).productKey) }
     private lateinit var binding: DialogAdd2cartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,19 +40,19 @@ class Add2cartDialog : AppCompatDialogFragment() {
         binding = DialogAdd2cartBinding.inflate(inflater, container, false)
         binding.layoutAdd2cart.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.buttonAdd2cartClose.setTouchDelegate()
         binding.recyclerAdd2cartColorSelector.adapter = Add2cartColorAdapter(viewModel)
 
-        viewModel.navigateToAddedSuccess.observe(this, Observer {
+        viewModel.navigateToAddedSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.ADDED_SUCCESS))
                 viewModel.onAddedSuccessNavigated()
             }
         })
 
-        viewModel.navigateToAddedFail.observe(this, Observer {
+        viewModel.navigateToAddedFail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToMessageDialog(
                     MessageDialog.MessageType.MESSAGE.apply { value.message = getString(R.string.product_exist) }
@@ -61,11 +61,11 @@ class Add2cartDialog : AppCompatDialogFragment() {
             }
         })
 
-        viewModel.amount.observe(this, Observer {
+        viewModel.amount.observe(viewLifecycleOwner, Observer {
             Logger.d("amount=$it")
         })
 
-        viewModel.leave.observe(this, Observer {
+        viewModel.leave.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dismiss()
                 viewModel.onLeaveCompleted()

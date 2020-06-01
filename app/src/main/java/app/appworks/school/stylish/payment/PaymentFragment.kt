@@ -32,25 +32,25 @@ class PaymentFragment : Fragment() {
 //        init()
         val binding = FragmentPaymentBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerPayment.adapter = PaymentAdapter(viewModel)
         binding.viewModel = viewModel
 
-        viewModel.checkoutSuccess.observe(this, Observer {
+        viewModel.checkoutSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewModel.navigateToCheckoutSuccess()
                 viewModel.onCheckoutCompleted()
             }
         })
 
-        viewModel.navigateToCheckoutSuccess.observe(this, Observer {
+        viewModel.navigateToCheckoutSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToCheckoutSuccessFragment())
                 viewModel.onCheckoutSuccessNavigated()
             }
         })
 
-        viewModel.invalidCheckout.observe(this, Observer {
+        viewModel.invalidCheckout.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when (it) {
                     NOT_SUPPORT_CASH_ON_DELIVERY -> {
@@ -67,7 +67,7 @@ class PaymentFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToLogin.observe(this, Observer {
+        viewModel.navigateToLogin.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToLoginDialog())
                 viewModel.onLoginNavigated()

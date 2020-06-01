@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 //        init()
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.recyclerHome.adapter = HomeAdapter(HomeAdapter.OnClickListener {
@@ -36,13 +36,13 @@ class HomeFragment : Fragment() {
             viewModel.refresh()
         }
 
-        viewModel.refreshStatus.observe(this, Observer {
+        viewModel.refreshStatus.observe(viewLifecycleOwner, Observer {
             it?.let {
                 binding.layoutSwipeRefreshHome.isRefreshing = it
             }
         })
 
-        viewModel.navigateToDetail.observe(this, Observer {
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
                 viewModel.onDetailNavigated()

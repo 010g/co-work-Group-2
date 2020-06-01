@@ -28,7 +28,7 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
 
         val binding = FragmentCatalogItemBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
@@ -36,14 +36,14 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
             viewModel.navigateToDetail(it)
         })
 
-        viewModel.navigateToDetail.observe(this, Observer {
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
                 viewModel.onDetailNavigated()
             }
         })
 
-        viewModel.pagingDataProducts.observe(this@CatalogItemFragment, Observer {
+        viewModel.pagingDataProducts.observe(viewLifecycleOwner, Observer {
             (binding.recyclerCatalogItem.adapter as PagingAdapter).submitList(it)
         })
 
@@ -51,7 +51,7 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
             viewModel.refresh()
         }
 
-        viewModel.status.observe(this, Observer {
+        viewModel.status.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it != LoadApiStatus.LOADING)
                     binding.layoutSwipeRefreshCatalogItem.isRefreshing = false

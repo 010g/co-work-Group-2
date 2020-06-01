@@ -20,7 +20,7 @@ class MessageDialog : AppCompatDialogFragment() {
     var iconRes: Drawable? = null
     var message: String? = null
     private val messageType by lazy {
-        MessageDialogArgs.fromBundle(arguments!!).messageTypeKey
+        MessageDialogArgs.fromBundle(requireArguments()).messageTypeKey
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class MessageDialog : AppCompatDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         init()
         val binding = DialogMessageBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.dialog = this
 
 

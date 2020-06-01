@@ -16,7 +16,7 @@ class CatalogFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 //        init()
         FragmentCatalogBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = this@CatalogFragment
+            lifecycleOwner = viewLifecycleOwner
             viewpagerCatalog.let {
                 tabsCatalog.setupWithViewPager(it)
                 it.adapter = CatalogAdapter(childFragmentManager)

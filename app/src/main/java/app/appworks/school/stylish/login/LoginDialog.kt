@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import app.appworks.school.stylish.MainViewModel
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.DialogLoginBinding
@@ -40,33 +40,33 @@ class LoginDialog : AppCompatDialogFragment() {
         binding = DialogLoginBinding.inflate(inflater, container, false)
         binding.layoutLogin.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.buttonLoginClose.setTouchDelegate()
 
-        val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+        val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        viewModel.user.observe(this, Observer {
+        viewModel.user.observe(viewLifecycleOwner, Observer {
             it?.let {
                 mainViewModel.setupUser(it)
             }
         })
 
-        viewModel.navigateToLoginSuccess.observe(this, Observer {
+        viewModel.navigateToLoginSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 mainViewModel.navigateToLoginSuccess(it)
                 dismiss()
             }
         })
 
-        viewModel.leave.observe(this, Observer {
+        viewModel.leave.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dismiss()
                 viewModel.onLeaveCompleted()
             }
         })
 
-        viewModel.loginFacebook.observe(this, Observer {
+        viewModel.loginFacebook.observe(viewLifecycleOwner, Observer {
             it?.let {
                 LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
                 viewModel.onLoginFacebookCompleted()

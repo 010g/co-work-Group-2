@@ -24,7 +24,7 @@ class CartFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 //        init()
         val binding = FragmentCartBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.recyclerCart.adapter = CartAdapter(viewModel)
 
@@ -33,7 +33,7 @@ class CartFragment : Fragment() {
             binding.layoutSwipeRefreshCart.isRefreshing = false
         }
 
-        viewModel.navigateToPayment.observe(this, Observer {
+        viewModel.navigateToPayment.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(CartFragmentDirections.navigateToPaymentFragment())
                 viewModel.onPaymentNavigated()

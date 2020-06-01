@@ -70,7 +70,7 @@ class CartViewModel(private val stylishRepository: StylishRepository) : ViewMode
      */
     private fun updateProduct(product: Product) {
         product.amount?.let { amount ->
-            product.selectedVariant?.let {
+            product.selectedVariant.let {
                 if (amount in 1..it.stock) {
                     coroutineScope.launch {
                         stylishRepository.updateProductInCart(product)

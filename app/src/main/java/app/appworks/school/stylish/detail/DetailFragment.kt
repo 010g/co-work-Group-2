@@ -21,7 +21,7 @@ class DetailFragment : Fragment() {
     /**
      * Lazily initialize our [DetailViewModel].
      */
-    private val viewModel by viewModels<DetailViewModel> { getVmFactory(DetailFragmentArgs.fromBundle(arguments!!).productKey) }
+    private val viewModel by viewModels<DetailViewModel> { getVmFactory(DetailFragmentArgs.fromBundle(requireArguments()).productKey) }
 
 //    private var previousCurrentFragmentType: CurrentFragmentType? = null
 
@@ -29,7 +29,7 @@ class DetailFragment : Fragment() {
 //        init()
         val binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.recyclerDetailGallery.adapter = DetailGalleryAdapter()
@@ -52,19 +52,19 @@ class DetailFragment : Fragment() {
             binding.recyclerDetailGallery
                 .scrollToPosition(product.images.size * 100)
 
-            viewModel.snapPosition.observe(this, Observer {
+            viewModel.snapPosition.observe(viewLifecycleOwner, Observer {
                 (binding.recyclerDetailCircles.adapter as DetailCircleAdapter).selectedPosition.value = (it % product.images.size)
             })
         }
 
-        viewModel.navigateToAdd2cart.observe(this, Observer {
+        viewModel.navigateToAdd2cart.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToAdd2cartDialog(it))
                 viewModel.onAdd2cartNavigated()
             }
         })
 
-        viewModel.leaveDetail.observe(this, Observer {
+        viewModel.leaveDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it) findNavController().popBackStack()
             }
