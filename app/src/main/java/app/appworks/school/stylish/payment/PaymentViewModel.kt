@@ -219,7 +219,7 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
-            // It will return Result object after Deferred flow
+
             val result = stylishRepository.checkoutOrder(token, orderDetail)
 
             _checkoutSuccess.value = when (result) {

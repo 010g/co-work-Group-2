@@ -86,7 +86,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
         coroutineScope.launch {
 
             if (isInitial) _status.value = LoadApiStatus.LOADING
-            // It will return Result object after Deferred flow
+
             val result = stylishRepository.getMarketingHots()
 
             _homeItems.value = when (result) {

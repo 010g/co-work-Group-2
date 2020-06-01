@@ -2,7 +2,6 @@ package app.appworks.school.stylish.network
 
 import app.appworks.school.stylish.BuildConfig
 import app.appworks.school.stylish.data.*
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -42,7 +41,6 @@ private val client = OkHttpClient.Builder()
  */
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl(BASE_URL)
     .client(client)
     .build()
@@ -57,9 +55,8 @@ interface StylishApiService {
      * The @GET annotation indicates that the "marketing/hots" endpoint will be requested with the GET HTTP method
      */
     @GET("marketing/hots")
-    fun getMarketingHots():
-    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
-            Deferred<MarketingHotsResult>
+    suspend fun getMarketingHots(): MarketingHotsResult
+
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "products/{catalogType}" endpoint will be requested with the GET
@@ -67,16 +64,15 @@ interface StylishApiService {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
-            Deferred<ProductListResult>
+    suspend fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null): ProductListResult
+
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "user/profile" endpoint will be requested with the GET HTTP method
      * The @Header annotation indicates that it will be added "Authorization" header
      */
     @GET("user/profile")
-    fun getUserProfile(@Header("Authorization") token: String):
-            Deferred<UserProfileResult>
+    suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileResult
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -85,10 +81,9 @@ interface StylishApiService {
      */
     @FormUrlEncoded
     @POST("user/signin")
-    fun userSignIn(
+    suspend fun userSignIn(
         @Field("provider") provider: String = "facebook",
-        @Field("access_token") fbToken: String):
-            Deferred<UserSignInResult>
+        @Field("access_token") fbToken: String): UserSignInResult
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -96,8 +91,7 @@ interface StylishApiService {
      * The @Body annotation indicates that it will be added [OrderDetail] to the body of the POST HTTP method
      */
     @POST("order/checkout")
-    fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail):
-            Deferred<CheckoutOrderResult>
+    suspend fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail): CheckoutOrderResult
 }
 
 /**

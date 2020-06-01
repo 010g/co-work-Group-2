@@ -159,7 +159,7 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
-            // It will return Result object after Deferred flow
+
             val result = stylishRepository.getUserProfile(token)
 
             _user.value = when (result) {

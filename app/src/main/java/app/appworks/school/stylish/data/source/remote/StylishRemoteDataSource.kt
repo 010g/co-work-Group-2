@@ -21,11 +21,10 @@ object StylishRemoteDataSource : StylishDataSource {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
-        // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApi.retrofitService.getMarketingHots()
+
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = getResultDeferred.await()
+            val listResult = StylishApi.retrofitService.getMarketingHots()
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -43,12 +42,10 @@ object StylishRemoteDataSource : StylishDataSource {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
-        // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApi.retrofitService.getProductList(type = type, paging = paging)
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = getResultDeferred.await()
+            val listResult = StylishApi.retrofitService.getProductList(type = type, paging = paging)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -66,12 +63,10 @@ object StylishRemoteDataSource : StylishDataSource {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
-        // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApi.retrofitService.getUserProfile(token)
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = getResultDeferred.await()
+            val listResult = StylishApi.retrofitService.getUserProfile(token)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -92,11 +87,10 @@ object StylishRemoteDataSource : StylishDataSource {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
-        // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApi.retrofitService.userSignIn(fbToken = fbToken)
+
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = getResultDeferred.await()
+            val listResult = StylishApi.retrofitService.userSignIn(fbToken = fbToken)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -115,11 +109,10 @@ object StylishRemoteDataSource : StylishDataSource {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
-        // Get the Deferred object for our Retrofit request
-        val getPropertiesDeferred = StylishApi.retrofitService.checkoutOrder(token, orderDetail)
+
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = getPropertiesDeferred.await()
+            val listResult = StylishApi.retrofitService.checkoutOrder(token, orderDetail)
 
             listResult.error?.let {
                 return Result.Fail(it)
