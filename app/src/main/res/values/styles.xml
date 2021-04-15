@@ -87,6 +87,7 @@
     <style name="PaymentColorTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/gray_cccccc</item>
         <item name="colorControlActivated">@color/black_3f3a3a</item>
+        <item name="android:colorControlHighlight">@color/black_3f3a3a</item>
     </style>
 
     <style name="LogoTheme" parent="AppTheme">

@@ -48,90 +48,131 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view_payment_recipient_separation"/>
 
-            <EditText
-                    android:id="@+id/edit_payment_recipient_name"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_payment_recipient_name"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/height_payment_editor"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="@string/recipient_name"
-                    android:textColor="@color/black_3f3a3a"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:theme="@style/PaymentColorTheme"
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@+id/edit_payment_recipient_email"
-                    android:text="@={viewModel.name}"
-                    android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
-                    android:backgroundTint="@{viewModel.invalidCheckout != null? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_payment_recipient_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/text_payment_recipient_title"
+                    app:boxStrokeColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    app:boxBackgroundColor="@{viewModel.invalidCheckout != null? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    >
 
-            <EditText
-                    android:id="@+id/edit_payment_recipient_email"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_payment_recipient_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_payment_editor"
+                        android:hint="@string/recipient_name"
+                        android:textColor="@color/black_3f3a3a"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/edit_payment_recipient_email"
+                        android:text="@={viewModel.name}"
+                        android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        android:backgroundTint="@{viewModel.invalidCheckout != null? (TextUtils.isEmpty(viewModel.name) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_payment_recipient_email"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/height_payment_editor"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="@string/recipient_email"
-                    android:textColor="@color/black_3f3a3a"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:theme="@style/PaymentColorTheme"
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@+id/edit_payment_recipient_phone"
-                    android:text="@={viewModel.email}"
-                    android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
-                    android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_payment_recipient_name"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_payment_recipient_name"
+                    app:boxStrokeColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    app:boxBackgroundColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    >
 
-            <EditText
-                    android:id="@+id/edit_payment_recipient_phone"
+                <EditText
+                        android:id="@+id/edit_payment_recipient_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_payment_editor"
+                        android:hint="@string/recipient_email"
+                        android:textColor="@color/black_3f3a3a"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/edit_payment_recipient_phone"
+                        android:text="@={viewModel.email}"
+                        android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.email) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_payment_recipient_phone"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/height_payment_editor"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="@string/recipient_phone"
-                    android:textColor="@color/black_3f3a3a"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:theme="@style/PaymentColorTheme"
-                    android:inputType="phone"
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@+id/edit_payment_recipient_address"
-                    android:text="@={viewModel.phone}"
-                    android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
-                    android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_payment_recipient_email"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_payment_recipient_email"
+                    app:boxStrokeColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    app:boxBackgroundColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    >
 
-            <EditText
-                    android:id="@+id/edit_payment_recipient_address"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_payment_recipient_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_payment_editor"
+                        android:hint="@string/recipient_phone"
+                        android:textColor="@color/black_3f3a3a"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/edit_payment_recipient_address"
+                        android:text="@={viewModel.phone}"
+                        android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.phone) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_payment_recipient_address"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/height_payment_editor"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="@string/recipient_address"
-                    android:textColor="@color/black_3f3a3a"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:nextFocusForward="@+id/form_payment_tpd"
                     android:theme="@style/PaymentColorTheme"
-                    android:text="@={viewModel.address}"
-                    android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
-                    android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_payment_recipient_phone"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_payment_recipient_phone"
+                    app:boxStrokeColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    app:boxBackgroundColor="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                    >
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_payment_recipient_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_payment_editor"
+                        android:hint="@string/recipient_address"
+                        android:textColor="@color/black_3f3a3a"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:nextFocusForward="@+id/form_payment_tpd"
+                        android:text="@={viewModel.address}"
+                        android:textColorHint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        android:backgroundTint="@{viewModel.invalidCheckout != null ? (TextUtils.isEmpty(viewModel.address) ? @color/red_d0021b : @color/gray_646464) : @color/gray_646464}"
+                        />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                     android:id="@+id/text_payment_shipping_time_title"
@@ -145,7 +186,7 @@
                     android:textSize="14sp"
                     android:text="@string/shipping_time"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_payment_recipient_address"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_payment_recipient_address"/>
 
             <RadioGroup
                     android:id="@+id/radios_payment_shipping"
