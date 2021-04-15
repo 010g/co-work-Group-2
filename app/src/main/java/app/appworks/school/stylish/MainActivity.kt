@@ -201,7 +201,11 @@ class MainActivity : BaseActivity() {
                     binding.toolbar.setPadding(0, oriStatusBarHeight, 0, 0)
                     val layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT)
                     layoutParams.gravity = Gravity.CENTER
-                    layoutParams.topMargin = statusBarHeight - oriStatusBarHeight
+
+                    when (Build.MODEL) {
+                        "Pixel 5" -> { Logger.i("Build.MODEL is ${Build.MODEL}") }
+                        else -> { layoutParams.topMargin = statusBarHeight - oriStatusBarHeight }
+                    }
                     binding.imageToolbarLogo.layoutParams = layoutParams
                     binding.textToolbarTitle.layoutParams = layoutParams
                 }
