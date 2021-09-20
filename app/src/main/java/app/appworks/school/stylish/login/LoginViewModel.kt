@@ -81,7 +81,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 
@@ -89,7 +89,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
      * track [StylishRepository.userSignIn]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
      * @param fbToken: Facebook token
      */
-     private fun loginStylish(fbToken: String) {
+    private fun loginStylish(fbToken: String) {
 
         coroutineScope.launch {
 
@@ -117,7 +117,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                 }
             }
         }
-     }
+    }
 
     /**
      * Login Stylish by Facebook: Step 1. Register FB Login Callback
@@ -126,27 +126,30 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
         _status.value = LoadApiStatus.LOADING
 
         fbCallbackManager = CallbackManager.Factory.create()
-        LoginManager.getInstance().registerCallback(fbCallbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
+        LoginManager.getInstance().registerCallback(
+            fbCallbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
 
-                loginStylish(loginResult.accessToken.token)
-            }
-
-            override fun onCancel() { _status.value = LoadApiStatus.ERROR }
-
-            override fun onError(exception: FacebookException) {
-                Logger.w("[${this::class.simpleName}] exception=${exception.message}")
-
-                exception.message?.let {
-                    _error.value = if (it.contains("ERR_INTERNET_DISCONNECTED")) {
-                         getString(R.string.internet_not_connected)
-                    } else {
-                        it
-                    }
+                    loginStylish(loginResult.accessToken.token)
                 }
-                _status.value = LoadApiStatus.ERROR
+
+                override fun onCancel() { _status.value = LoadApiStatus.ERROR }
+
+                override fun onError(exception: FacebookException) {
+                    Logger.w("[${this::class.simpleName}] exception=${exception.message}")
+
+                    exception.message?.let {
+                        _error.value = if (it.contains("ERR_INTERNET_DISCONNECTED")) {
+                            getString(R.string.internet_not_connected)
+                        } else {
+                            it
+                        }
+                    }
+                    _status.value = LoadApiStatus.ERROR
+                }
             }
-        })
+        )
 
         loginFacebook()
     }

@@ -52,7 +52,7 @@ interface StylishDatabaseDao {
      */
     @Query("SELECT * FROM products_in_cart_table ORDER BY product_id ASC")
     fun getAllProducts():
-            LiveData<List<Product>>
+        LiveData<List<Product>>
 
     /**
      * Selects and return the [Product] with given id, colorCode and size
@@ -62,6 +62,4 @@ interface StylishDatabaseDao {
      */
     @Query("SELECT * from products_in_cart_table WHERE product_id = :id AND product_selected_color_code = :colorCode AND product_selected_size = :size")
     fun get(id: Long, colorCode: String, size: String): Product?
-
 }
-

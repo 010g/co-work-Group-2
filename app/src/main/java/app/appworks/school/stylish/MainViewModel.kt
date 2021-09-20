@@ -104,7 +104,7 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 
@@ -114,7 +114,7 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
         Logger.i("=============")
         Logger.i("| setupUser |")
         Logger.i("user=$user")
-        Logger.i("MainViewModel=${this}")
+        Logger.i("MainViewModel=$this")
         Logger.i("=============")
     }
 

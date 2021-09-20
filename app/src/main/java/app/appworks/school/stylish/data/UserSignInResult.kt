@@ -11,4 +11,4 @@ import kotlinx.android.parcel.Parcelize
 data class UserSignInResult(
     val error: String? = null,
     @Json(name = "data") val userSignIn: UserSignIn? = null
-    ) : Parcelable
+) : Parcelable

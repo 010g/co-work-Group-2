@@ -18,8 +18,8 @@ import app.appworks.school.stylish.databinding.ItemHomeTitleBinding
  * [HomeItem], including computing diffs between lists.
  * @param onClickListener a lambda that takes the
  */
-class HomeAdapter(private val onClickListener: OnClickListener ) :
-        ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
+class HomeAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
      * associated with the current item to the [onClick] function.
@@ -29,7 +29,7 @@ class HomeAdapter(private val onClickListener: OnClickListener ) :
         fun onClick(product: Product) = clickListener(product)
     }
 
-    class TitleViewHolder(private var binding: ItemHomeTitleBinding): RecyclerView.ViewHolder(binding.root) {
+    class TitleViewHolder(private var binding: ItemHomeTitleBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(title: String) {
 
@@ -38,7 +38,7 @@ class HomeAdapter(private val onClickListener: OnClickListener ) :
         }
     }
 
-    class FullProductViewHolder(private var binding: ItemHomeFullBinding):
+    class FullProductViewHolder(private var binding: ItemHomeFullBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, onClickListener: OnClickListener) {
@@ -49,7 +49,7 @@ class HomeAdapter(private val onClickListener: OnClickListener ) :
         }
     }
 
-    class CollageProductViewHolder(private var binding: ItemHomeCollageBinding): RecyclerView.ViewHolder(binding.root) {
+    class CollageProductViewHolder(private var binding: ItemHomeCollageBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, onClickListener: OnClickListener) {
 
@@ -67,19 +67,28 @@ class HomeAdapter(private val onClickListener: OnClickListener ) :
             return oldItem.id == newItem.id
         }
 
-        private const val ITEM_VIEW_TYPE_TITLE            = 0x00
-        private const val ITEM_VIEW_TYPE_PRODUCT_FULL     = 0x01
-        private const val ITEM_VIEW_TYPE_PRODUCT_COLLAGE  = 0x02
+        private const val ITEM_VIEW_TYPE_TITLE = 0x00
+        private const val ITEM_VIEW_TYPE_PRODUCT_FULL = 0x01
+        private const val ITEM_VIEW_TYPE_PRODUCT_COLLAGE = 0x02
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_TITLE -> TitleViewHolder(ItemHomeTitleBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false))
-            ITEM_VIEW_TYPE_PRODUCT_FULL -> FullProductViewHolder(ItemHomeFullBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false))
-            ITEM_VIEW_TYPE_PRODUCT_COLLAGE -> CollageProductViewHolder(ItemHomeCollageBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false))
+            ITEM_VIEW_TYPE_TITLE -> TitleViewHolder(
+                ItemHomeTitleBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
+            ITEM_VIEW_TYPE_PRODUCT_FULL -> FullProductViewHolder(
+                ItemHomeFullBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
+            ITEM_VIEW_TYPE_PRODUCT_COLLAGE -> CollageProductViewHolder(
+                ItemHomeCollageBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }

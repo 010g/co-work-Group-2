@@ -30,7 +30,6 @@ object StylishRemoteDataSource : StylishDataSource {
                 return Result.Fail(it)
             }
             Result.Success(listResult.toHomeItems())
-
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -51,7 +50,6 @@ object StylishRemoteDataSource : StylishDataSource {
                 return Result.Fail(it)
             }
             Result.Success(listResult)
-
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -75,7 +73,6 @@ object StylishRemoteDataSource : StylishDataSource {
                 return Result.Success(it)
             }
             Result.Fail(getString(R.string.you_know_nothing))
-
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -96,7 +93,6 @@ object StylishRemoteDataSource : StylishDataSource {
                 return Result.Fail(it)
             }
             Result.Success(listResult)
-
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -104,7 +100,9 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun checkoutOrder(
-        token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult> {
+        token: String,
+        orderDetail: OrderDetail
+    ): Result<CheckoutOrderResult> {
 
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
@@ -118,7 +116,6 @@ object StylishRemoteDataSource : StylishDataSource {
                 return Result.Fail(it)
             }
             Result.Success(listResult)
-
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -126,30 +123,30 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override fun getProductsInCart(): LiveData<List<Product>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun insertProductInCart(product: Product) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun updateProductInCart(product: Product) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun removeProductInCart(id: Long, colorCode: String, size: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun clearProductInCart() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getUserInformation(key: String?): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

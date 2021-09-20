@@ -15,24 +15,26 @@ import kotlinx.coroutines.withContext
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getUserProfile(token: String): Result<User> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun userSignIn(fbToken: String): Result<UserSignInResult> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun checkoutOrder(
-        token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        token: String,
+        orderDetail: OrderDetail
+    ): Result<CheckoutOrderResult> {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getProductsInCart(): LiveData<List<Product>> {
@@ -70,6 +72,6 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
     }
 
     override suspend fun getUserInformation(key: String?): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

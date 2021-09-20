@@ -35,7 +35,11 @@ class LoginDialog : AppCompatDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.LoginDialog)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = DialogLoginBinding.inflate(inflater, container, false)
         binding.layoutLogin.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
@@ -46,32 +50,44 @@ class LoginDialog : AppCompatDialogFragment() {
 
         val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        viewModel.user.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainViewModel.setupUser(it)
+        viewModel.user.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    mainViewModel.setupUser(it)
+                }
             }
-        })
+        )
 
-        viewModel.navigateToLoginSuccess.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainViewModel.navigateToLoginSuccess(it)
-                dismiss()
+        viewModel.navigateToLoginSuccess.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    mainViewModel.navigateToLoginSuccess(it)
+                    dismiss()
+                }
             }
-        })
+        )
 
-        viewModel.leave.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                dismiss()
-                viewModel.onLeaveCompleted()
+        viewModel.leave.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    dismiss()
+                    viewModel.onLeaveCompleted()
+                }
             }
-        })
+        )
 
-        viewModel.loginFacebook.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
-                viewModel.onLoginFacebookCompleted()
+        viewModel.loginFacebook.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
+                    viewModel.onLoginFacebookCompleted()
+                }
             }
-        })
+        )
 
         return binding.root
     }

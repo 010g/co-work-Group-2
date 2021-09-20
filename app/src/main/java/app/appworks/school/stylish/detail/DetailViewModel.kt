@@ -68,7 +68,12 @@ class DetailViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     val decoration = object : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             // Add top margin only for the first item to avoid double space between items
@@ -91,14 +96,17 @@ class DetailViewModel(
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 
     /**
      * When the gallery scroll, at the same time circles design will switch.
      */
-    fun onGalleryScrollChange(layoutManager: RecyclerView.LayoutManager?, linearSnapHelper: LinearSnapHelper) {
+    fun onGalleryScrollChange(
+        layoutManager: RecyclerView.LayoutManager?,
+        linearSnapHelper: LinearSnapHelper
+    ) {
         val snapView = linearSnapHelper.findSnapView(layoutManager)
         snapView?.let {
             layoutManager?.getPosition(snapView)?.let {

@@ -100,40 +100,52 @@ class MainActivity : BaseActivity() {
         binding.viewModel = viewModel
 
         // observe current fragment change, only for show info
-        viewModel.currentFragmentType.observe(this, Observer {
-            Logger.i("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-            Logger.i("[${viewModel.currentFragmentType.value}]")
-            Logger.i("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        })
+        viewModel.currentFragmentType.observe(
+            this,
+            Observer {
+                Logger.i("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                Logger.i("[${viewModel.currentFragmentType.value}]")
+                Logger.i("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            }
+        )
 
-        viewModel.navigateToLoginSuccess.observe(this, Observer {
-            it?.let {
-                findNavController(R.id.myNavHostFragment).navigate(
-                    NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.LOGIN_SUCCESS)
-                )
-                viewModel.onLoginSuccessNavigated()
+        viewModel.navigateToLoginSuccess.observe(
+            this,
+            Observer {
+                it?.let {
+                    findNavController(R.id.myNavHostFragment).navigate(
+                        NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.LOGIN_SUCCESS)
+                    )
+                    viewModel.onLoginSuccessNavigated()
 
-                // navigate to profile after login success
-                when (viewModel.currentFragmentType.value) {
-                    CurrentFragmentType.PAYMENT -> {}
-                    else -> viewModel.navigateToProfileByBottomNav(it)
+                    // navigate to profile after login success
+                    when (viewModel.currentFragmentType.value) {
+                        CurrentFragmentType.PAYMENT -> {}
+                        else -> viewModel.navigateToProfileByBottomNav(it)
+                    }
                 }
             }
-        })
+        )
 
-        viewModel.navigateToProfileByBottomNav.observe(this, Observer {
-            it?.let {
-                binding.bottomNavView.selectedItemId = R.id.navigation_profile
-                viewModel.onProfileNavigated()
+        viewModel.navigateToProfileByBottomNav.observe(
+            this,
+            Observer {
+                it?.let {
+                    binding.bottomNavView.selectedItemId = R.id.navigation_profile
+                    viewModel.onProfileNavigated()
+                }
             }
-        })
+        )
 
-        viewModel.navigateToHomeByBottomNav.observe(this, Observer {
-            it?.let {
-                binding.bottomNavView.selectedItemId = R.id.navigation_home
-                viewModel.onHomeNavigated()
+        viewModel.navigateToHomeByBottomNav.observe(
+            this,
+            Observer {
+                it?.let {
+                    binding.bottomNavView.selectedItemId = R.id.navigation_home
+                    viewModel.onHomeNavigated()
+                }
             }
-        })
+        )
 
         setupToolbar()
         setupBottomNav()
@@ -231,7 +243,8 @@ class MainActivity : BaseActivity() {
         binding.drawerLayout.clipToPadding = false
 
         actionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        ) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
@@ -246,7 +259,6 @@ class MainActivity : BaseActivity() {
                         }
                     }
                 }
-
             }
         }.apply {
             binding.drawerLayout.addDrawerListener(this)
@@ -255,30 +267,35 @@ class MainActivity : BaseActivity() {
 
         // Set up header of drawer ui using data binding
         val bindingNavHeader = NavHeaderDrawerBinding.inflate(
-            LayoutInflater.from(this), binding.drawerNavView, false)
+            LayoutInflater.from(this), binding.drawerNavView, false
+        )
 
         bindingNavHeader.lifecycleOwner = this
         bindingNavHeader.viewModel = viewModel
         binding.drawerNavView.addHeaderView(bindingNavHeader.root)
 
         // Observe current drawer toggle to set the navigation icon and behavior
-        viewModel.currentDrawerToggleType.observe(this, Observer { type ->
+        viewModel.currentDrawerToggleType.observe(
+            this,
+            Observer { type ->
 
-            actionBarDrawerToggle?.isDrawerIndicatorEnabled = type.indicatorEnabled
-            supportActionBar?.setDisplayHomeAsUpEnabled(!type.indicatorEnabled)
-            binding.toolbar.setNavigationIcon(
-                when (type) {
-                    DrawerToggleType.BACK -> R.drawable.toolbar_back
-                    else -> R.drawable.toolbar_menu
-                }
-            )
-            actionBarDrawerToggle?.setToolbarNavigationClickListener {
-                when (type) {
-                    DrawerToggleType.BACK -> onBackPressed()
-                    else -> {}
+                actionBarDrawerToggle?.isDrawerIndicatorEnabled = type.indicatorEnabled
+                supportActionBar?.setDisplayHomeAsUpEnabled(!type.indicatorEnabled)
+                binding.toolbar.setNavigationIcon(
+                    when (type) {
+                        DrawerToggleType.BACK -> R.drawable.toolbar_back
+                        else -> R.drawable.toolbar_menu
+                    }
+                )
+                actionBarDrawerToggle?.setToolbarNavigationClickListener {
+                    when (type) {
+                        DrawerToggleType.BACK -> onBackPressed()
+                        else -> {
+                        }
+                    }
                 }
             }
-        })
+        )
     }
 
     /**

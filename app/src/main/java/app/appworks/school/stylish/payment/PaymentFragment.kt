@@ -28,7 +28,11 @@ class PaymentFragment : Fragment() {
      */
     private val viewModel by viewModels<PaymentViewModel> { getVmFactory() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentPaymentBinding.inflate(inflater, container, false)
 
@@ -36,43 +40,55 @@ class PaymentFragment : Fragment() {
         binding.recyclerPayment.adapter = PaymentAdapter(viewModel)
         binding.viewModel = viewModel
 
-        viewModel.checkoutSuccess.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                viewModel.navigateToCheckoutSuccess()
-                viewModel.onCheckoutCompleted()
-            }
-        })
-
-        viewModel.navigateToCheckoutSuccess.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToCheckoutSuccessFragment())
-                viewModel.onCheckoutSuccessNavigated()
-            }
-        })
-
-        viewModel.invalidCheckout.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    NOT_SUPPORT_CASH_ON_DELIVERY -> {
-                        activity.showToast(getString(R.string.no_pay_by_cash))
-                    }
-                    CREDIT_CART_FORMAT_INCORRECT, CREDIT_CART_PRIME_FAIL -> {
-                        activity.showToast(viewModel.tpdErrorMessage)
-                    }
-                    CHECKOUT_FAIL -> {
-                        activity.showToast(viewModel.error.value ?: getString(R.string.love_u_3000))
-                    }
-                    else -> {}
+        viewModel.checkoutSuccess.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    viewModel.navigateToCheckoutSuccess()
+                    viewModel.onCheckoutCompleted()
                 }
             }
-        })
+        )
 
-        viewModel.navigateToLogin.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToLoginDialog())
-                viewModel.onLoginNavigated()
+        viewModel.navigateToCheckoutSuccess.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToCheckoutSuccessFragment())
+                    viewModel.onCheckoutSuccessNavigated()
+                }
             }
-        })
+        )
+
+        viewModel.invalidCheckout.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    when (it) {
+                        NOT_SUPPORT_CASH_ON_DELIVERY -> {
+                            activity.showToast(getString(R.string.no_pay_by_cash))
+                        }
+                        CREDIT_CART_FORMAT_INCORRECT, CREDIT_CART_PRIME_FAIL -> {
+                            activity.showToast(viewModel.tpdErrorMessage)
+                        }
+                        CHECKOUT_FAIL -> {
+                            activity.showToast(viewModel.error.value ?: getString(R.string.love_u_3000))
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        )
+
+        viewModel.navigateToLogin.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToLoginDialog())
+                    viewModel.onLoginNavigated()
+                }
+            }
+        )
 
         return binding.root
     }

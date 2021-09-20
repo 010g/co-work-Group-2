@@ -39,7 +39,10 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
     /**
      * Initial load api
      */
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, Product>) {
+    override fun loadInitial(
+        params: LoadInitialParams<String>,
+        callback: LoadInitialCallback<String, Product>
+    ) {
 //        Logger.d("[${type.value}] loadInitial") // open it if you want to observe status
 
         coroutineScope.launch {
@@ -92,6 +95,6 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
     }
 
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, Product>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -72,7 +72,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
      */
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
 
         getMarketingHotsResult(true)

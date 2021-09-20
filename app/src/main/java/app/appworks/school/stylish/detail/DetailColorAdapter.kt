@@ -16,7 +16,7 @@ import app.appworks.school.stylish.databinding.ItemDetailColorBinding
  */
 class DetailColorAdapter : ListAdapter<Color, DetailColorAdapter.ColorViewHolder>(DiffCallback) {
 
-    class ColorViewHolder(private var binding: ItemDetailColorBinding):
+    class ColorViewHolder(private var binding: ItemDetailColorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(color: Color) {
             color.let {
@@ -36,8 +36,11 @@ class DetailColorAdapter : ListAdapter<Color, DetailColorAdapter.ColorViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
-        return ColorViewHolder(ItemDetailColorBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false))
+        return ColorViewHolder(
+            ItemDetailColorBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
     /**

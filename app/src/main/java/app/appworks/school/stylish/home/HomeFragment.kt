@@ -22,32 +22,44 @@ class HomeFragment : Fragment() {
      */
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.recyclerHome.adapter = HomeAdapter(HomeAdapter.OnClickListener {
-            viewModel.navigateToDetail(it)
-        })
+        binding.recyclerHome.adapter = HomeAdapter(
+            HomeAdapter.OnClickListener {
+                viewModel.navigateToDetail(it)
+            }
+        )
 
         binding.layoutSwipeRefreshHome.setOnRefreshListener {
             viewModel.refresh()
         }
 
-        viewModel.refreshStatus.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.layoutSwipeRefreshHome.isRefreshing = it
+        viewModel.refreshStatus.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    binding.layoutSwipeRefreshHome.isRefreshing = it
+                }
             }
-        })
+        )
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
-                viewModel.onDetailNavigated()
+        viewModel.navigateToDetail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
+                    viewModel.onDetailNavigated()
+                }
             }
-        })
+        )
 
         return binding.root
     }

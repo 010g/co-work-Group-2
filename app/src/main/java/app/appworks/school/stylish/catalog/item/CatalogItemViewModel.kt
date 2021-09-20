@@ -70,7 +70,7 @@ class CatalogItemViewModel(
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 

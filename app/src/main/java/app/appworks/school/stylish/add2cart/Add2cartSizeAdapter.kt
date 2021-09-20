@@ -24,7 +24,7 @@ class Add2cartSizeAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Varian
     class SizeViewHolder(
         private val binding: ItemAdd2cartSizeBinding,
         private val viewModel: Add2cartViewModel
-    ): RecyclerView.ViewHolder(binding.root), LifecycleOwner {
+    ) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
         val isSelected: LiveData<Boolean> = Transformations.map(viewModel.selectedVariantPosition) {
             it == adapterPosition

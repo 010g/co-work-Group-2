@@ -26,7 +26,8 @@ object ServiceLocator {
     }
 
     private fun createStylishRepository(context: Context): StylishRepository {
-        return DefaultStylishRepository(StylishRemoteDataSource,
+        return DefaultStylishRepository(
+            StylishRemoteDataSource,
             createLocalDataSource(context)
         )
     }

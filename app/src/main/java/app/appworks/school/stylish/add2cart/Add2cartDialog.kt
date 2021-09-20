@@ -35,7 +35,11 @@ class Add2cartDialog : AppCompatDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.Add2CartDialog)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = DialogAdd2cartBinding.inflate(inflater, container, false)
         binding.layoutAdd2cart.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
@@ -45,32 +49,46 @@ class Add2cartDialog : AppCompatDialogFragment() {
         binding.buttonAdd2cartClose.setTouchDelegate()
         binding.recyclerAdd2cartColorSelector.adapter = Add2cartColorAdapter(viewModel)
 
-        viewModel.navigateToAddedSuccess.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.ADDED_SUCCESS))
-                viewModel.onAddedSuccessNavigated()
+        viewModel.navigateToAddedSuccess.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.ADDED_SUCCESS))
+                    viewModel.onAddedSuccessNavigated()
+                }
             }
-        })
+        )
 
-        viewModel.navigateToAddedFail.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToMessageDialog(
-                    MessageDialog.MessageType.MESSAGE.apply { value.message = getString(R.string.product_exist) }
-                ))
-                viewModel.onAddedFailNavigated()
+        viewModel.navigateToAddedFail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(
+                        NavigationDirections.navigateToMessageDialog(
+                            MessageDialog.MessageType.MESSAGE.apply { value.message = getString(R.string.product_exist) }
+                        )
+                    )
+                    viewModel.onAddedFailNavigated()
+                }
             }
-        })
+        )
 
-        viewModel.amount.observe(viewLifecycleOwner, Observer {
-            Logger.d("amount=$it")
-        })
-
-        viewModel.leave.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                dismiss()
-                viewModel.onLeaveCompleted()
+        viewModel.amount.observe(
+            viewLifecycleOwner,
+            Observer {
+                Logger.d("amount=$it")
             }
-        })
+        )
+
+        viewModel.leave.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    dismiss()
+                    viewModel.onLeaveCompleted()
+                }
+            }
+        )
 
         return binding.root
     }
@@ -83,5 +101,4 @@ class Add2cartDialog : AppCompatDialogFragment() {
     fun leave() { dismiss() }
 
     fun nothing() {}
-
 }

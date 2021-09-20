@@ -11,7 +11,6 @@ import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Logger
-import app.appworks.school.stylish.util.Util
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +22,10 @@ import kotlinx.coroutines.launch
  *
  * The [ViewModel] that is attached to the [ProfileFragment].
  */
-class ProfileViewModel(private val stylishRepository: StylishRepository, private val arguments: User?) : ViewModel() {
+class ProfileViewModel(
+    private val stylishRepository: StylishRepository,
+    private val arguments: User?
+) : ViewModel() {
 
     // After login to Stylish server through Facebook, at the same time we can get user info to provide to display ui
     private val _user = MutableLiveData<User>().apply {
@@ -69,7 +71,7 @@ class ProfileViewModel(private val stylishRepository: StylishRepository, private
      */
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
 
         if (user.value == null) {

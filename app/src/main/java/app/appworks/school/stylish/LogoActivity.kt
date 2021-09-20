@@ -28,7 +28,6 @@ class LogoActivity : BaseActivity() {
                 binding.particleLogo.visibility = View.VISIBLE
                 binding.particleLogo.startAnimation()
                 binding.particleLogo.setOnClickListener(this::leave)
-
             }, duration)
         }, await)
     }
@@ -57,21 +56,25 @@ class LogoActivity : BaseActivity() {
             fillAfter = true
         }
 
-        binding.imageLogo.startAnimation(AnimationSet(false).apply {
-            addAnimation(rotateAnimation)
-            addAnimation(scaleAnimation)
-            fillAfter = true
-        })
+        binding.imageLogo.startAnimation(
+            AnimationSet(false).apply {
+                addAnimation(rotateAnimation)
+                addAnimation(scaleAnimation)
+                fillAfter = true
+            }
+        )
 
         val alphaAnimation = AlphaAnimation(1f, 0f).apply {
             duration = this@LogoActivity.duration
             fillAfter = true
         }
 
-        binding.backgroundLogo.startAnimation(AnimationSet(false).apply {
-            addAnimation(alphaAnimation)
-            fillAfter = true
-        })
+        binding.backgroundLogo.startAnimation(
+            AnimationSet(false).apply {
+                addAnimation(alphaAnimation)
+                fillAfter = true
+            }
+        )
     }
 
     fun leave(view: View) {

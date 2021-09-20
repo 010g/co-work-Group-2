@@ -19,7 +19,7 @@ class DetailGalleryAdapter : RecyclerView.Adapter<DetailGalleryAdapter.ImageView
     // the data of adapter
     private var images: List<String>? = null
 
-    class ImageViewHolder(private var binding: ItemDetailGalleryBinding): RecyclerView.ViewHolder(binding.root) {
+    class ImageViewHolder(private var binding: ItemDetailGalleryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, imageUrl: String) {
 
@@ -29,8 +29,10 @@ class DetailGalleryAdapter : RecyclerView.Adapter<DetailGalleryAdapter.ImageView
                 // Make sure the size of each image item can display correct
                 val displayMetrics = DisplayMetrics()
                 (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-                binding.imageDetailGallery.layoutParams = ConstraintLayout.LayoutParams(displayMetrics.widthPixels,
-                    context.resources.getDimensionPixelSize(R.dimen.height_detail_gallery))
+                binding.imageDetailGallery.layoutParams = ConstraintLayout.LayoutParams(
+                    displayMetrics.widthPixels,
+                    context.resources.getDimensionPixelSize(R.dimen.height_detail_gallery)
+                )
 
                 binding.executePendingBindings()
             }
@@ -39,8 +41,11 @@ class DetailGalleryAdapter : RecyclerView.Adapter<DetailGalleryAdapter.ImageView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         context = parent.context
-        return ImageViewHolder(ItemDetailGalleryBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false))
+        return ImageViewHolder(
+            ItemDetailGalleryBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
     /**

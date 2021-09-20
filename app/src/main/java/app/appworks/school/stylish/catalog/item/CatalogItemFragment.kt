@@ -24,7 +24,11 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
      */
     private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = FragmentCatalogItemBinding.inflate(inflater, container, false)
 
@@ -32,31 +36,42 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
 
         binding.viewModel = viewModel
 
-        binding.recyclerCatalogItem.adapter = PagingAdapter(PagingAdapter.OnClickListener {
-            viewModel.navigateToDetail(it)
-        })
-
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
-                viewModel.onDetailNavigated()
+        binding.recyclerCatalogItem.adapter = PagingAdapter(
+            PagingAdapter.OnClickListener {
+                viewModel.navigateToDetail(it)
             }
-        })
+        )
 
-        viewModel.pagingDataProducts.observe(viewLifecycleOwner, Observer {
-            (binding.recyclerCatalogItem.adapter as PagingAdapter).submitList(it)
-        })
+        viewModel.navigateToDetail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
+                    viewModel.onDetailNavigated()
+                }
+            }
+        )
+
+        viewModel.pagingDataProducts.observe(
+            viewLifecycleOwner,
+            Observer {
+                (binding.recyclerCatalogItem.adapter as PagingAdapter).submitList(it)
+            }
+        )
 
         binding.layoutSwipeRefreshCatalogItem.setOnRefreshListener {
             viewModel.refresh()
         }
 
-        viewModel.status.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it != LoadApiStatus.LOADING)
-                    binding.layoutSwipeRefreshCatalogItem.isRefreshing = false
+        viewModel.status.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    if (it != LoadApiStatus.LOADING)
+                        binding.layoutSwipeRefreshCatalogItem.isRefreshing = false
+                }
             }
-        })
+        )
 
         return binding.root
     }

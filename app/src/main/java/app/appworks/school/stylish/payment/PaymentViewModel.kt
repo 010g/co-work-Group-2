@@ -144,7 +144,7 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 
@@ -194,7 +194,9 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
                                     address.value ?: "",
                                     shippingTime
                                 ),
-                                products.value.toOrderProductList()))
+                                products.value.toOrderProductList()
+                            )
+                        )
                     )
                 }
             }
@@ -282,7 +284,8 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
             StylishApplication.instance,
             getString(R.string.tp_app_id).toInt(),
             getString(R.string.tp_app_key),
-            TPDServerType.Sandbox)
+            TPDServerType.Sandbox
+        )
 
         tpdErrorMessage = getString(R.string.tpd_general_error)
         isCanGetPrime = false
@@ -309,20 +312,20 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
 
     companion object {
 
-        const val INVALID_FORMAT_NAME_EMPTY          = 0x11
-        const val INVALID_FORMAT_EMAIL_EMPTY         = 0x12
+        const val INVALID_FORMAT_NAME_EMPTY = 0x11
+        const val INVALID_FORMAT_EMAIL_EMPTY = 0x12
         const val INVALID_FORMAT_EMAIL_NOT_INCORRECT = 0x13
-        const val INVALID_FORMAT_PHONE_EMPTY         = 0x14
-        const val INVALID_FORMAT_PHONE_INCORRECT     = 0x15
-        const val INVALID_FORMAT_ADDRESS_EMPTY       = 0x16
-        const val INVALID_FORMAT_TIME_EMPTY          = 0x17
+        const val INVALID_FORMAT_PHONE_EMPTY = 0x14
+        const val INVALID_FORMAT_PHONE_INCORRECT = 0x15
+        const val INVALID_FORMAT_ADDRESS_EMPTY = 0x16
+        const val INVALID_FORMAT_TIME_EMPTY = 0x17
 
-        const val NOT_SUPPORT_CASH_ON_DELIVERY       = 0x18
-        const val CREDIT_CART_FORMAT_INCORRECT       = 0x19
-        const val CREDIT_CART_PRIME_FAIL             = 0x20
+        const val NOT_SUPPORT_CASH_ON_DELIVERY = 0x18
+        const val CREDIT_CART_FORMAT_INCORRECT = 0x19
+        const val CREDIT_CART_PRIME_FAIL = 0x20
 
-        const val NO_ONE_KNOWS                       = 0x21
+        const val NO_ONE_KNOWS = 0x21
 
-        const val CHECKOUT_FAIL                      = 0x22
+        const val CHECKOUT_FAIL = 0x22
     }
 }

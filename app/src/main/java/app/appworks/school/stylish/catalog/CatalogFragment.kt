@@ -13,7 +13,11 @@ import com.google.android.material.tabs.TabLayout
  */
 class CatalogFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         FragmentCatalogBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

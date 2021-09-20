@@ -21,7 +21,11 @@ class CartFragment : Fragment() {
      */
     private val viewModel by viewModels<CartViewModel> { getVmFactory() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -33,12 +37,15 @@ class CartFragment : Fragment() {
             binding.layoutSwipeRefreshCart.isRefreshing = false
         }
 
-        viewModel.navigateToPayment.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(CartFragmentDirections.navigateToPaymentFragment())
-                viewModel.onPaymentNavigated()
+        viewModel.navigateToPayment.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(CartFragmentDirections.navigateToPaymentFragment())
+                    viewModel.onPaymentNavigated()
+                }
             }
-        })
+        )
 
         return binding.root
     }

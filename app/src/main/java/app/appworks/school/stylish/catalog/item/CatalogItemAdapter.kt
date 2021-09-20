@@ -13,11 +13,11 @@ import app.appworks.school.stylish.databinding.ItemCatalogGridBinding
  * [Product], including computing diffs between lists.
  * @param onClickListener a lambda that takes the
  */
-class CatalogItemAdapter(val onClickListener: OnClickListener ) :
-        ListAdapter<Product, CatalogItemAdapter.ProductViewHolder>(DiffCallback) {
+class CatalogItemAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<Product, CatalogItemAdapter.ProductViewHolder>(DiffCallback) {
 
-    class ProductViewHolder(private var binding: ItemCatalogGridBinding):
-            RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(private var binding: ItemCatalogGridBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.product = product
             // This is important, because it forces the data binding to execute immediately,
@@ -43,8 +43,10 @@ class CatalogItemAdapter(val onClickListener: OnClickListener ) :
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ProductViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ProductViewHolder {
         return ProductViewHolder(ItemCatalogGridBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 

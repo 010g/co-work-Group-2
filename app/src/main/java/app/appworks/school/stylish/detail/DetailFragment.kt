@@ -25,7 +25,11 @@ class DetailFragment : Fragment() {
 
 //    private var previousCurrentFragmentType: CurrentFragmentType? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentDetailBinding.inflate(inflater, container, false)
 
@@ -41,10 +45,10 @@ class DetailFragment : Fragment() {
         }
 
         binding.recyclerDetailGallery.setOnScrollChangeListener { _, _, _, _, _ ->
-                viewModel.onGalleryScrollChange(
-                    binding.recyclerDetailGallery.layoutManager,
-                    linearSnapHelper
-                )
+            viewModel.onGalleryScrollChange(
+                binding.recyclerDetailGallery.layoutManager,
+                linearSnapHelper
+            )
         }
 
         // set the initial position to the center of infinite gallery
@@ -52,27 +56,35 @@ class DetailFragment : Fragment() {
             binding.recyclerDetailGallery
                 .scrollToPosition(product.images.size * 100)
 
-            viewModel.snapPosition.observe(viewLifecycleOwner, Observer {
-                (binding.recyclerDetailCircles.adapter as DetailCircleAdapter).selectedPosition.value = (it % product.images.size)
-            })
+            viewModel.snapPosition.observe(
+                viewLifecycleOwner,
+                Observer {
+                    (binding.recyclerDetailCircles.adapter as DetailCircleAdapter).selectedPosition.value = (it % product.images.size)
+                }
+            )
         }
 
-        viewModel.navigateToAdd2cart.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                findNavController().navigate(NavigationDirections.navigateToAdd2cartDialog(it))
-                viewModel.onAdd2cartNavigated()
+        viewModel.navigateToAdd2cart.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToAdd2cartDialog(it))
+                    viewModel.onAdd2cartNavigated()
+                }
             }
-        })
+        )
 
-        viewModel.leaveDetail.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it) findNavController().popBackStack()
+        viewModel.leaveDetail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    if (it) findNavController().popBackStack()
+                }
             }
-        })
+        )
 
         return binding.root
     }
-
 
 //    override fun onDestroy() {
 //        super.onDestroy()

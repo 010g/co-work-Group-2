@@ -21,7 +21,7 @@ class CheckoutSuccessViewModel(private val stylishRepository: StylishRepository)
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 

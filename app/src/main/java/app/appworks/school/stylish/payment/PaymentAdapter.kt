@@ -30,7 +30,7 @@ class PaymentAdapter(val viewModel: PaymentViewModel) : RecyclerView.Adapter<Rec
         return 0
     }
 
-    class ProductViewHolder(private var binding: ItemPaymentProductBinding): RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(private var binding: ItemPaymentProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product?) {
 
@@ -44,11 +44,12 @@ class PaymentAdapter(val viewModel: PaymentViewModel) : RecyclerView.Adapter<Rec
     /**
      * Implements [LifecycleOwner] to support Data Binding
      */
-    class FormViewHolder(var binding: ItemPaymentFormBinding): RecyclerView.ViewHolder(binding.root), LifecycleOwner {
+    class FormViewHolder(var binding: ItemPaymentFormBinding) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
         init {
             binding.spinnerPaymentMethods.adapter = PaymentSpinnerAdapter(
-                StylishApplication.instance.resources.getStringArray(R.array.payment_method_list))
+                StylishApplication.instance.resources.getStringArray(R.array.payment_method_list)
+            )
         }
 
         fun bind() {
@@ -80,11 +81,13 @@ class PaymentAdapter(val viewModel: PaymentViewModel) : RecyclerView.Adapter<Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_PRODUCT -> ProductViewHolder(
-                ItemPaymentProductBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+                ItemPaymentProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            )
             ITEM_VIEW_TYPE_FORM -> FormViewHolder(
                 ItemPaymentFormBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
-                        viewModel = this@PaymentAdapter.viewModel
-                })
+                    viewModel = this@PaymentAdapter.viewModel
+                }
+            )
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -141,7 +144,7 @@ class PaymentAdapter(val viewModel: PaymentViewModel) : RecyclerView.Adapter<Rec
     }
 
     companion object {
-        private const val ITEM_VIEW_TYPE_FORM    = 0x00
+        private const val ITEM_VIEW_TYPE_FORM = 0x00
         private const val ITEM_VIEW_TYPE_PRODUCT = 0x01
     }
 }

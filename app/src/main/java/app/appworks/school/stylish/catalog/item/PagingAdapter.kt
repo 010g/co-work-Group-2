@@ -16,10 +16,10 @@ import app.appworks.school.stylish.databinding.ItemCatalogGridBinding
  * [Product], including computing diffs between lists.
  * @param onClickListener a lambda that takes the
  */
-class PagingAdapter(private val onClickListener: OnClickListener ) :
-        PagedListAdapter<Product, PagingAdapter.ProductViewHolder>(DiffCallback) {
+class PagingAdapter(private val onClickListener: OnClickListener) :
+    PagedListAdapter<Product, PagingAdapter.ProductViewHolder>(DiffCallback) {
 
-    class ProductViewHolder(private var binding: ItemCatalogGridBinding): RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(private var binding: ItemCatalogGridBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, itemCount: Int) {
             binding.product = product

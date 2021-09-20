@@ -103,7 +103,11 @@ fun bindRecyclerViewByCount(recyclerView: RecyclerView, count: Int?) {
 }
 
 @BindingAdapter("sizes", "viewModel")
-fun bindAdd2cartSizesRecyclerView(recyclerView: RecyclerView, variants: List<Variant>?, viewModel: Add2cartViewModel) {
+fun bindAdd2cartSizesRecyclerView(
+    recyclerView: RecyclerView,
+    variants: List<Variant>?,
+    viewModel: Add2cartViewModel
+) {
     variants?.let {
         recyclerView.adapter = Add2cartSizeAdapter(viewModel).apply {
             submitList(it)
@@ -201,13 +205,17 @@ fun bindEditorControllerStatus(imageButton: ImageButton, enabled: Boolean) {
                 when (enabled) {
                     true -> R.color.black_3f3a3a
                     false -> R.color.gray_999999
-                }))
+                }
+            )
+        )
         foregroundTintList = ColorStateList.valueOf(
             getColor(
                 when (enabled) {
                     true -> R.color.black_3f3a3a
                     false -> R.color.gray_999999
-                }))
+                }
+            )
+        )
     }
 }
 
@@ -246,9 +254,12 @@ fun bindDetailCircleStatus(imageView: ImageView, isSelected: Boolean = false) {
                 }
             }
 
-            canvas.drawCircle(this.width / 2, this.height / 2,
+            canvas.drawCircle(
+                this.width / 2, this.height / 2,
                 StylishApplication.instance.resources
-                    .getDimensionPixelSize(R.dimen.radius_detail_circle).toFloat(), paint)
+                    .getDimensionPixelSize(R.dimen.radius_detail_circle).toFloat(),
+                paint
+            )
         }
     })
 }
@@ -308,7 +319,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.ic_placeholder)
-                    .error(R.drawable.ic_placeholder))
+                    .error(R.drawable.ic_placeholder)
+            )
             .into(imgView)
     }
 }

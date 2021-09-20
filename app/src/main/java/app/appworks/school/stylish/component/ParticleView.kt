@@ -129,8 +129,13 @@ private fun Int.decodeBitmap(context: Context): Bitmap {
 }
 
 class Particle(
-    private val bitmap: Bitmap, private val matrix: Matrix, private val paint: Paint,
-    private var x: Float, private var y: Float, val width: Int, val height: Int
+    private val bitmap: Bitmap,
+    private val matrix: Matrix,
+    private val paint: Paint,
+    private var x: Float,
+    private var y: Float,
+    val width: Int,
+    val height: Int
 ) {
 
     private val centerX = bitmap.width / 2f
@@ -143,7 +148,6 @@ class Particle(
     var addDegrees: Float = 0f
     var isAddX: Boolean
     var isAddY: Boolean
-
 
     init {
 

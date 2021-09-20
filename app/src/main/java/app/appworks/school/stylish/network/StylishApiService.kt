@@ -27,12 +27,14 @@ private val moshi = Moshi.Builder()
     .build()
 
 private val client = OkHttpClient.Builder()
-    .addInterceptor(HttpLoggingInterceptor().apply {
-        level = when (BuildConfig.LOGGER_VISIABLE) {
-            true -> HttpLoggingInterceptor.Level.BODY
-            false -> HttpLoggingInterceptor.Level.NONE
+    .addInterceptor(
+        HttpLoggingInterceptor().apply {
+            level = when (BuildConfig.LOGGER_VISIABLE) {
+                true -> HttpLoggingInterceptor.Level.BODY
+                false -> HttpLoggingInterceptor.Level.NONE
+            }
         }
-    })
+    )
     .build()
 
 /**
@@ -64,7 +66,10 @@ interface StylishApiService {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    suspend fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null): ProductListResult
+    suspend fun getProductList(
+        @Path("catalogType") type: String,
+        @Query("paging") paging: String? = null
+    ): ProductListResult
 
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
@@ -83,7 +88,8 @@ interface StylishApiService {
     @POST("user/signin")
     suspend fun userSignIn(
         @Field("provider") provider: String = "facebook",
-        @Field("access_token") fbToken: String): UserSignInResult
+        @Field("access_token") fbToken: String
+    ): UserSignInResult
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -91,12 +97,15 @@ interface StylishApiService {
      * The @Body annotation indicates that it will be added [OrderDetail] to the body of the POST HTTP method
      */
     @POST("order/checkout")
-    suspend fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail): CheckoutOrderResult
+    suspend fun checkoutOrder(
+        @Header("Authorization") token: String,
+        @Body orderDetail: OrderDetail
+    ): CheckoutOrderResult
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object StylishApi {
-    val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+    val retrofitService: StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
 }

@@ -27,7 +27,7 @@ class Add2cartColorAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Color
     class ColorViewHolder(
         private val binding: ItemAdd2cartColorBinding,
         private val viewModel: Add2cartViewModel
-    ): RecyclerView.ViewHolder(binding.root), LifecycleOwner {
+    ) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
         val isSelected: LiveData<Boolean> = Transformations.map(viewModel.selectedColorPosition) {
             it == adapterPosition
@@ -72,7 +72,10 @@ class Add2cartColorAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Color
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
         context = parent.context
         return ColorViewHolder(
-            ItemAdd2cartColorBinding.inflate(LayoutInflater.from(parent.context), parent, false), viewModel)
+            ItemAdd2cartColorBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false),
+            viewModel
+        )
     }
 
     /**

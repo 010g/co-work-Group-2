@@ -10,9 +10,10 @@ import kotlinx.coroutines.Dispatchers
  *
  * Concrete implementation to load Stylish sources.
  */
-class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataSource,
-                               private val stylishLocalDataSource: StylishDataSource,
-                               private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+class DefaultStylishRepository(
+    private val stylishRemoteDataSource: StylishDataSource,
+    private val stylishLocalDataSource: StylishDataSource,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
@@ -32,7 +33,9 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
     }
 
     override suspend fun checkoutOrder(
-        token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult> {
+        token: String,
+        orderDetail: OrderDetail
+    ): Result<CheckoutOrderResult> {
         return stylishRemoteDataSource.checkoutOrder(token, orderDetail)
     }
 
@@ -61,6 +64,6 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
     }
 
     override suspend fun getUserInformation(key: String?): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -25,7 +25,7 @@ class StylishConverters {
 
     /**
      * Convert Json to [List] [String]
-      */    
+     */
     @TypeConverter
     fun convertJsonToList(json: String?): List<String>? {
         json?.let {

@@ -22,7 +22,11 @@ class ProfileFragment : Fragment() {
      */
     private val viewModel by viewModels<ProfileViewModel> { getVmFactory(ProfileFragmentArgs.fromBundle(requireArguments()).userKey) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
 
@@ -33,11 +37,14 @@ class ProfileFragment : Fragment() {
             // user info will be null if user already logged in, and it will get user info from server,
             // here will show you how to set user info to MainViewModel
             val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-            viewModel.user.observe(viewLifecycleOwner, Observer {
-                if (null != it) {
-                    mainViewModel.setupUser(it)
+            viewModel.user.observe(
+                viewLifecycleOwner,
+                Observer {
+                    if (null != it) {
+                        mainViewModel.setupUser(it)
+                    }
                 }
-            })
+            )
         }
 
         return binding.root

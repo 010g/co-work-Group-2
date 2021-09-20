@@ -28,12 +28,15 @@ class MessageDialog : AppCompatDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MessageDialog)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         init()
         val binding = DialogMessageBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.dialog = this
-
 
         return binding.root
     }
@@ -59,7 +62,6 @@ class MessageDialog : AppCompatDialogFragment() {
                 message = messageType.value.message
             }
             else -> {
-
             }
         }
     }

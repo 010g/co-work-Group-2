@@ -23,27 +23,37 @@ class CheckoutSuccessFragment : Fragment() {
      */
     private val viewModel by viewModels<CheckoutSuccessViewModel> { getVmFactory() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 //        init()
         val binding = FragmentCheckoutSuccessBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-                mainViewModel.navigateToHomeByBottomNav()
-                viewModel.onHomeNavigated()
+        viewModel.navigateToHome.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+                    mainViewModel.navigateToHomeByBottomNav()
+                    viewModel.onHomeNavigated()
+                }
             }
-        })
+        )
 
         // Handle back key behavior to navigate to Home
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-                mainViewModel.navigateToHomeByBottomNav()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+                    mainViewModel.navigateToHomeByBottomNav()
+                }
             }
-        })
+        )
 
         return binding.root
     }

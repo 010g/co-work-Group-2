@@ -16,7 +16,7 @@ import app.appworks.school.stylish.databinding.ItemCartBinding
  */
 class CartAdapter(val viewModel: CartViewModel) : ListAdapter<Product, CartAdapter.ProductViewHolder>(DiffCallback) {
 
-    class ProductViewHolder(private var binding: ItemCartBinding): RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(private var binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, viewModel: CartViewModel) {
 
@@ -34,9 +34,9 @@ class CartAdapter(val viewModel: CartViewModel) : ListAdapter<Product, CartAdapt
      */
     companion object DiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return (oldItem.id == newItem.id)
-                    && (oldItem.selectedVariant.colorCode == newItem.selectedVariant.colorCode)
-                    && (oldItem.selectedVariant.size == newItem.selectedVariant.size)
+            return (oldItem.id == newItem.id) &&
+                (oldItem.selectedVariant.colorCode == newItem.selectedVariant.colorCode) &&
+                (oldItem.selectedVariant.size == newItem.selectedVariant.size)
         }
 
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {

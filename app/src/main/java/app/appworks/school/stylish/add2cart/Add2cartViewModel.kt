@@ -46,7 +46,7 @@ class Add2cartViewModel(
 
     var selectedVariant = MutableLiveData<Variant>()
 
-    val variantsBySelectedColor : LiveData<List<Variant>> = Transformations.map(selectedColor) { color ->
+    val variantsBySelectedColor: LiveData<List<Variant>> = Transformations.map(selectedColor) { color ->
         color?.let {
             product.value?.variants?.filter { variant ->
                 variant.colorCode == it.code
@@ -81,7 +81,12 @@ class Add2cartViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     val decoration = object : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             // Add top margin only for the first item to avoid double space between items
@@ -104,7 +109,7 @@ class Add2cartViewModel(
 
     init {
         Logger.i("------------------------------------")
-        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
     }
 
