@@ -57,4 +57,3 @@ data class Product(
     var selectedVariant: Variant = Variant("", "", -1)
     var amount: Long? = null
 }
-

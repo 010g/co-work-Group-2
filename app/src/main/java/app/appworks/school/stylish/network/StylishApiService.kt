@@ -23,7 +23,7 @@ private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
+    .addLast(KotlinJsonAdapterFactory())
     .build()
 
 private val client = OkHttpClient.Builder()
