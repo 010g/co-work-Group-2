@@ -46,40 +46,6 @@ class MainActivity : BaseActivity() {
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_catalog -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_cart -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_profile -> {
-
-                when (viewModel.isLoggedIn) {
-                    true -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
-                    }
-                    false -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
-                        return@OnNavigationItemSelectedListener false
-                    }
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
     // get the height of status bar from system
     private val statusBarHeight: Int
         get() {
@@ -158,7 +124,43 @@ class MainActivity : BaseActivity() {
      * to display the count of Cart
      */
     private fun setupBottomNav() {
-        binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        binding.bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.navigation_catalog -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.navigation_cart -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.navigation_profile -> {
+
+                    when (viewModel.isLoggedIn) {
+                        true -> {
+                            findNavController(R.id.myNavHostFragment).navigate(
+                                NavigationDirections.navigateToProfileFragment(
+                                    viewModel.user.value
+                                )
+                            )
+                        }
+                        false -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                            return@setOnItemSelectedListener false
+                        }
+                    }
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
 
         val menuView = binding.bottomNavView.getChildAt(0) as BottomNavigationMenuView
         val itemView = menuView.getChildAt(2) as BottomNavigationItemView

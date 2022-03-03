@@ -3,7 +3,7 @@ package app.appworks.school.stylish.data
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Wayne Chen in Jul. 2019.

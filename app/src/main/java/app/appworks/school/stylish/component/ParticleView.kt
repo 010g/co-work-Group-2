@@ -43,7 +43,7 @@ class ParticleView @JvmOverloads constructor(
     }
     private val ptcMatrix = Matrix()
 
-    private val ptcBitmap: Bitmap = R.drawable.ic_starred.decodeBitmap(context)
+    private val ptcBitmap: Bitmap = R.drawable.stylish.decodeBitmap(context)
 
     private var ptcMeasuredWidth = 0
     private var ptcMeasuredHeight = 0
@@ -218,7 +218,7 @@ class Particle(
     }
 
     companion object {
-        const val ALPHA_MAX = 160
+        const val ALPHA_MAX = 200
         const val ALPHA_MIN = 75
         const val PARTICLE_COUNT = 30
     }

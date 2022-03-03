@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.TypeConverters
 import app.appworks.school.stylish.data.source.local.StylishConverters
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -57,3 +57,4 @@ data class Product(
     var selectedVariant: Variant = Variant("", "", -1)
     var amount: Long? = null
 }
+

@@ -134,7 +134,32 @@ fun drawColorSquare(imageView: ImageView, colorCode: String?) {
 @BindingAdapter("color", "selected")
 fun drawColorSquareBySelected(imageView: ImageView, color: Color?, isSelected: Boolean = false) {
     color?.let {
-        imageView.background = ColorSquare("#${it.code}", isSelected = isSelected)
+        imageView.background = ShapeDrawable(object : Shape() {
+            override fun draw(canvas: Canvas, paint: Paint) {
+
+                paint.color = android.graphics.Color.parseColor("#${it.code}")
+                paint.style = Paint.Style.FILL
+                canvas.drawRect(0f, 0f, this.width, this.height, paint)
+
+                if (isSelected) {
+                    paint.color = android.graphics.Color.WHITE
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeWidth = StylishApplication.instance.resources
+                        .getDimensionPixelSize(R.dimen.edge_add2cart_color_white).toFloat()
+                    canvas.drawRect(0f, 0f, this.width, this.height, paint)
+
+                    paint.color = android.graphics.Color.BLACK
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeWidth = StylishApplication.instance.resources
+                        .getDimensionPixelSize(R.dimen.edge_add2cart_color_black).toFloat()
+                    canvas.drawRect(0f, 0f, this.width, this.height, paint)
+                }
+            }
+        })
+
+
+
+            ColorSquare("#${it.code}", isSelected = isSelected)
     }
 }
 
