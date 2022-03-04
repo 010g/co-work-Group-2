@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_waynechen323_background.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/splash.xml" value="0.2015" />
         <entry key="app/src/main/res/layout/activity_logo.xml" value="0.11324786324786325" />
         <entry key="app/src/main/res/layout/fragment_catalog.xml" value="0.30854700854700856" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23162393162393163" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/item_payment_form.xml" value="0.20018115942028986" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_waynechen323.xml" value="0.1385" />
       </map>
     </option>
   </component>

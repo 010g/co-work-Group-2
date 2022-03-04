@@ -9,14 +9,15 @@
         <View
             android:id="@+id/background_logo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"/>
+            android:layout_height="match_parent"/>
 
         <ImageView
                 android:id="@+id/image_logo"
                 android:layout_width="@dimen/width_logo"
                 android:layout_height="@dimen/height_logo"
-                android:background="@drawable/logo_stylish"
+                android:background="@drawable/splash_logo"
+                android:visibility="gone"
+                android:layout_marginTop="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

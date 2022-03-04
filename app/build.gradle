@@ -100,6 +100,9 @@ dependencies {
     // Facebook Login only
     implementation 'com.facebook.android:facebook-login:13.0.0'
 
+    // Splash Screen
+    implementation "androidx.core:core-splashscreen:$version_splashscreen"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

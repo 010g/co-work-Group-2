@@ -21,15 +21,15 @@ class LogoActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_logo)
 
-        Handler().postDelayed({
-
-            startLogoAnimation4Particle()
-            Handler().postDelayed({
+//        Handler().postDelayed({
+//
+//            startLogoAnimation4Particle()
+//            Handler().postDelayed({
                 binding.particleLogo.visibility = View.VISIBLE
                 binding.particleLogo.startAnimation()
                 binding.particleLogo.setOnClickListener(this::leave)
-            }, duration)
-        }, await)
+//            }, duration)
+//        }, await)
     }
 
     public override fun onPause() {

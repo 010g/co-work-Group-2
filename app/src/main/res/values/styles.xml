@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/translucent</item>
         <item name="colorPrimaryDark">@color/translucent</item>
@@ -90,8 +90,24 @@
         <item name="android:colorControlHighlight">@color/black_3f3a3a</item>
     </style>
 
-    <style name="LogoTheme" parent="AppTheme">
+    <style name="LogoTheme" parent="Theme.App">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        // Set the splash screen background, animated icon, and animation duration.
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        // Use windowSplashScreenAnimatedIcon to add either a drawable or an
+        // animated drawable. One of these is required.
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>    # Required for
+                                                                        # animated icons
+
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_brand</item>
+
+        // Set the theme of the Activity that directly follows your splash screen.
+        <item name="postSplashScreenTheme">@style/Theme.App</item>  # Required.
     </style>
 </resources>

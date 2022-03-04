@@ -1,15 +1,20 @@
 package app.appworks.school.stylish
 
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -57,9 +62,31 @@ class MainActivity : BaseActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        startActivity(Intent(this, LogoActivity::class.java))
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val slideUp = ObjectAnimator.ofFloat(
+                splashScreenView,
+                View.ROTATION,
+                0f,
+                -splashScreenView.height.toFloat()
+            )
+            slideUp.interpolator = AnticipateInterpolator()
+            slideUp.duration = 2000L
+
+            // Call SplashScreenView.remove at the end of your custom animation.
+            slideUp.doOnEnd {
+                startActivity(Intent(this, LogoActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                })
+                splashScreenView.remove()
+            }
+
+            splashScreenView.setBackgroundColor(Color.TRANSPARENT)
+            // Run your animation.
+            slideUp.start()
+        }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
