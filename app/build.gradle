@@ -98,7 +98,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$version_fragment"
 
     // Facebook Login only
-    implementation 'com.facebook.android:facebook-login:13.0.0'
+    implementation 'com.facebook.android:facebook-login:latest.release'
 
     // Splash Screen
     implementation "androidx.core:core-splashscreen:$version_splashscreen"

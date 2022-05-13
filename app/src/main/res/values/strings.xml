@@ -7,6 +7,7 @@
 
     <!-- Facebook SDK -->
     <string name="facebook_app_id">368446190389666</string>
+    <string name="facebook_client_token">48b8ffcc0c8d76897816914a2f271578</string>
     <string name="fb_login_protocol_scheme">fb368446190389666</string>
 
     <!-- Login Dialog -->
