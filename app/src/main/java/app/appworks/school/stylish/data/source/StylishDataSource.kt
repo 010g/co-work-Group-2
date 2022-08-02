@@ -18,6 +18,10 @@ interface StylishDataSource {
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
+    suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
+
+    suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
@@ -31,6 +35,4 @@ interface StylishDataSource {
     suspend fun removeProductInCart(id: Long, colorCode: String, size: String)
 
     suspend fun clearProductInCart()
-
-    suspend fun getUserInformation(key: String?): String
 }

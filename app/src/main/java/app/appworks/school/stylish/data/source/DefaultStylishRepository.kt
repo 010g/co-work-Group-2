@@ -32,6 +32,14 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.userSignIn(fbToken)
     }
 
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+        return stylishRemoteDataSource.userSignIn(email, password)
+    }
+
+    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+        return stylishRemoteDataSource.userSignUp(name, email, password)
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail
@@ -61,9 +69,5 @@ class DefaultStylishRepository(
 
     override suspend fun clearProductInCart() {
         stylishLocalDataSource.clearProductInCart()
-    }
-
-    override suspend fun getUserInformation(key: String?): String {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

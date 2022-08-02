@@ -72,6 +72,10 @@
         <item name="android:background">@drawable/button_login_facebook_ripple</item>
     </style>
 
+    <style name="NativeLoginButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/button_add2cart_black_ripple</item>
+    </style>
+
     <style name="ProgressTheme" parent="Widget.AppCompat.ProgressBar">
         <item name="colorAccent">@color/black_3f3a3a</item>
     </style>

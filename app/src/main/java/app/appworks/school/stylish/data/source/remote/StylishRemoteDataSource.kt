@@ -99,6 +99,57 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = StylishApi.retrofitService.userSignIn(
+                NativeSignInBody(
+                    email = email,
+                    password = password
+                )
+            )
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = StylishApi.retrofitService.userSignUp(
+                NativeSignUpBody(
+                    name = name,
+                    email = email,
+                    password = password
+                )
+            )
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail
@@ -143,10 +194,6 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun clearProductInCart() {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

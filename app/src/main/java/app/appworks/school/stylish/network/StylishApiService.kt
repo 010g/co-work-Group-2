@@ -90,6 +90,17 @@ interface StylishApiService {
         @Field("provider") provider: String = "facebook",
         @Field("access_token") fbToken: String
     ): UserSignInResult
+
+    @POST("user/signin")
+    suspend fun userSignIn(
+        @Body nativeSignInBody: NativeSignInBody
+    ): UserSignInResult
+
+    @POST("user/signup")
+    suspend fun userSignUp(
+        @Body nativeSignUpBody: NativeSignUpBody
+    ): UserSignUpResult
+
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method

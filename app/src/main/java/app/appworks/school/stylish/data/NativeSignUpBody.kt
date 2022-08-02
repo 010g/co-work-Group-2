@@ -7,10 +7,8 @@ import kotlinx.parcelize.Parcelize
  * Created by Wayne Chen in Jul. 2019.
  */
 @Parcelize
-data class User(
-    val id: Int = -1,
-    val provider: String,
+data class NativeSignUpBody(
     val name: String,
     val email: String,
-    val picture: String? = null
+    val password: String
 ) : Parcelable
