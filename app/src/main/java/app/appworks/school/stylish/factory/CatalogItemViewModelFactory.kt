@@ -21,7 +21,7 @@ class CatalogItemViewModelFactory(
         with(modelClass) {
             when {
                 isAssignableFrom(CatalogItemViewModel::class.java) ->
-                    CatalogItemViewModel(stylishRepository, catalogType)
+                    CatalogItemViewModel(catalogType)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
