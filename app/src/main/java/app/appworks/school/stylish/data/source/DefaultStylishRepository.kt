@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 class DefaultStylishRepository(
     private val stylishRemoteDataSource: StylishDataSource,
     private val stylishLocalDataSource: StylishDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {

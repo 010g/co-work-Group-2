@@ -20,6 +20,7 @@ buildscript {
         version_room = '2.5.0-alpha01'
         version_ktlint = '10.2.0'
         version_splashscreen = '1.0.0-beta02'
+        version_okhttp = '5.0.0-alpha.5'
     }
     repositories {
         google()

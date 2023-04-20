@@ -1,6 +1,5 @@
 package app.appworks.school.stylish.data.source.local
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
@@ -12,7 +11,7 @@ import kotlinx.coroutines.withContext
  *
  * Concrete implementation of a Stylish source as a db.
  */
-class StylishLocalDataSource(val context: Context) : StylishDataSource {
+class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataSource {
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
@@ -50,36 +49,36 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
     }
 
     override fun getProductsInCart(): LiveData<List<Product>> {
-        return StylishDatabase.getInstance(context).stylishDatabaseDao.getAllProducts()
+        return dao.getAllProducts()
     }
 
     override suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean {
         return withContext(Dispatchers.IO) {
-            StylishDatabase.getInstance(context).stylishDatabaseDao.get(id, colorCode, size) != null
+            dao.get(id, colorCode, size) != null
         }
     }
 
     override suspend fun insertProductInCart(product: Product) {
         withContext(Dispatchers.IO) {
-            StylishDatabase.getInstance(context).stylishDatabaseDao.insert(product)
+            dao.insert(product)
         }
     }
 
     override suspend fun updateProductInCart(product: Product) {
         withContext(Dispatchers.IO) {
-            StylishDatabase.getInstance(context).stylishDatabaseDao.update(product)
+            dao.update(product)
         }
     }
 
     override suspend fun removeProductInCart(id: Long, colorCode: String, size: String) {
         withContext(Dispatchers.IO) {
-            StylishDatabase.getInstance(context).stylishDatabaseDao.delete(id, colorCode, size)
+            dao.delete(id, colorCode, size)
         }
     }
 
     override suspend fun clearProductInCart() {
         withContext(Dispatchers.IO) {
-            StylishDatabase.getInstance(context).stylishDatabaseDao.clear()
+            dao.clear()
         }
     }
 }
