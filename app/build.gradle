@@ -57,6 +57,7 @@ dependencies {
 
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$version_room"
+    implementation 'androidx.test:core-ktx:1.5.0'
     kapt "androidx.room:room-compiler:$version_room"
 
     // Navigation
@@ -82,7 +83,8 @@ dependencies {
 //    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
 
     // Retrofit Logging Interceptor
-    implementation('com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.5')
+    implementation "com.squareup.okhttp3:logging-interceptor:$version_okhttp"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$version_okhttp"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$version_glide"
@@ -104,8 +106,15 @@ dependencies {
     implementation "androidx.core:core-splashscreen:$version_splashscreen"
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
+    testImplementation 'org.mockito:mockito-core:3.10.0'
+
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    androidTestImplementation 'org.mockito:mockito-android:3.10.0'
 }
 
 ktlint {
