@@ -2,7 +2,7 @@ package app.appworks.school.stylish.catalog.item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +17,7 @@ import app.appworks.school.stylish.databinding.ItemCatalogGridBinding
  * @param onClickListener a lambda that takes the
  */
 class PagingAdapter(private val onClickListener: OnClickListener) :
-    PagedListAdapter<Product, PagingAdapter.ProductViewHolder>(DiffCallback) {
+    PagingDataAdapter<Product, PagingAdapter.ProductViewHolder>(DiffCallback) {
 
     class ProductViewHolder(private var binding: ItemCatalogGridBinding) : RecyclerView.ViewHolder(binding.root) {
 
