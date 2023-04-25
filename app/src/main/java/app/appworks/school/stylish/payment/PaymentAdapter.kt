@@ -73,9 +73,8 @@ class PaymentAdapter(val viewModel: PaymentViewModel) : RecyclerView.Adapter<Rec
             lifecycleRegistry.currentState = Lifecycle.State.CREATED
         }
 
-        override fun getLifecycle(): Lifecycle {
-            return lifecycleRegistry
-        }
+        override val lifecycle: Lifecycle
+            get() = lifecycleRegistry
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

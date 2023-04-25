@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "app.appworks.school.stylish"
         minSdkVersion 31
@@ -40,6 +40,12 @@ android {
         // Determines whether to support Data Binding.
         // Note that the dataBinding.enabled property is now deprecated.
         dataBinding = true
+
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.6'
     }
 }
 
@@ -59,6 +65,7 @@ dependencies {
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$version_room"
     implementation 'androidx.test:core-ktx:1.5.0'
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha18'
     kapt "androidx.room:room-compiler:$version_room"
 
     // Navigation
@@ -105,6 +112,17 @@ dependencies {
 
     // Splash Screen
     implementation "androidx.core:core-splashscreen:$version_splashscreen"
+
+    implementation 'com.google.accompanist:accompanist-pager:0.13.0'
+    implementation 'com.google.accompanist:accompanist-pager-indicators:0.13.0'
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.13.0"
+    implementation 'androidx.appcompat:appcompat:1.7.0-alpha02'
+    implementation "androidx.compose.ui:ui:$version_compose"
+    implementation "androidx.compose.foundation:foundation:$version_compose"
+    implementation "androidx.compose.material:material:$version_compose"
+    implementation "androidx.compose.ui:ui-tooling-preview:$version_compose"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'

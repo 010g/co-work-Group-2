@@ -18,7 +18,7 @@ class ProductViewModelFactory(
     private val product: Product
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
                 isAssignableFrom(DetailViewModel::class.java) ->

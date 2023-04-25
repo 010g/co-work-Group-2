@@ -4,24 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
 import app.appworks.school.stylish.NavigationDirections
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
-import app.appworks.school.stylish.databinding.FragmentCatalogItemBinding
-import app.appworks.school.stylish.ext.collect
+import app.appworks.school.stylish.catalog.item.compose.CatalogItemScreen
 import app.appworks.school.stylish.ext.getVmFactory
-import app.appworks.school.stylish.network.LoadApiStatus
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -33,71 +38,45 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
      */
     private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType) }
 
-    lateinit var adapter: PagingAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MaterialTheme {
+                    val pagingItems = viewModel.catalog.collectAsLazyPagingItems()
+                    val state = rememberSwipeRefreshState(false)
 
-        val binding = FragmentCatalogItemBinding.inflate(inflater, container, false)
-
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.viewModel = viewModel
-
-        adapter = PagingAdapter(
-            PagingAdapter.OnClickListener {
-                viewModel.navigateToDetail(it)
-            }
-        )
-
-        viewLifecycleOwner.collect(
-            flow = adapter.loadStateFlow
-                .distinctUntilChangedBy { it.source.refresh }
-                .map { it.refresh },
-            action = {
-                binding.executePendingBindings()
-
-                if(it != LoadState.Loading) {
-                    binding.layoutSwipeRefreshCatalogItem.isRefreshing = false
-                }
-                binding.uiState = when(it) {
-                    is LoadState.Error -> {
-                        binding.errMessage = it.error.message
-                        LoadApiStatus.ERROR
+                    SwipeRefresh(
+                        modifier = Modifier.fillMaxSize(),
+                        state = state,
+                        onRefresh = { pagingItems.refresh() },
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            @Suppress("KotlinConstantConditions")
+                            when (pagingItems.loadState.refresh) {
+                                is LoadState.Loading -> {
+                                    CircularProgressIndicator(
+                                        color = colorResource(id = R.color.black_3f3a3a)
+                                    )
+                                }
+                                else -> {}
+                            }
+                            CatalogItemScreen(pagingItems) {
+                                findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
+                            }
+                        }
                     }
-                    is LoadState.Loading -> LoadApiStatus.LOADING
-                    else -> LoadApiStatus.DONE
-                }
-            }
-        )
-
-        binding.recyclerCatalogItem.adapter = adapter
-
-        viewModel.navigateToDetail.observe(
-            viewLifecycleOwner,
-            Observer {
-                it?.let {
-                    findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
-                    viewModel.onDetailNavigated()
-                }
-            }
-        )
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.catalog.collectLatest {
-                    (binding.recyclerCatalogItem.adapter as PagingAdapter).submitData(it)
                 }
             }
         }
-
-        binding.layoutSwipeRefreshCatalogItem.setOnRefreshListener {
-            binding.layoutSwipeRefreshCatalogItem.isRefreshing = true
-            (binding.recyclerCatalogItem.adapter as PagingAdapter).refresh()
-        }
-
-        return binding.root
     }
 }
