@@ -16,6 +16,12 @@ import kotlinx.coroutines.launch
  *
  * The [ViewModel] that is attached to the [CartFragment].
  */
+
+data class CartUiState(
+    val onRemoveClick: (product: Product) -> Unit,
+    val onIncreaseClick: (product: Product) -> Unit,
+    val onDecreaseClick: (product: Product) -> Unit,
+)
 class CartViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
     // Get products from database to provide count number to bottom badge of cart
@@ -32,6 +38,18 @@ class CartViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    val uiState = CartUiState(
+        onRemoveClick = {
+            removeProduct(it)
+        },
+        onIncreaseClick = {
+            increaseAmount(it)
+        },
+        onDecreaseClick = {
+            decreaseAmount(it)
+        },
+    )
 
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the

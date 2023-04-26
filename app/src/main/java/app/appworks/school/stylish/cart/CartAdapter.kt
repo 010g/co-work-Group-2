@@ -14,14 +14,22 @@ import app.appworks.school.stylish.databinding.ItemCartBinding
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
  * [Product], including computing diffs between lists.
  */
-class CartAdapter(val viewModel: CartViewModel) : ListAdapter<Product, CartAdapter.ProductViewHolder>(DiffCallback) {
+class CartAdapter(val uiState: CartUiState) : ListAdapter<Product, CartAdapter.ProductViewHolder>(DiffCallback) {
 
     class ProductViewHolder(private var binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, viewModel: CartViewModel) {
+        fun bind(product: Product, uiState: CartUiState) {
 
             binding.product = product
-            binding.viewModel = viewModel
+            binding.textCartRemove.setOnClickListener {
+                uiState.onRemoveClick(product)
+            }
+            binding.buttonCartIncrease.setOnClickListener {
+                uiState.onIncreaseClick(product)
+            }
+            binding.buttonCartDecrease.setOnClickListener {
+                uiState.onDecreaseClick(product)
+            }
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
@@ -55,6 +63,6 @@ class CartAdapter(val viewModel: CartViewModel) : ListAdapter<Product, CartAdapt
      * Replaces the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position), viewModel)
+        holder.bind(getItem(position), uiState)
     }
 }

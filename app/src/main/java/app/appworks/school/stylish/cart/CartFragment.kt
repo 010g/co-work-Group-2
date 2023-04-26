@@ -30,7 +30,7 @@ class CartFragment : Fragment() {
         val binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.recyclerCart.adapter = CartAdapter(viewModel)
+        binding.recyclerCart.adapter = CartAdapter(viewModel.uiState)
 
         binding.layoutSwipeRefreshCart.setOnRefreshListener {
             binding.recyclerCart.adapter?.notifyDataSetChanged()
