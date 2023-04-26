@@ -5,8 +5,8 @@ import android.view.View
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.recyclerview.widget.RecyclerView
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
@@ -46,7 +46,7 @@ class Add2cartViewModel(
 
     var selectedVariant = MutableLiveData<Variant>()
 
-    val variantsBySelectedColor: LiveData<List<Variant>> = Transformations.map(selectedColor) { color ->
+    val variantsBySelectedColor: LiveData<List<Variant>?> = selectedColor.map { color ->
         color?.let {
             product.value?.variants?.filter { variant ->
                 variant.colorCode == it.code

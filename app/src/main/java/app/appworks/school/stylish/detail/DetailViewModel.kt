@@ -2,10 +2,7 @@ package app.appworks.school.stylish.detail
 
 import android.graphics.Rect
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import app.appworks.school.stylish.R
@@ -35,7 +32,7 @@ class DetailViewModel(
     val product: LiveData<Product>
         get() = _product
 
-    val productSizesText: LiveData<String> = Transformations.map(product) {
+    val productSizesText: LiveData<String> = product.map {
         when (it.sizes.size) {
             0 -> ""
             1 -> it.sizes.first()

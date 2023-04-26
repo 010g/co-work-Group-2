@@ -26,7 +26,7 @@ class Add2cartSizeAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Varian
         private val viewModel: Add2cartViewModel
     ) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
-        val isSelected: LiveData<Boolean> = Transformations.map(viewModel.selectedVariantPosition) {
+        val isSelected: LiveData<Boolean> = viewModel.selectedVariantPosition.map {
             it == adapterPosition
         }
 
@@ -52,9 +52,8 @@ class Add2cartSizeAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Varian
             lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         }
 
-        override fun getLifecycle(): Lifecycle {
-            return lifecycleRegistry
-        }
+        override val lifecycle: Lifecycle
+            get() = lifecycleRegistry
     }
 
     override fun onViewAttachedToWindow(holder: SizeViewHolder) {

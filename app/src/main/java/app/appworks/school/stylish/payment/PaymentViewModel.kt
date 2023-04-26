@@ -48,11 +48,11 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
 
     val selectedPaymentMethodPosition = MutableLiveData<Int>()
 
-    val paymentMethod: LiveData<PaymentMethod> = Transformations.map(selectedPaymentMethodPosition) {
+    val paymentMethod: LiveData<PaymentMethod> = selectedPaymentMethodPosition.map {
         PaymentMethod.values()[it]
     }
 
-    val totalPrice: LiveData<Long> = Transformations.map(products) {
+    val totalPrice: LiveData<Long> = products.map {
         var totalPrice = 0L
         products.value?.let {
             for (product in it) {
@@ -64,7 +64,7 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         totalPrice
     }
 
-    val totalFreight: LiveData<Long> = Transformations.map(products) {
+    val totalFreight: LiveData<Long> = products.map {
         var totalPrice = 0L
         products.value?.let {
             for (product in it) {
