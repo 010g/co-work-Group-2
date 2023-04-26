@@ -41,6 +41,7 @@ android {
         // Note that the dataBinding.enabled property is now deprecated.
         dataBinding = true
     }
+    namespace 'app.appworks.school.stylish'
 }
 
 dependencies {
@@ -53,7 +54,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
 
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$version_room"

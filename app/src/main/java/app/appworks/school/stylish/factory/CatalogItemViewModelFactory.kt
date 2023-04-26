@@ -17,7 +17,7 @@ class CatalogItemViewModelFactory(
     private val catalogType: CatalogTypeFilter
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
                 isAssignableFrom(CatalogItemViewModel::class.java) ->
