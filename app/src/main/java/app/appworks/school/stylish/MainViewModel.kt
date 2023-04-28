@@ -2,8 +2,8 @@ package app.appworks.school.stylish
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import app.appworks.school.stylish.component.ProfileAvatarOutlineProvider
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
@@ -37,13 +37,13 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
     val products: LiveData<List<Product>> = stylishRepository.getProductsInCart()
 
     // countInCart: Count number for bottom badge
-    val countInCart: LiveData<Int> = Transformations.map(products) { it.size }
+    val countInCart: LiveData<Int> = products.map { it.size }
 
     // Record current fragment to support data binding
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
 
     // According to current fragment to change different drawer toggle
-    val currentDrawerToggleType: LiveData<DrawerToggleType> = Transformations.map(currentFragmentType) {
+    val currentDrawerToggleType: LiveData<DrawerToggleType> = currentFragmentType.map {
         when (it) {
             CurrentFragmentType.PAYMENT -> DrawerToggleType.BACK
             else -> DrawerToggleType.NORMAL

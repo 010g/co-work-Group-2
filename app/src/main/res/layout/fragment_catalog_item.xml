@@ -4,6 +4,12 @@
 
     <data>
         <variable name="viewModel" type="app.appworks.school.stylish.catalog.item.CatalogItemViewModel"/>
+        <variable
+                name="uiState"
+                type="app.appworks.school.stylish.network.LoadApiStatus" />
+        <variable
+                name="errMessage"
+                type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +41,7 @@
                 android:theme="@style/ProgressTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setupApiStatus="@{viewModel.status}"
+                app:setupApiStatus="@{uiState}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +49,7 @@
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  app:setupApiErrorMessage="@{viewModel.error}"
+                  app:setupApiErrorMessage="@{errMessage}"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintTop_toTopOf="parent"

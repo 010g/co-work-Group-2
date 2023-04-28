@@ -29,7 +29,7 @@ class Add2cartColorAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Color
         private val viewModel: Add2cartViewModel
     ) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
-        val isSelected: LiveData<Boolean> = Transformations.map(viewModel.selectedColorPosition) {
+        val isSelected: LiveData<Boolean> = viewModel.selectedColorPosition.map {
             it == adapterPosition
         }
 
@@ -55,9 +55,8 @@ class Add2cartColorAdapter(val viewModel: Add2cartViewModel) : ListAdapter<Color
             lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         }
 
-        override fun getLifecycle(): Lifecycle {
-            return lifecycleRegistry
-        }
+        override val lifecycle: Lifecycle
+            get() = lifecycleRegistry
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Color>() {

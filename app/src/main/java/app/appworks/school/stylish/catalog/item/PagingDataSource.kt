@@ -1,100 +1,60 @@
 package app.appworks.school.stylish.catalog.item
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
-import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Util.getString
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String, Product>() {
+class PagingDataSource(val type: CatalogTypeFilter) : PagingSource<String, Product>() {
 
-    // init load status for observe
-
-    private val _statusInitialLoad = MutableLiveData<LoadApiStatus>()
-
-    val statusInitialLoad: LiveData<LoadApiStatus>
-        get() = _statusInitialLoad
-
-    // init load error for observe
-    private val _errorInitialLoad = MutableLiveData<String>()
-
-    val errorInitialLoad: LiveData<String>
-        get() = _errorInitialLoad
-
-    // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-
-    /**
-     * Initial load api
-     */
-    override fun loadInitial(
-        params: LoadInitialParams<String>,
-        callback: LoadInitialCallback<String, Product>
-    ) {
-//        Logger.d("[${type.value}] loadInitial") // open it if you want to observe status
-
-        coroutineScope.launch {
-
-            _statusInitialLoad.value = LoadApiStatus.LOADING
-
-            val result = StylishApplication.instance.stylishRepository
-                .getProductList(type = type.value)
-            when (result) {
-                is Result.Success -> {
-                    _errorInitialLoad.value = null
-                    _statusInitialLoad.value = LoadApiStatus.DONE
-//                    Logger.d("[${type.value}] loadInitial.result=${result.data.products}") // open it if you want to observe status
-//                    Logger.d("[${type.value}] loadInitial.paging=${result.data.paging}") // open it if you want to observe status
-                    result.data.products?.let { callback.onResult(it, null, result.data.paging) }
-                }
-                is Result.Fail -> {
-                    _errorInitialLoad.value = result.error
-                    _statusInitialLoad.value = LoadApiStatus.ERROR
-                }
-                is Result.Error -> {
-                    _errorInitialLoad.value = result.exception.toString()
-                    _statusInitialLoad.value = LoadApiStatus.ERROR
-                }
-                else -> {
-                    _errorInitialLoad.value = getString(R.string.you_know_nothing)
-                    _statusInitialLoad.value = LoadApiStatus.ERROR
-                }
-            }
+    override fun getRefreshKey(state: PagingState<String, Product>): String? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.toInt()?.plus(1)?.toString() ?: anchorPage?.nextKey?.toInt()?.minus(1)?.toString()
         }
     }
 
-    /**
-     * After initial load, it will according to paging key to load api
-     */
-    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, Product>) {
-//        Logger.d("[${type.value}] loadAfter.key=${params.key}") // open it if you want to observe status
-
-        coroutineScope.launch {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, Product> {
+        return try {
+            // Start refresh at page 1 if undefined.
             val result = StylishApplication.instance.stylishRepository
                 .getProductList(type = type.value, paging = params.key)
-            when (result) {
+            return when (result) {
                 is Result.Success -> {
-//                    Logger.d("[${type.value}] loadAfter.result=${result.data}") // open it if you want to observe status
-//                    Logger.d("[${type.value}] loadAfter.paging=${result.data.paging}") // // open it if you want to observe status
-                    result.data.products?.let { callback.onResult(it, result.data.paging) }
+                    result.data.products?.let {
+                        LoadResult.Page(
+                            data = it,
+                            prevKey = null, // Only paging forward.
+                            nextKey = result.data.paging)
+                    } ?: throw java.lang.Exception(getString(R.string.you_know_nothing)) //TODO: change to API issue, 200 without data
+                }
+                is Result.Fail -> {
+                    throw java.lang.Exception(result.error)
+//                    _errorInitialLoad.value = result.error
+//                    _statusInitialLoad.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    throw java.lang.Exception(result.exception.toString())
+//                    _errorInitialLoad.value = result.exception.toString()
+//                    _statusInitialLoad.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    throw java.lang.Exception(getString(R.string.you_know_nothing))
+//                    _errorInitialLoad.value = getString(R.string.you_know_nothing)
+//                    _statusInitialLoad.value = LoadApiStatus.ERROR
                 }
             }
+        } catch (e: Exception) {
+            // Handle errors in this block and return LoadResult.Error if it is an
+            // expected error (such as a network failure).
+            LoadResult.Error(e)
         }
-    }
-
-    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, Product>) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }
