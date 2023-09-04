@@ -1,8 +1,10 @@
 package app.appworks.school.stylish.network
 
+import app.appworks.school.stylish.data.CheckoutOrderResult
 import app.appworks.school.stylish.data.MarketingHotsResult
 import app.appworks.school.stylish.data.NativeSignInBody
 import app.appworks.school.stylish.data.NativeSignUpBody
+import app.appworks.school.stylish.data.OrderDetail
 import app.appworks.school.stylish.data.OrderHistoryResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.UserProfileResult
@@ -69,6 +71,12 @@ interface DataServerStylishApiService {
     //order history (need to be revise)
      @GET("orderHistory")
     suspend fun getOrderHistory(@Query("user_id") userId: String): OrderHistoryResult
+
+    @POST("order/checkout")
+    suspend fun checkoutOrder(
+        @Header("Authorization") token: String,
+        @Body orderDetail: OrderDetail
+    ): CheckoutOrderResult
 }
 
 object DataServerStylishApi {

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.data.HistoryItem
 import app.appworks.school.stylish.data.OrderHistoryResult
 import app.appworks.school.stylish.data.ProductItem
@@ -48,7 +49,7 @@ class OrderHistoryFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val orderHistoryData = withContext(Dispatchers.IO) {
-                    DataServerStylishApi.retrofitService.getOrderHistory(userId="mockuserid1")
+                    DataServerStylishApi.retrofitService.getOrderHistory(userId=NativeLoginResult.nativeId.toString())
                 }
                 val orderHistoryItemList = mutableListOf<OrderHistoryItem>()
                 for (item in orderHistoryData.histories){

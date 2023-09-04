@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.payment
 
 import androidx.lifecycle.*
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.*
@@ -16,6 +17,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.cherri.tpdirect.api.*
+import tech.cherri.tpdirect.callback.dto.TPDCardInfoDto
+import tech.cherri.tpdirect.callback.dto.TPDMerchantReferenceInfoDto
 import tech.cherri.tpdirect.model.TPDStatus
 
 /**
@@ -192,7 +195,8 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
                                     phone.value ?: "",
                                     email.value ?: "",
                                     address.value ?: "",
-                                    shippingTime
+                                    shippingTime,
+                                    NativeLoginResult.nativeId.toString()
                                 ),
                                 products.value.toOrderProductList()
                             )
@@ -264,9 +268,10 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     }
 
     // it will occur when get prime success
-    private val tpdTokenSuccessCallback = { token: String, _: TPDCardInfo, _: String ->
-        checkout(token)
-    }
+    private val tpdTokenSuccessCallback =
+        { prime: String, cardInfo: TPDCardInfoDto, cardIdentifier: String, merchantReferenceInfo: TPDMerchantReferenceInfoDto ->
+            checkout(prime)
+        }
 
     // it will occur when get prime failure
     private val tpdTokenFailureCallback = { status: Int, reportMsg: String ->

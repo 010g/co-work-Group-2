@@ -169,7 +169,7 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.checkoutOrder(token, orderDetail)
+            val listResult = DataServerStylishApi.retrofitService.checkoutOrder(token, orderDetail)
 
             listResult.error?.let {
                 return Result.Fail(it)
