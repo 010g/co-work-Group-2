@@ -3,6 +3,7 @@ package app.appworks.school.stylish.network
 import app.appworks.school.stylish.data.MarketingHotsResult
 import app.appworks.school.stylish.data.NativeSignInBody
 import app.appworks.school.stylish.data.NativeSignUpBody
+import app.appworks.school.stylish.data.OrderHistoryResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.UserProfileResult
 import app.appworks.school.stylish.data.UserSignInResult
@@ -65,7 +66,9 @@ interface DataServerStylishApiService {
     @GET("profile")
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileResult
 
-
+    //order history (need to be revise)
+     @GET("orderHistory")
+    suspend fun getOrderHistory(@Query("user_id") userId: String): OrderHistoryResult
 }
 
 object DataServerStylishApi {

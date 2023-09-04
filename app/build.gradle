@@ -48,6 +48,10 @@ android {
         kotlinCompilerExtensionVersion '1.4.6'
     }
     namespace 'app.appworks.school.stylish'
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {

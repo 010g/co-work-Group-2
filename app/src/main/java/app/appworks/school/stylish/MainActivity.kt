@@ -219,6 +219,8 @@ class MainActivity : BaseActivity() {
                 R.id.detailFragment -> CurrentFragmentType.DETAIL
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
+                R.id.orderHistoryFragment -> CurrentFragmentType.OrderHistory
+                                R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
                 else -> viewModel.currentFragmentType.value
             }
         }

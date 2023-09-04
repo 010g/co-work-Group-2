@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.MainViewModel
 import app.appworks.school.stylish.databinding.FragmentProfileBinding
 import app.appworks.school.stylish.ext.getVmFactory
@@ -20,7 +21,13 @@ class ProfileFragment : Fragment() {
     /**
      * Lazily initialize our [ProfileViewModel].
      */
-    private val viewModel by viewModels<ProfileViewModel> { getVmFactory(ProfileFragmentArgs.fromBundle(requireArguments()).userKey) }
+    private val viewModel by viewModels<ProfileViewModel> {
+        getVmFactory(
+            ProfileFragmentArgs.fromBundle(
+                requireArguments()
+            ).userKey
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +52,11 @@ class ProfileFragment : Fragment() {
                     }
                 }
             )
+        }
+
+        binding.textProfileSeeAll.setOnClickListener {
+            // Navigate to the OrderHistoryFragment when the TextView is clicked
+            findNavController().navigate(ProfileFragmentDirections.navigateToOrderHistoryFragment())
         }
 
         return binding.root

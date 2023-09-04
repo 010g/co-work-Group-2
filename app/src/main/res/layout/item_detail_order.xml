@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="detailOrderItem"
+                type="app.appworks.school.stylish.profile.DetailOrderItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_detail_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <ImageView
+                android:id="@+id/image_detail_order"
+                android:layout_width="82dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_placeholder"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_placeholder"/>
+
+        <TextView
+                android:id="@+id/title_detail_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:maxLines="2"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="15sp"
+                android:text="@{detailOrderItem.title}"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/image_detail_order"
+                app:layout_constraintTop_toTopOf="@+id/image_detail_order"
+                tools:text="商品名稱"/>
+
+        <ImageView
+                android:id="@+id/image_order_color"
+                android:layout_width="@dimen/size_cart_color"
+                android:layout_height="@dimen/size_cart_color"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_placeholder"
+                android:scaleType="centerCrop"
+                app:color="@{detailOrderItem.color}"
+                app:layout_constraintStart_toStartOf="@+id/title_detail_order"
+                app:layout_constraintTop_toBottomOf="@+id/title_detail_order"
+                tools:src="@drawable/ic_placeholder"/>
+
+        <View
+                android:id="@+id/view_order_separation"
+                android:layout_width="1dp"
+                android:layout_height="14dp"
+                android:background="@color/gray_cccccc"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_order_color"
+                app:layout_constraintStart_toEndOf="@+id/image_order_color"
+                app:layout_constraintTop_toTopOf="@+id/image_order_color"/>
+
+        <TextView
+                android:id="@+id/text_order_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="@{detailOrderItem.size}"
+                app:layout_constraintBottom_toBottomOf="@+id/view_order_separation"
+                app:layout_constraintStart_toEndOf="@+id/view_order_separation"
+                app:layout_constraintTop_toTopOf="@+id/view_order_separation"
+                tools:text="S"/>
+
+        <TextView
+                android:id="@+id/text_order_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:maxLines="1"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="15sp"
+                android:text="@{detailOrderItem.price}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_order_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_order_size"
+                tools:text="商品價格"/>
+
+        <TextView
+                android:id="@+id/text_order_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:maxLines="1"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="15sp"
+                android:text="@{detailOrderItem.amount}"
+                app:layout_constraintStart_toStartOf="@+id/image_order_color"
+                app:layout_constraintTop_toBottomOf="@+id/image_order_color"
+                tools:text="商品件數"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

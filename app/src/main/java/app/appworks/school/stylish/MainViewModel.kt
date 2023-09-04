@@ -46,26 +46,28 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
     val currentDrawerToggleType: LiveData<DrawerToggleType> = currentFragmentType.map {
         when (it) {
             CurrentFragmentType.PAYMENT -> DrawerToggleType.BACK
+            CurrentFragmentType.OrderHistory -> DrawerToggleType.BACK
+            CurrentFragmentType.DetailOrder -> DrawerToggleType.BACK
             else -> DrawerToggleType.NORMAL
         }
     }
 
     // Handle navigation to login success
-    private val _navigateToLoginSuccess = MutableLiveData<User>()
+    private val _navigateToLoginSuccess = MutableLiveData<User?>()
 
-    val navigateToLoginSuccess: LiveData<User>
+    val navigateToLoginSuccess: LiveData<User?>
         get() = _navigateToLoginSuccess
 
     // Handle navigation to profile by bottom nav directly which includes icon change
-    private val _navigateToProfileByBottomNav = MutableLiveData<User>()
+    private val _navigateToProfileByBottomNav = MutableLiveData<User?>()
 
-    val navigateToProfileByBottomNav: LiveData<User>
+    val navigateToProfileByBottomNav: LiveData<User?>
         get() = _navigateToProfileByBottomNav
 
     // Handle navigation to home by bottom nav directly which includes icon change
-    private val _navigateToHomeByBottomNav = MutableLiveData<Boolean>()
+    private val _navigateToHomeByBottomNav = MutableLiveData<Boolean?>()
 
-    val navigateToHomeByBottomNav: LiveData<Boolean>
+    val navigateToHomeByBottomNav: LiveData<Boolean?>
         get() = _navigateToHomeByBottomNav
 
     // it for set up the circle image of an avatar
@@ -82,9 +84,9 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
-    private val _error = MutableLiveData<String>()
+    private val _error = MutableLiveData<String?>()
 
-    val error: LiveData<String>
+    val error: LiveData<String?>
         get() = _error
 
     // Create a Coroutine scope using a job to be able to cancel when needed

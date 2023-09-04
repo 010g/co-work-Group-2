@@ -36,7 +36,7 @@
     <string name="profile_default_information">Do you wanna build a snowman?</string>
     <string name="profile_mystic_information">Into the Unknown~</string>
     <string name="profile_order_title">我的訂單</string>
-    <string name="profile_see_all">查看全部</string>
+    <string name="profile_see_all">歷史訂單</string>
     <string name="awaiting_payment">待付款</string>
     <string name="awaiting_shipment">待出貨</string>
     <string name="shipped">待簽收</string>
@@ -111,6 +111,8 @@
     <string name="favorite">好物收藏</string>
     <string name="cart">購物車</string>
     <string name="profile">個人</string>
+    <string name="order_history">歷史訂單</string>
+    <string name="detail_order">訂單詳情</string>
     <string name="payment">結帳</string>
     <string name="stock_">庫存：</string>
     <string name="aka">AKA 小安老師</string>
