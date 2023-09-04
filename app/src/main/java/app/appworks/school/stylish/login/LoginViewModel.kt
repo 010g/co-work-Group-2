@@ -2,6 +2,7 @@ package app.appworks.school.stylish.login
 
 import android.os.Bundle
 import android.util.Log
+import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -157,6 +158,8 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     NativeLoginResult.nativeEmail = result.data.userSignIn.user.email
                     NativeLoginResult.nativePicture = result.data.userSignIn.user.picture
                     NativeLoginResult.nativeProvider = result.data.userSignIn.user.provider
+
+
 
                     Log.i("elven test profile","UserManager.userToken = ${UserManager.userToken}")
                     _user.value = result.data.userSignIn?.user
