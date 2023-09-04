@@ -1,6 +1,7 @@
 package app.appworks.school.stylish
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -90,6 +91,15 @@ class MainActivity : BaseActivity() {
             // Run your animation.
             slideUp.start()
         }
+
+        val sharePreference= applicationContext.getSharedPreferences("for_native_login_user_info",
+            Context.MODE_PRIVATE)
+
+        NativeLoginResult.nativeId = sharePreference.getInt("userId",-1)
+        NativeLoginResult.nativeName = sharePreference.getString("userName","").toString()
+        NativeLoginResult.nativeEmail = sharePreference.getString("userEmail","").toString()
+        NativeLoginResult.nativePicture = sharePreference.getString("userPicture","").toString()
+        NativeLoginResult.nativeProvider = sharePreference.getString("userProvider","").toString()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this

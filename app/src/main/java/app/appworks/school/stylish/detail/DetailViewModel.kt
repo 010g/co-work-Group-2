@@ -1,18 +1,25 @@
 package app.appworks.school.stylish.detail
 
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.data.succeeded
 import app.appworks.school.stylish.util.Logger
+import app.appworks.school.stylish.util.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -87,6 +94,43 @@ class DetailViewModel(
         }
     }
 
+    private fun checkIsFavoriteOrNot(){
+        viewModelScope.launch {
+            try{
+                for (page in 0..2){
+                    val result = stylishRepository.getProductListWithFavorite(type = "all", paging = page.toString(), userId = NativeLoginResult.nativeId)
+                    when (result) {
+                        is Result.Success -> {
+                            result.data.products?.forEach {
+                                if (_product.value?.id == it.id){
+                                    _isFavorite.value = it.favorite
+                                    Log.i("elven test API", "favorite : ${_isFavorite.value}")
+                                }
+                            }
+                        }
+                        is Result.Fail -> {
+                            Log.i("elven test API", "Fail")
+                            throw java.lang.Exception(result.error)
+                        }
+                        is Result.Error -> {
+                            Log.i("elven test API", "Error")
+                            throw java.lang.Exception(result.exception.toString())
+                        }
+                        else -> {
+                            Log.i("elven test API", "else")
+                            throw java.lang.Exception(Util.getString(R.string.you_know_nothing))
+                        }
+                    }
+                }
+                Log.i("elven test API", "-------------------------------------------------")
+            } catch (e:Exception){
+                Log.i("elven test API", "Fail to call function")
+            }
+        }
+    }
+
+
+
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -101,7 +145,8 @@ class DetailViewModel(
         Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
 
-        // Todo checking product's isFavorite value,
+        // Todo checking product's isFavorite value
+        checkIsFavoriteOrNot()
     }
 
     /**
@@ -134,14 +179,32 @@ class DetailViewModel(
     }
 
     fun addToFavorite(){
-        // Todo post API to dataServer
-        // it will need parameter userId:Int , productId:Int
+        if (NativeLoginResult.nativeId != -1){
+            viewModelScope.launch {
+                try {
+                    stylishRepository.insertProductToFavoriteList(NativeLoginResult.nativeId.toString(),_product.value!!.id)
+                    Log.i("elven test API", "insert success")
+                } catch (e:Exception){
+                    Log.i("elven test API", "Fail to insert Favorite")
+                }
+            }
+        }
+
         _isFavorite.value = true
     }
 
     fun removeFromFavorite(){
-        // Todo delete API to dataServer
-        // it will need parameter userId:Int , productId:Int
+        if (NativeLoginResult.nativeId != -1){
+            viewModelScope.launch {
+                try {
+                    stylishRepository.deleteProductFromFavoriteList(NativeLoginResult.nativeId.toString(),_product.value!!.id)
+                    Log.i("elven test API", "delete success")
+                } catch (e:Exception){
+                    Log.i("elven test API", "Fail to delete Favorite")
+                }
+            }
+        }
+
         _isFavorite.value = false
     }
 }

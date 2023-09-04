@@ -21,6 +21,14 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
+    override suspend fun getProductListWithFavorite(
+        type: String,
+        paging: String?,
+        userId: Int?
+    ): Result<ProductFavoriteListResult> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getUserProfile(token: String): Result<User> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
@@ -38,6 +46,18 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         email: String,
         password: String
     ): Result<UserSignUpResult> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertProductToFavoriteList(userId: String, productId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteProductFromFavoriteList(userId: String, productId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserFavoriteList(userId: String): Result<SingleUserProductFavoriteListResult> {
         TODO("Not yet implemented")
     }
 

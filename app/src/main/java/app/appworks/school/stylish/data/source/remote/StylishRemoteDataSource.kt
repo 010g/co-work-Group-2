@@ -57,6 +57,30 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override suspend fun getProductListWithFavorite(
+        type: String,
+        paging: String?,
+        userId: Int?
+    ): Result<ProductFavoriteListResult> {
+        Log.i("elven test API","<getProductListWithFavorite> this api shouldn't be call!!!!")
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = StylishApi.retrofitService.getProductListWithFavorite(type = type, paging = paging, userId = userId)
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getUserProfile(token: String): Result<User> {
         Log.i("elven test profile","<getUserProfile> this WRONG api in old StylishRemoteDataSource is call")
         if (!isInternetConnected()) {
@@ -149,6 +173,18 @@ object StylishRemoteDataSource : StylishDataSource {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
         }
+    }
+
+    override suspend fun insertProductToFavoriteList(userId: String, productId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteProductFromFavoriteList(userId: String, productId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserFavoriteList(userId: String): Result<SingleUserProductFavoriteListResult> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun checkoutOrder(
