@@ -33,6 +33,10 @@
 <!--    <dimen name="height_login">202dp</dimen>-->
     <dimen name="height_login">400dp</dimen>
 
+    <!-- Register Dialog -->
+    <!--    <dimen name="height_login">202dp</dimen>-->
+    <dimen name="height_register">400dp</dimen>
+
     <!-- IMessage Dialog -->
     <dimen name="size_message">123dp</dimen>
 

@@ -2,6 +2,7 @@ package app.appworks.school.stylish.network
 
 import app.appworks.school.stylish.data.NativeSignInBody
 import app.appworks.school.stylish.data.NativeSignUpBody
+import app.appworks.school.stylish.network.moshi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert

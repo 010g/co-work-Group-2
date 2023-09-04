@@ -58,6 +58,11 @@ class DetailViewModel(
     val leaveDetail: LiveData<Boolean>
         get() = _leaveDetail
 
+    private var _isFavorite = MutableLiveData<Boolean>()
+
+    val isFavorite:LiveData<Boolean>
+        get() = _isFavorite
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -95,6 +100,8 @@ class DetailViewModel(
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]$this")
         Logger.i("------------------------------------")
+
+        // Todo checking product's isFavorite value,
     }
 
     /**
@@ -124,5 +131,17 @@ class DetailViewModel(
 
     fun leaveDetail() {
         _leaveDetail.value = true
+    }
+
+    fun addToFavorite(){
+        // Todo post API to dataServer
+        // it will need parameter userId:Int , productId:Int
+        _isFavorite.value = true
+    }
+
+    fun removeFromFavorite(){
+        // Todo delete API to dataServer
+        // it will need parameter userId:Int , productId:Int
+        _isFavorite.value = false
     }
 }

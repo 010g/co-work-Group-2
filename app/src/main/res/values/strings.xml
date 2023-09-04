@@ -20,6 +20,13 @@
     <string name="email_cannot_be_empty">Email 不可為空。</string>
     <string name="password_cannot_be_empty">Password 不可為空。</string>
 
+    <!-- Register Dialog -->
+    <string name="register_title">註冊會員</string>
+    <string name="register_description">請填寫會員註冊資料</string>
+    <string name="register_name">Name</string>
+    <string name="register_warning">所有欄位不可為空，請確認是否填寫完整</string>
+
+
     <!-- IMessage Dialog -->
     <string name="login_success">登入成功</string>
     <string name="addto_success">加入成功</string>
@@ -101,6 +108,7 @@
     <string name="nt_dollars_">NT$%d</string>
     <string name="_dash_">%s - %s</string>
     <string name="catalog">型錄</string>
+    <string name="favorite">好物收藏</string>
     <string name="cart">購物車</string>
     <string name="profile">個人</string>
     <string name="payment">結帳</string>
@@ -116,4 +124,6 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

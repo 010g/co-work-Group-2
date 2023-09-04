@@ -26,6 +26,7 @@ import app.appworks.school.stylish.detail.DetailCircleAdapter
 import app.appworks.school.stylish.detail.DetailColorAdapter
 import app.appworks.school.stylish.detail.DetailGalleryAdapter
 import app.appworks.school.stylish.home.HomeAdapter
+import app.appworks.school.stylish.home.HomeOriginalAdapter
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.payment.PaymentAdapter
 import app.appworks.school.stylish.util.Util.getColor
@@ -40,6 +41,7 @@ fun bindRecyclerViewWithHomeItems(recyclerView: RecyclerView, homeItems: List<Ho
         recyclerView.adapter?.apply {
             when (this) {
                 is HomeAdapter -> submitList(it)
+                is HomeOriginalAdapter -> submitList(it)
             }
         }
     }

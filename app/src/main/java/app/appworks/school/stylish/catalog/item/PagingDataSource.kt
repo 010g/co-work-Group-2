@@ -7,6 +7,8 @@ import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource.getProductList
+import app.appworks.school.stylish.network.DataServerStylishApi
 import app.appworks.school.stylish.util.Util.getString
 
 /**

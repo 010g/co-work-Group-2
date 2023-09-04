@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils"/>
         <import type="android.view.View"/>
         <import type="app.appworks.school.stylish.network.LoadApiStatus"/>
-        <variable name="viewModel" type="app.appworks.school.stylish.login.LoginViewModel"/>
+        <variable name="viewModel" type="app.appworks.school.stylish.login.RegisterViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +15,9 @@
             android:onClick="@{() -> viewModel.leave()}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_login"
+                android:id="@+id/layout_register"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_login"
+                android:layout_height="@dimen/height_register"
                 android:background="@drawable/bg_dialog_corner"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
                 android:onClick="@{() -> viewModel.nothing()}">
 
             <TextView
-                    android:id="@+id/text_login_title"
+                    android:id="@+id/text_register_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -33,17 +33,16 @@
                     android:fontFamily="@font/noto_sans"
                     android:letterSpacing="0.15"
                     android:maxLines="1"
-                    android:text="@string/login_title"
+                    android:text="@string/register_title"
                     android:textColor="@color/black_3f3a3a"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/text_login_description"
-                    tools:text="@string/login_title"/>
+                    app:layout_constraintBottom_toTopOf="@+id/text_register_description" />
 
             <TextView
-                    android:id="@+id/text_login_description"
+                    android:id="@+id/text_register_description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -52,26 +51,55 @@
                     android:fontFamily="@font/noto_sans"
                     android:letterSpacing="0.15"
                     android:maxLines="2"
-                    android:text="@{viewModel.error != null ? viewModel.error : @string/login_description}"
+                    android:text="@string/register_description"
                     android:textColor="@color/black_3f3a3a"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/view_login_separation"
-                    tools:text="@string/login_description"/>
+                    app:layout_constraintBottom_toTopOf="@+id/view_register_separation" />
 
             <View
-                    android:id="@+id/view_login_separation"
+                    android:id="@+id/view_register_separation"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginBottom="16dp"
                     android:background="@color/gray_cccccc"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_login_email"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_facebook"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_facebook"/>
+                    app:layout_constraintBottom_toTopOf="@+id/layout_register_name"
+                    app:layout_constraintEnd_toEndOf="@+id/button_register_apply"
+                    app:layout_constraintStart_toStartOf="@+id/button_register_apply"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_login_email"
+                    android:id="@+id/layout_register_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:theme="@style/PaymentColorTheme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/layout_register_email"
+                    app:boxStrokeColor="@{@color/gray_646464}"
+                    app:boxBackgroundColor="@{@color/gray_646464}"
+                    >
+
+                <EditText
+                        android:id="@+id/edit_register_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_payment_editor"
+                        android:hint="@string/register_name"
+                        android:textColor="@color/black_3f3a3a"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:text="@={viewModel.name}"
+                        android:textColorHint="@{@color/gray_646464}"
+                        android:backgroundTint="@{@color/gray_646464}"
+                        />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_register_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -80,13 +108,13 @@
                     android:theme="@style/PaymentColorTheme"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_login_password"
+                    app:layout_constraintBottom_toTopOf="@+id/layout_register_password"
                     app:boxStrokeColor="@{@color/gray_646464}"
                     app:boxBackgroundColor="@{@color/gray_646464}"
                     >
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_login_email"
+                        android:id="@+id/edit_register_email"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_payment_editor"
                         android:hint="@string/login_email"
@@ -94,7 +122,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
-                        android:nextFocusForward="@+id/edit_login_password"
+                        android:nextFocusForward="@+id/edit_register_password"
                         android:text="@={viewModel.email}"
                         android:textColorHint="@{@color/gray_646464}"
                         android:backgroundTint="@{@color/gray_646464}"
@@ -103,7 +131,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_login_password"
+                    android:id="@+id/layout_register_password"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
@@ -113,13 +141,13 @@
                     android:theme="@style/PaymentColorTheme"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/button_login_native"
+                    app:layout_constraintBottom_toTopOf="@+id/button_register_apply"
                     app:boxStrokeColor="@{@color/gray_646464}"
                     app:boxBackgroundColor="@{@color/gray_646464}"
                     >
 
                 <EditText
-                        android:id="@+id/edit_login_password"
+                        android:id="@+id/edit_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_payment_editor"
                         android:hint="@string/login_password"
@@ -135,28 +163,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                    android:id="@+id/button_login_native"
-                    style="@style/NativeLoginButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:clickable="@{viewModel.status == LoadApiStatus.LOADING ? false : true}"
-                    android:fontFamily="@font/noto_sans"
-                    android:gravity="center"
-                    android:letterSpacing="0.15"
-                    android:onClick="@{() -> viewModel.nativeLogin()}"
-                    android:text='@{viewModel.status != LoadApiStatus.LOADING ? @string/login_native_text : ""}'
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/button_login_facebook"
-                    app:layout_constraintEnd_toStartOf="@+id/button_register_native"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="@string/login_native_text" />
-
-            <Button
-                    android:id="@+id/button_register_native"
+                    android:id="@+id/button_register_apply"
                     style="@style/NativeLoginButton"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -166,58 +173,27 @@
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:letterSpacing="0.15"
-                    android:text="註冊會員"
+                    android:text="@string/register_title"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/button_login_native"
-                    app:layout_constraintBottom_toTopOf="@+id/button_login_facebook"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            <ProgressBar
-                    android:layout_width="@dimen/size_payment_progress"
-                    android:layout_height="@dimen/size_payment_progress"
-                    android:theme="@style/ProgressThemeDark"
-                    android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_login_native"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_native"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_native"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_native"/>
-
-            <Button
-                    android:id="@+id/button_login_facebook"
-                    style="@style/FacebookLoginButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:gravity="center"
-                    android:letterSpacing="0.15"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:text='@{viewModel.status != LoadApiStatus.LOADING ? @string/login_facebook_text : ""}'
-                    android:clickable="@{viewModel.status == LoadApiStatus.LOADING ? false : true}"
-                    android:onClick="@{() -> viewModel.login()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="@string/login_facebook_text"/>
+                    app:layout_constraintStart_toStartOf="parent" />
+
 
             <ProgressBar
                     android:layout_width="@dimen/size_payment_progress"
                     android:layout_height="@dimen/size_payment_progress"
                     android:theme="@style/ProgressThemeDark"
-                    android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_login_facebook"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_facebook"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_facebook"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_facebook"/>
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_register_apply"
+                    app:layout_constraintEnd_toEndOf="@+id/button_register_apply"
+                    app:layout_constraintStart_toStartOf="@+id/button_register_apply"
+                    app:layout_constraintTop_toTopOf="@+id/button_register_apply"/>
 
             <Button
-                    android:id="@+id/button_login_close"
+                    android:id="@+id/button_register_close"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="16dp"

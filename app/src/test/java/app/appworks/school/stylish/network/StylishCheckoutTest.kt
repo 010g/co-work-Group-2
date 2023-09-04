@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.network
 
 import app.appworks.school.stylish.data.OrderDetail
+import app.appworks.school.stylish.network.moshi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals

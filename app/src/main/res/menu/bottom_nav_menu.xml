@@ -12,6 +12,11 @@
             android:title=""/>
 
     <item
+            android:id="@+id/navigation_favorite"
+            android:icon="@drawable/ic_nav_favorite_selector"
+            android:title=""/>
+
+    <item
             android:id="@+id/navigation_cart"
             android:icon="@drawable/ic_nav_cart_selector"
             android:title=""/>
@@ -20,5 +25,4 @@
             android:id="@+id/navigation_profile"
             android:icon="@drawable/ic_nav_profile_selector"
             android:title=""/>
-
 </menu>

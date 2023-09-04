@@ -12,7 +12,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.MainViewModel
+import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.DialogLoginBinding
 import app.appworks.school.stylish.ext.getVmFactory
@@ -88,6 +90,10 @@ class LoginDialog : AppCompatDialogFragment() {
                 }
             }
         )
+
+        binding.buttonRegisterNative.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToRegisterDialog())
+        }
 
         return binding.root
     }

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -64,6 +65,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        Log.i("elven test Time","${ABTestVersion.time}")
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val slideUp = ObjectAnimator.ofFloat(
@@ -163,6 +166,11 @@ class MainActivity : BaseActivity() {
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
                     return@setOnItemSelectedListener true
                 }
+                R.id.navigation_favorite -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToFavoriteFragment())
+                    return@setOnItemSelectedListener true
+                }
                 R.id.navigation_cart -> {
 
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
@@ -190,7 +198,7 @@ class MainActivity : BaseActivity() {
         }
 
         val menuView = binding.bottomNavView.getChildAt(0) as BottomNavigationMenuView
-        val itemView = menuView.getChildAt(2) as BottomNavigationItemView
+        val itemView = menuView.getChildAt(3) as BottomNavigationItemView
         val bindingBadge = BadgeBottomBinding.inflate(LayoutInflater.from(this), itemView, true)
         bindingBadge.lifecycleOwner = this
         bindingBadge.viewModel = viewModel
@@ -205,6 +213,7 @@ class MainActivity : BaseActivity() {
             viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
                 R.id.homeFragment -> CurrentFragmentType.HOME
                 R.id.catalogFragment -> CurrentFragmentType.CATALOG
+                R.id.favoriteFragment -> CurrentFragmentType.FAVORITE
                 R.id.cartFragment -> CurrentFragmentType.CART
                 R.id.profileFragment -> CurrentFragmentType.PROFILE
                 R.id.detailFragment -> CurrentFragmentType.DETAIL

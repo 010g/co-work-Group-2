@@ -6,6 +6,7 @@ import app.appworks.school.stylish.util.Util.getString
 enum class CurrentFragmentType(val value: String) {
     HOME(""),
     CATALOG(getString(R.string.catalog)),
+    FAVORITE(getString(R.string.favorite)),
     CART(getString(R.string.cart)),
     PROFILE(getString(R.string.profile)),
     PAYMENT(getString(R.string.payment)),

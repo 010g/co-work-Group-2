@@ -2,30 +2,36 @@ package app.appworks.school.stylish.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
-import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.data.CheckoutOrderResult
+import app.appworks.school.stylish.data.HomeItem
+import app.appworks.school.stylish.data.NativeSignInBody
+import app.appworks.school.stylish.data.NativeSignUpBody
+import app.appworks.school.stylish.data.OrderDetail
+import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.ProductListResult
+import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.data.User
+import app.appworks.school.stylish.data.UserSignInResult
+import app.appworks.school.stylish.data.UserSignUpResult
 import app.appworks.school.stylish.data.source.StylishDataSource
+import app.appworks.school.stylish.network.DataServerStylishApi
 import app.appworks.school.stylish.network.StylishApi
 import app.appworks.school.stylish.util.Logger
-import app.appworks.school.stylish.util.Util.getString
-import app.appworks.school.stylish.util.Util.isInternetConnected
+import app.appworks.school.stylish.util.Util
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Implementation of the Stylish source that from network.
- */
-object StylishRemoteDataSource : StylishDataSource {
+object DataServerStylishRemoteDataSource : StylishDataSource {
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getMarketingHots()
+            val listResult = DataServerStylishApi.retrofitService.getMarketingHots()
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -39,13 +45,14 @@ object StylishRemoteDataSource : StylishDataSource {
 
     override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getProductList(type = type, paging = paging)
+            val listResult = DataServerStylishApi.retrofitService.getProductList(type = type, paging = paging)
+            Log.i("elven test API","<getProductList> this api is call")
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -58,22 +65,22 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun getUserProfile(token: String): Result<User> {
-        Log.i("elven test profile","<getUserProfile> this WRONG api in old StylishRemoteDataSource is call")
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        Log.i("elven test profile","DataServerStylishRemoteDataSource <getUserProfile> this api is call ")
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getUserProfile(token)
-
+            val listResult = DataServerStylishApi.retrofitService.getUserProfile(token)
+            Log.i("elven test profile","<getUserProfile> this api is call")
             listResult.error?.let {
                 return Result.Fail(it)
             }
             listResult.user?.let {
                 return Result.Success(it)
             }
-            Result.Fail(getString(R.string.you_know_nothing))
+            Result.Fail(Util.getString(R.string.you_know_nothing))
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
@@ -82,8 +89,8 @@ object StylishRemoteDataSource : StylishDataSource {
 
     override suspend fun userSignIn(fbToken: String): Result<UserSignInResult> {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
@@ -102,13 +109,13 @@ object StylishRemoteDataSource : StylishDataSource {
 
     override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignIn(
+            val listResult = DataServerStylishApi.retrofitService.userSignIn(
                 NativeSignInBody(
                     email = email,
                     password = password
@@ -126,14 +133,14 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
-
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        Log.i("Elven login", "userSignUp API is called")
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignUp(
+            val listResult = DataServerStylishApi.retrofitService.userSignUp(
                 NativeSignUpBody(
                     name = name,
                     email = email,
@@ -156,8 +163,8 @@ object StylishRemoteDataSource : StylishDataSource {
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
         }
 
         return try {

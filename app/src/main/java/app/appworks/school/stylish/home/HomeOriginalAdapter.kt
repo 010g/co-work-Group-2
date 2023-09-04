@@ -1,30 +1,18 @@
 package app.appworks.school.stylish.home
 
-import android.app.Activity
-import android.app.Application
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.databinding.ItemHomeCollageBinding
 import app.appworks.school.stylish.databinding.ItemHomeFullBinding
 import app.appworks.school.stylish.databinding.ItemHomeTitleBinding
-import app.appworks.school.stylish.databinding.ViewholderFullSectionBinding
+import app.appworks.school.stylish.databinding.ItemHomeTitleOriginalBinding
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * [HomeItem], including computing diffs between lists.
- * @param onClickListener a lambda that takes the
- */
-class HomeAdapter(private val onClickListener: OnClickListener,val activity: Activity) :
+class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
@@ -35,18 +23,16 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
         fun onClick(product: Product) = clickListener(product)
     }
 
-    class TitleViewHolder(private var binding: ItemHomeTitleBinding,val activity: Activity) : RecyclerView.ViewHolder(binding.root) {
+    class TitleViewHolder(private var binding: ItemHomeTitleOriginalBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(title: String) {
 
             binding.title = title
-            binding.root.visibility = View.GONE
             binding.executePendingBindings()
-            activity.findViewById<TextView>(R.id.title_view).text = title
         }
     }
 
-    class FullProductViewHolder(private var binding: ViewholderFullSectionBinding) :
+    class FullProductViewHolder(private var binding: ItemHomeFullBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, onClickListener: OnClickListener) {
@@ -57,7 +43,7 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
         }
     }
 
-    class CollageProductViewHolder(private var binding: ViewholderFullSectionBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CollageProductViewHolder(private var binding: ItemHomeCollageBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product, onClickListener: OnClickListener) {
 
@@ -83,17 +69,17 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_TITLE -> TitleViewHolder(
-                ItemHomeTitleBinding.inflate(
+                ItemHomeTitleOriginalBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
-                ),activity
+                )
             )
             ITEM_VIEW_TYPE_PRODUCT_FULL -> FullProductViewHolder(
-                ViewholderFullSectionBinding.inflate(
+                ItemHomeFullBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
             ITEM_VIEW_TYPE_PRODUCT_COLLAGE -> CollageProductViewHolder(
-                ViewholderFullSectionBinding.inflate(
+                ItemHomeCollageBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )

@@ -1,6 +1,8 @@
 package app.appworks.school.stylish.network
 
 import androidx.annotation.CallSuper
+import app.appworks.school.stylish.network.StylishApiService
+import app.appworks.school.stylish.network.moshi
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before

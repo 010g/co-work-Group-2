@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -76,6 +77,7 @@ class ProfileViewModel(
 
         if (user.value == null) {
             UserManager.userToken?.let {
+                Log.i("elven test profile","profile viewModel init: $it")
                 getUserProfile(it)
             }
         }
@@ -87,20 +89,24 @@ class ProfileViewModel(
      */
     private fun getUserProfile(token: String) {
 
+        // TODO still not get API from the dataServer
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
             val result = stylishRepository.getUserProfile(token)
+            Log.i("elven test profile","$result")
 
             _user.value = when (result) {
 
                 is Result.Success -> {
+                    Log.i("elven test profile","Success")
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     result.data
                 }
                 is Result.Fail -> {
+                    Log.i("elven test profile","Fail")
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                     if (result.error.contains("Invalid Access Token", true)) {
@@ -109,11 +115,13 @@ class ProfileViewModel(
                     null
                 }
                 is Result.Error -> {
+                    Log.i("elven test profile","Error")
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
                 else -> {
+                    Log.i("elven test profile","else")
                     _error.value = getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null

@@ -7,6 +7,7 @@ import app.appworks.school.stylish.data.source.StylishDataSource
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.data.source.local.StylishDatabase
 import app.appworks.school.stylish.data.source.local.StylishLocalDataSource
+import app.appworks.school.stylish.data.source.remote.DataServerStylishRemoteDataSource
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 
 /**
@@ -28,7 +29,8 @@ object ServiceLocator {
 
     private fun createStylishRepository(context: Context): StylishRepository {
         return DefaultStylishRepository(
-            StylishRemoteDataSource,
+//            StylishRemoteDataSource,
+            DataServerStylishRemoteDataSource,
             createLocalDataSource(context)
         )
     }

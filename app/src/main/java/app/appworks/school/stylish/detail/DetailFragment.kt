@@ -83,6 +83,16 @@ class DetailFragment : Fragment() {
             }
         )
 
+        viewModel.isFavorite.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.buttonRemoveFavorite.visibility = View.VISIBLE
+                binding.buttonAddFavorite.visibility = View.GONE
+            } else {
+                binding.buttonRemoveFavorite.visibility = View.GONE
+                binding.buttonAddFavorite.visibility = View.VISIBLE
+            }
+        })
+
         return binding.root
     }
 

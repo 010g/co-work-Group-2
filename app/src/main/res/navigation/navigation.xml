@@ -19,6 +19,13 @@
     </fragment>
 
     <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="app.appworks.school.stylish.favorite.FavoriteFragment"
+            android:label="FavoriteFragment"
+            tools:layout="@layout/fragment_favorite">
+    </fragment>
+
+    <fragment
             android:id="@+id/cartFragment"
             android:name="app.appworks.school.stylish.cart.CartFragment"
             android:label="CartFragment"
@@ -68,6 +75,13 @@
             tools:layout="@layout/dialog_login">
     </dialog>
 
+    <dialog
+            android:id="@+id/registerDialog"
+            android:name="app.appworks.school.stylish.login.RegisterDialog"
+            android:label="RegisterDialog"
+            tools:layout="@layout/dialog_register">
+    </dialog>
+
     <dialog android:id="@+id/messageDialog"
             android:name="app.appworks.school.stylish.dialog.MessageDialog"
             android:label="MessageDialog"
@@ -94,6 +108,9 @@
     <action android:id="@+id/navigate_to_catalog_fragment" app:destination="@id/catalogFragment"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
+    <action android:id="@+id/navigate_to_favorite_fragment" app:destination="@id/favoriteFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
     <action android:id="@+id/navigate_to_cart_fragment" app:destination="@id/cartFragment"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
@@ -105,6 +122,7 @@
             app:popUpToInclusive="true"/>
     <action android:id="@+id/navigate_to_detail_fragment" app:destination="@id/detailFragment"/>
     <action android:id="@+id/navigate_to_login_dialog" app:destination="@id/loginDialog"/>
+    <action android:id="@+id/navigate_to_register_dialog" app:destination="@id/registerDialog"/>
     <action android:id="@+id/navigate_to_message_dialog" app:destination="@id/messageDialog"/>
     <action android:id="@+id/navigate_to_add2cart_dialog" app:destination="@id/add2cartDialog"/>
 </navigation>

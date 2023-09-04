@@ -11,6 +11,43 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             tools:context=".detail.DetailFragment">
+        <ImageButton
+                android:id="@+id/button_detail_close"
+                android:layout_width="@dimen/size_detail_close"
+                android:layout_height="@dimen/size_detail_close"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:elevation="5dp"
+                android:background="@drawable/ic_detail_close"
+                android:onClick="@{() -> viewModel.leaveDetail()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+                android:id="@+id/button_add_favorite"
+                android:layout_width="@dimen/size_detail_close"
+                android:layout_height="@dimen/size_detail_close"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                android:background="@drawable/button_favorite_border_white_36"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.addToFavorite()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+                android:id="@+id/button_remove_favorite"
+                android:layout_width="@dimen/size_detail_close"
+                android:layout_height="@dimen/size_detail_close"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_favorite_36"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.removeFromFavorite()}"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
                 android:id="@+id/recycler_detail"
@@ -364,17 +401,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/view_detail_note_separation"
                         app:layout_constraintTop_toTopOf="@+id/text_detail_note_title" />
-
-                <ImageButton
-                        android:id="@+id/button_detail_close"
-                        android:layout_width="@dimen/size_detail_close"
-                        android:layout_height="@dimen/size_detail_close"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/ic_detail_close"
-                        android:onClick="@{() -> viewModel.leaveDetail()}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

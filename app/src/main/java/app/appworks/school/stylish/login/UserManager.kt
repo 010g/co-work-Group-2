@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.login
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +34,7 @@ object UserManager {
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
                         .remove(USER_TOKEN)
                         .apply()
+                    Log.i("elven test profile","Inside UserManager's setValue result if value null: $value")
                     null
                 }
                 else -> {
@@ -40,6 +42,7 @@ object UserManager {
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
                         .putString(USER_TOKEN, value)
                         .apply()
+                    Log.i("elven test profile","Inside UserManager's setValue result if value else: $value")
                     value
                 }
             }
