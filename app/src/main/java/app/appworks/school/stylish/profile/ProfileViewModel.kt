@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.ABTestUUID
+import app.appworks.school.stylish.ABTestVersion
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.component.ProfileAvatarOutlineProvider
 import app.appworks.school.stylish.data.Result
@@ -127,6 +131,12 @@ class ProfileViewModel(
                     null
                 }
             }
+        }
+    }
+
+    fun sendUserTrackingFromProfilePageToOrderHistoryPage(){
+        viewModelScope.launch {
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "ProfilePage", actionTo = "OrderHistoryPage", source = ABTestVersion.version )
         }
     }
 

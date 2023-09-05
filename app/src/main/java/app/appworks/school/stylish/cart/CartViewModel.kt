@@ -3,6 +3,9 @@ package app.appworks.school.stylish.cart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.ABTestUUID
+import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.util.Logger
@@ -112,5 +115,11 @@ class CartViewModel(private val stylishRepository: StylishRepository) : ViewMode
     fun decreaseAmount(product: Product) {
         product.amount = product.amount?.minus(1)
         updateProduct(product)
+    }
+
+    fun sendUserTrackingFromCartPageToPaymentPage(){
+        viewModelScope.launch {
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "CartPage", actionTo = "PaymentPage", source = ABTestVersion.version )
+        }
     }
 }

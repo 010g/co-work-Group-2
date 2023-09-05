@@ -58,6 +58,7 @@ class ProfileFragment : Fragment() {
         binding.textProfileSeeAll.setOnClickListener {
             // Navigate to the OrderHistoryFragment when the TextView is clicked
             findNavController().navigate(ProfileFragmentDirections.navigateToOrderHistoryFragment())
+            viewModel.sendUserTrackingFromProfilePageToOrderHistoryPage()
         }
 
         binding.buttonProfileStarred.setOnClickListener {

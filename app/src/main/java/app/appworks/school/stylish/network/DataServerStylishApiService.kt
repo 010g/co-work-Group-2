@@ -116,7 +116,7 @@ interface DataServerStylishApiService {
     suspend fun getUUID(): UUIDResult?
 
     // send user tracking behavior API
-    @GET("tracking")
+    @GET("user/tracking")
     suspend fun sendUserTracking(
         @Query("uuid") uuid: String,
         @Query("event_type") eventType: String,

@@ -43,6 +43,7 @@ class CartFragment : Fragment() {
                 it?.let {
                     findNavController().navigate(CartFragmentDirections.navigateToPaymentFragment())
                     viewModel.onPaymentNavigated()
+                    viewModel.sendUserTrackingFromCartPageToPaymentPage()
                 }
             }
         )

@@ -1,6 +1,8 @@
 package app.appworks.school.stylish.payment
 
 import androidx.lifecycle.*
+import app.appworks.school.stylish.ABTestUUID
+import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
@@ -332,5 +334,11 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         const val NO_ONE_KNOWS = 0x21
 
         const val CHECKOUT_FAIL = 0x22
+    }
+
+    fun sendUserTrackingFromPaymentPageToCheckoutSuccessFragment(){
+        viewModelScope.launch {
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "PaymentPage", actionTo = "CheckoutSuccessFragment", source = ABTestVersion.version )
+        }
     }
 }
