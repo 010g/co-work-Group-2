@@ -228,7 +228,7 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun getUUID(): UUIDResult? {
-        Log.i("Elven login", "<getUUID> API is called")
+        Log.i("Elven login", "Retrofit : <getUUID> API is called")
 
         return try {
             // this will run on a thread managed by Retrofit
@@ -248,7 +248,7 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
         actionTo: String,
         source: String
     ) {
-        Log.i("elven test API", "<sendUserTracking> API is call")
+        Log.i("elven login", "<sendUserTracking> API is call")
         try {
             DataServerStylishApi.retrofitService.sendUserTracking(uuid,
                 eventType,

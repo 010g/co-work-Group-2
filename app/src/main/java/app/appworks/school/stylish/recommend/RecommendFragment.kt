@@ -36,7 +36,7 @@ class RecommendFragment : Fragment() {
 
         val adapter = RecommendAdapter(RecommendAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        }, viewModel.sendUserTrackingFromRecommendationPageToProductDetailPage)
         binding.itemRecommendRecyclerview.adapter = adapter
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.itemRecommendRecyclerview)
@@ -64,13 +64,6 @@ class RecommendFragment : Fragment() {
 
         return binding.root
     }
-
-
-
-
-
-
-
 
 
 //    override fun onCreateView(

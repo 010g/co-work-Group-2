@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,26 @@ class DetailFragment : Fragment() {
             Observer {
                 it?.let {
                     if (it) findNavController().popBackStack()
+
+                    when(findNavController().currentDestination!!.displayName){
+                        "app.appworks.school.stylish:id/homeFragment" -> {
+                            viewModel.sendUserTrackingFromDetailPageToLastPage("HomePage")
+                            Log.i("Elven login", "homeFragment")
+                        }
+                        "app.appworks.school.stylish:id/catalogFragment" ->{
+                            viewModel.sendUserTrackingFromDetailPageToLastPage("CatalogPage")
+                            Log.i("Elven login", "catalogFragment")
+                        }
+                        "app.appworks.school.stylish:id/favoriteFragment" -> {
+                            viewModel.sendUserTrackingFromDetailPageToLastPage("FavoritePage")
+                            Log.i("Elven login", "favoriteFragment")
+                        }
+                        "app.appworks.school.stylish:id/recommendFragment" -> {
+                            viewModel.sendUserTrackingFromDetailPageToLastPage("RecommendationPage")
+                            Log.i("Elven login", "recommendFragment")
+                        }
+                    }
+//                    Log.i("Elven login", "actionTo = ${findNavController().currentDestination!!.displayName}")
                 }
             }
         )

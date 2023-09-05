@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.ABTestUUID
+import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.Color
@@ -62,6 +64,17 @@ class RecommendViewModel(private val stylishRepository: StylishRepository) : Vie
             } catch (e:Exception){
                 Log.i("elven test API", "Fail to show Favorite list")
             }
+        }
+    }
+
+    val sendUserTrackingFromRecommendationPageToProductDetailPage = fun(productId : Long){
+        Log.i("Elven login", "RecommendationViewModel: sendUserTrackingFromRecommendationPageToProductDetailPage API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            Log.i("Elven login", "actionTo = $productId")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "RecommendationPage", actionTo = "$productId", source = ABTestVersion.version )
+            Log.i("Elven login", "RecommendationViewModel: sendUserTrackingFromRecommendationPageToProductDetailPage API finished")
         }
     }
 

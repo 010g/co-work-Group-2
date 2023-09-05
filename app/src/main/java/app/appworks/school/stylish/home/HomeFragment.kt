@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         if (getUuidWhenFirstLaunch == "") {
             Log.i("elven test API", "Open this App first time, so let's get UUID")
             viewModel.getUUID()
-            viewModel.getABVersion()
+//            viewModel.getABVersion()
             Log.i("elven test API", "Open this App first time, successfully got UUID")
         } else {
             Log.i("elven test API", "Open this App after 1st time, let's get from sharePreference")
@@ -95,6 +95,19 @@ class HomeFragment : Fragment() {
                 binding.constraint2.visibility = View.GONE
             }
 
+            if (ABTestVersion.limitForHomePageFirstUserTrackingApiCall == 1) {
+                Log.i("Elven login", "--------------------------------------------------")
+                Log.i(
+                    "Elven login",
+                    "HomeFragment: sendUserTrackingWhenUserLoginFirstTime API is ready to call"
+                )
+                viewModel.sendUserTrackingWhenUserLoginFirstTime()
+                ABTestVersion.limitForHomePageFirstUserTrackingApiCall++
+                Log.i(
+                    "Elven login",
+                    "ABTestVersion.limitForHomePageFirstUserTrackingApiCall = ${ABTestVersion.limitForHomePageFirstUserTrackingApiCall}"
+                )
+            }
         })
         //-----//
 
@@ -111,7 +124,8 @@ class HomeFragment : Fragment() {
         binding.recyclerHome.adapter = HomeAdapter(
             HomeAdapter.OnClickListener {
                 viewModel.navigateToDetail(it)
-            }, activity
+            }, activity,
+            viewModel.sendUserTrackingFromHomePageToProductDetailPage
         )
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.recyclerHome)
@@ -120,7 +134,8 @@ class HomeFragment : Fragment() {
         binding.recyclerHome2.adapter = HomeOriginalAdapter(
             HomeOriginalAdapter.OnClickListener {
                 viewModel.navigateToDetail(it)
-            }
+            },
+            viewModel.sendUserTrackingFromHomePageToProductDetailPage
         )
         //--v--//
 
@@ -167,10 +182,6 @@ class HomeFragment : Fragment() {
             binding.constraint1.visibility = View.VISIBLE
             binding.constraint2.visibility = View.GONE
         }
-
-        Log.i("Elven login", "--------------------------------------------------")
-        Log.i("Elven login", "HomeFragment: sendUserTrackingWhenUserLoginFirstTime API is ready to call")
-        viewModel.sendUserTrackingWhenUserLoginFirstTime()
 
         return binding.root
     }

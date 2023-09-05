@@ -24,7 +24,11 @@ import app.appworks.school.stylish.databinding.ViewholderFullSectionBinding
  * [HomeItem], including computing diffs between lists.
  * @param onClickListener a lambda that takes the
  */
-class HomeAdapter(private val onClickListener: OnClickListener,val activity: Activity) :
+class HomeAdapter(
+    private val onClickListener: OnClickListener,
+    val activity: Activity,
+    private val sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
@@ -35,7 +39,8 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
         fun onClick(product: Product) = clickListener(product)
     }
 
-    class TitleViewHolder(private var binding: ItemHomeTitleBinding,val activity: Activity) : RecyclerView.ViewHolder(binding.root) {
+    class TitleViewHolder(private var binding: ItemHomeTitleBinding, val activity: Activity) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(title: String) {
 
@@ -49,20 +54,35 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
     class FullProductViewHolder(private var binding: ViewholderFullSectionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, onClickListener: OnClickListener) {
+        fun bind(
+            product: Product,
+            onClickListener: OnClickListener,
+            sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+        ) {
 
             binding.product = product
-            binding.root.setOnClickListener { onClickListener.onClick(product) }
+            binding.root.setOnClickListener {
+                onClickListener.onClick(product)
+                sendUserTrackingFromHomePageToProductDetailPage(product.id)
+            }
             binding.executePendingBindings()
         }
     }
 
-    class CollageProductViewHolder(private var binding: ViewholderFullSectionBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CollageProductViewHolder(private var binding: ViewholderFullSectionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, onClickListener: OnClickListener) {
+        fun bind(
+            product: Product,
+            onClickListener: OnClickListener,
+            sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+        ) {
 
             binding.product = product
-            binding.root.setOnClickListener { onClickListener.onClick(product) }
+            binding.root.setOnClickListener {
+                onClickListener.onClick(product)
+                sendUserTrackingFromHomePageToProductDetailPage(product.id)
+            }
             binding.executePendingBindings()
         }
     }
@@ -71,6 +91,7 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
         override fun areItemsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
             return oldItem === newItem
         }
+
         override fun areContentsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -85,18 +106,21 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
             ITEM_VIEW_TYPE_TITLE -> TitleViewHolder(
                 ItemHomeTitleBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
-                ),activity
+                ), activity
             )
+
             ITEM_VIEW_TYPE_PRODUCT_FULL -> FullProductViewHolder(
                 ViewholderFullSectionBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
+
             ITEM_VIEW_TYPE_PRODUCT_COLLAGE -> CollageProductViewHolder(
                 ViewholderFullSectionBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
+
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -110,11 +134,19 @@ class HomeAdapter(private val onClickListener: OnClickListener,val activity: Act
             is TitleViewHolder -> {
                 holder.bind((getItem(position) as HomeItem.Title).title)
             }
+
             is FullProductViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.FullProduct).product, onClickListener)
+                holder.bind(
+                    (getItem(position) as HomeItem.FullProduct).product, onClickListener,
+                    sendUserTrackingFromHomePageToProductDetailPage
+                )
             }
+
             is CollageProductViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.CollageProduct).product, onClickListener)
+                holder.bind(
+                    (getItem(position) as HomeItem.CollageProduct).product, onClickListener,
+                    sendUserTrackingFromHomePageToProductDetailPage
+                )
             }
         }
     }

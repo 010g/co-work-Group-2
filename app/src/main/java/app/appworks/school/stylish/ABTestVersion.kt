@@ -14,6 +14,8 @@ object ABTestVersion {
     var version = ""
 
     var time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(System.currentTimeMillis()))
+
+    var limitForHomePageFirstUserTrackingApiCall = 1
 }
 
 object  ABTestUUID{

@@ -63,8 +63,7 @@ class ProfileFragment : Fragment() {
         binding.buttonProfileStarred.setOnClickListener {
             this.findNavController()
                 .navigate(R.id.navigate_to_recommendFragment)
-
-
+            viewModel.sendUserTrackingFromProfilePageToRecommendationPage()
         }
         return binding.root
 //    private fun init() {
