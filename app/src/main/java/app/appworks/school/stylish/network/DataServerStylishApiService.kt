@@ -9,6 +9,7 @@ import app.appworks.school.stylish.data.OrderHistoryResult
 import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.SingleUserRecommendationListResult
 import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.UserProfileResult
 import app.appworks.school.stylish.data.UserSignInResult
@@ -116,7 +117,7 @@ interface DataServerStylishApiService {
     suspend fun getUUID(): UUIDResult?
 
     // send user tracking behavior API
-    @GET("tracking")
+    @GET("user/tracking")
     suspend fun sendUserTracking(
         @Query("uuid") uuid: String,
         @Query("event_type") eventType: String,
@@ -125,6 +126,10 @@ interface DataServerStylishApiService {
         @Query("source") source: String
     )
 
+    @GET("recommendation")
+    suspend fun getRecommendation(
+        @Query("user_id") userId: String,
+    ) : SingleUserRecommendationListResult
 }
 
 object DataServerStylishApi {

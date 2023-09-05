@@ -168,6 +168,10 @@ class HomeFragment : Fragment() {
             binding.constraint2.visibility = View.GONE
         }
 
+        Log.i("Elven login", "--------------------------------------------------")
+        Log.i("Elven login", "HomeFragment: sendUserTrackingWhenUserLoginFirstTime API is ready to call")
+        viewModel.sendUserTrackingWhenUserLoginFirstTime()
+
         return binding.root
     }
 

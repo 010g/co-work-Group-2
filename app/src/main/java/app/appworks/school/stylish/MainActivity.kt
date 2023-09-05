@@ -254,6 +254,7 @@ class MainActivity : BaseActivity() {
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
                 R.id.orderHistoryFragment -> CurrentFragmentType.OrderHistory
                 R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
+                R.id.recommendFragment -> CurrentFragmentType.RECOMMEND
                 else -> viewModel.currentFragmentType.value
             }
         }

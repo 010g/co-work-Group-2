@@ -13,6 +13,7 @@ import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.SingleUserRecommendationListResult
 import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.data.UserSignInResult
@@ -247,13 +248,35 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
         actionTo: String,
         source: String
     ) {
-        Log.i("elven test API", "<deleteProductFromFavoriteList> API is call")
+        Log.i("elven test API", "<sendUserTracking> API is call")
         try {
             DataServerStylishApi.retrofitService.sendUserTracking(uuid,
                 eventType,
                 actionFrom,
                 actionTo,
                 source)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getRecommendation(userId: String): Result<SingleUserRecommendationListResult> {
+        Log.i("Elven login", "<getRecommendation> API is called")
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = DataServerStylishApi.retrofitService.getRecommendation(
+                userId
+            )
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)

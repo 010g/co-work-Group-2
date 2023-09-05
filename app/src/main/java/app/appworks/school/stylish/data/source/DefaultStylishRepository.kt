@@ -87,6 +87,10 @@ class DefaultStylishRepository(
         )
     }
 
+    override suspend fun getRecommendation(userId: String): Result<SingleUserRecommendationListResult> {
+        return stylishRemoteDataSource.getRecommendation(userId)
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail
