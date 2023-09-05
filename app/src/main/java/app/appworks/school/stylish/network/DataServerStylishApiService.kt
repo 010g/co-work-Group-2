@@ -108,11 +108,23 @@ interface DataServerStylishApiService {
     // get user favorite list
     @GET("product/favorite/get_fav")
     suspend fun getUserFavoriteList(
-        @Query("user_id") userId: String? = null) : SingleUserProductFavoriteListResult
+        @Query("user_id") userId: String? = null
+    ): SingleUserProductFavoriteListResult
 
     // get user AB test own UUID
     @GET("uuid")
-    suspend fun getUUID() : UUIDResult?
+    suspend fun getUUID(): UUIDResult?
+
+    // send user tracking behavior API
+    @GET("tracking")
+    suspend fun sendUserTracking(
+        @Query("uuid") uuid: String,
+        @Query("event_type") eventType: String,
+        @Query("action_from") actionFrom: String,
+        @Query("action_to") actionTo: String,
+        @Query("source") source: String
+    )
+
 }
 
 object DataServerStylishApi {

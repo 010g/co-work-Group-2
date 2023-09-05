@@ -240,6 +240,26 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override suspend fun sendUserTracking(
+        uuid: String,
+        eventType: String,
+        actionFrom: String,
+        actionTo: String,
+        source: String
+    ) {
+        Log.i("elven test API", "<deleteProductFromFavoriteList> API is call")
+        try {
+            DataServerStylishApi.retrofitService.sendUserTracking(uuid,
+                eventType,
+                actionFrom,
+                actionTo,
+                source)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

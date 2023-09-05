@@ -28,7 +28,11 @@ class DefaultStylishRepository(
         paging: String?,
         userId: Int?
     ): Result<ProductFavoriteListResult> {
-        return stylishRemoteDataSource.getProductListWithFavorite(type = type, paging = paging, userId = userId)
+        return stylishRemoteDataSource.getProductListWithFavorite(
+            type = type,
+            paging = paging,
+            userId = userId
+        )
     }
 
     override suspend fun getUserProfile(token: String): Result<User> {
@@ -43,7 +47,11 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.userSignIn(email, password)
     }
 
-    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+    override suspend fun userSignUp(
+        name: String,
+        email: String,
+        password: String
+    ): Result<UserSignUpResult> {
         return stylishRemoteDataSource.userSignUp(name, email, password)
     }
 
@@ -61,6 +69,22 @@ class DefaultStylishRepository(
 
     override suspend fun getUUID(): UUIDResult? {
         return stylishRemoteDataSource.getUUID()
+    }
+
+    override suspend fun sendUserTracking(
+        uuid: String,
+        eventType: String,
+        actionFrom: String,
+        actionTo: String,
+        source: String
+    ) {
+        return stylishRemoteDataSource.sendUserTracking(
+            uuid,
+            eventType,
+            actionFrom,
+            actionTo,
+            source
+        )
     }
 
     override suspend fun checkoutOrder(

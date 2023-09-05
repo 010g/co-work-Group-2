@@ -65,6 +65,16 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("Not yet implemented")
     }
 
+    override suspend fun sendUserTracking(
+        uuid: String,
+        eventType: String,
+        actionFrom: String,
+        actionTo: String,
+        source: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

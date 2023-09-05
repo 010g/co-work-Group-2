@@ -33,9 +33,13 @@ interface StylishRepository {
 
     suspend fun deleteProductFromFavoriteList(userId: String, productId: Long)
 
-    suspend fun getUserFavoriteList(userId: String) : Result<SingleUserProductFavoriteListResult>
+    suspend fun getUserFavoriteList(userId: String): Result<SingleUserProductFavoriteListResult>
 
-    suspend fun getUUID() : UUIDResult?
+    suspend fun getUUID(): UUIDResult?
+
+    suspend fun sendUserTracking(
+        uuid: String, eventType: String, actionFrom: String, actionTo: String, source: String
+    )
 
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
