@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="viewModel" type="app.appworks.school.stylish.favorite.FavoriteViewModel"/>
+        <variable name="viewModel"
+                type="app.appworks.school.stylish.favorite.FavoriteViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

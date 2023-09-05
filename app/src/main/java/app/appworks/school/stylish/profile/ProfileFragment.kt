@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.MainViewModel
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.FragmentProfileBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
@@ -59,9 +60,13 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfileFragmentDirections.navigateToOrderHistoryFragment())
         }
 
-        return binding.root
-    }
+        binding.buttonProfileStarred.setOnClickListener {
+            this.findNavController()
+                .navigate(R.id.navigate_to_recommendFragment)
 
+
+        }
+        return binding.root
 //    private fun init() {
 //        activity?.let {
 //            ViewModelProviders.of(it).get(MainViewModel::class.java).apply {
@@ -69,4 +74,5 @@ class ProfileFragment : Fragment() {
 //            }
 //        }
 //    }
+    }
 }
