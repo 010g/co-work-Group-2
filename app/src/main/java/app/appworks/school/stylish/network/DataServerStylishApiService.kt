@@ -7,6 +7,7 @@ import app.appworks.school.stylish.data.OrderHistoryResult
 import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.UserProfileResult
 import app.appworks.school.stylish.data.UserSignInResult
 import app.appworks.school.stylish.data.UserSignUpResult
@@ -100,6 +101,9 @@ interface DataServerStylishApiService {
     suspend fun getUserFavoriteList(
         @Query("user_id") userId: String? = null) : SingleUserProductFavoriteListResult
 
+    // get user AB test own UUID
+    @GET("uuid")
+    suspend fun getUUID() : UUIDResult?
 }
 
 object DataServerStylishApi {

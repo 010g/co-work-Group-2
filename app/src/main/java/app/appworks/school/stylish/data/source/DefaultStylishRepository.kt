@@ -59,6 +59,10 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.getUserFavoriteList(userId)
     }
 
+    override suspend fun getUUID(): UUIDResult? {
+        return stylishRemoteDataSource.getUUID()
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

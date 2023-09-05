@@ -30,6 +30,8 @@ interface StylishDataSource {
 
     suspend fun getUserFavoriteList(userId: String) : Result<SingleUserProductFavoriteListResult>
 
+    suspend fun getUUID() : UUIDResult?
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>

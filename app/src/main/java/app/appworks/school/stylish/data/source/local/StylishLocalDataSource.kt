@@ -61,6 +61,10 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUUID(): UUIDResult? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

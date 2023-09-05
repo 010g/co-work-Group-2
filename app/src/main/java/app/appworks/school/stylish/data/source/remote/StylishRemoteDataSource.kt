@@ -187,6 +187,10 @@ object StylishRemoteDataSource : StylishDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUUID(): UUIDResult? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

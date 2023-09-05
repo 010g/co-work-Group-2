@@ -2,7 +2,6 @@ package app.appworks.school.stylish.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.CheckoutOrderResult
 import app.appworks.school.stylish.data.HomeItem
@@ -14,6 +13,7 @@ import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.data.UserSignInResult
 import app.appworks.school.stylish.data.UserSignUpResult
@@ -223,6 +223,20 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
+        }
+    }
+
+    override suspend fun getUUID(): UUIDResult? {
+        Log.i("Elven login", "<getUUID> API is called")
+
+        return try {
+            // this will run on a thread managed by Retrofit
+
+            return DataServerStylishApi.retrofitService.getUUID()
+
+        } catch (e: Exception) {
+            Log.i("Elven login", "Exception : ${e}")
+            return null
         }
     }
 

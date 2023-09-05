@@ -15,11 +15,15 @@ import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -27,9 +31,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
+import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.home.HomeFragment
+import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
@@ -67,7 +74,7 @@ class MainActivity : BaseActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        Log.i("elven test Time","${ABTestVersion.time}")
+        Log.i("elven test Time", "${ABTestVersion.time}")
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val slideUp = ObjectAnimator.ofFloat(
@@ -92,14 +99,25 @@ class MainActivity : BaseActivity() {
             slideUp.start()
         }
 
-        val sharePreference= applicationContext.getSharedPreferences("for_native_login_user_info",
-            Context.MODE_PRIVATE)
+        val sharePreference = applicationContext.getSharedPreferences(
+            "for_native_login_user_info",
+            Context.MODE_PRIVATE
+        )
 
-        NativeLoginResult.nativeId = sharePreference.getInt("userId",-1)
-        NativeLoginResult.nativeName = sharePreference.getString("userName","").toString()
-        NativeLoginResult.nativeEmail = sharePreference.getString("userEmail","").toString()
-        NativeLoginResult.nativePicture = sharePreference.getString("userPicture","").toString()
-        NativeLoginResult.nativeProvider = sharePreference.getString("userProvider","").toString()
+//        val getVersionWhenFirstLaunch = applicationContext.getSharedPreferences(
+//            "for_user_abtest",
+//            Context.MODE_PRIVATE
+//        ).getString("version", "")
+//
+//        ABTestVersion.version = getVersionWhenFirstLaunch!!
+//
+//        Log.i("elven test API", "getVersionWhenFirstLaunch: $getVersionWhenFirstLaunch")
+
+        NativeLoginResult.nativeId = sharePreference.getInt("userId", -1)
+        NativeLoginResult.nativeName = sharePreference.getString("userName", "").toString()
+        NativeLoginResult.nativeEmail = sharePreference.getString("userEmail", "").toString()
+        NativeLoginResult.nativePicture = sharePreference.getString("userPicture", "").toString()
+        NativeLoginResult.nativeProvider = sharePreference.getString("userProvider", "").toString()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
@@ -171,21 +189,25 @@ class MainActivity : BaseActivity() {
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.navigation_catalog -> {
 
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.navigation_favorite -> {
 
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToFavoriteFragment())
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.navigation_cart -> {
 
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.navigation_profile -> {
 
                     when (viewModel.isLoggedIn) {
@@ -196,6 +218,7 @@ class MainActivity : BaseActivity() {
                                 )
                             )
                         }
+
                         false -> {
                             findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
                             return@setOnItemSelectedListener false
@@ -230,7 +253,7 @@ class MainActivity : BaseActivity() {
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
                 R.id.orderHistoryFragment -> CurrentFragmentType.OrderHistory
-                                R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
+                R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -258,15 +281,24 @@ class MainActivity : BaseActivity() {
                 cutoutHeight > 0 -> {
                     Logger.i("cutoutHeight: ${cutoutHeight}px/${cutoutHeight / dpiMultiple}dp")
 
-                    val oriStatusBarHeight = resources.getDimensionPixelSize(R.dimen.height_status_bar_origin)
+                    val oriStatusBarHeight =
+                        resources.getDimensionPixelSize(R.dimen.height_status_bar_origin)
 
                     binding.toolbar.setPadding(0, oriStatusBarHeight, 0, 0)
-                    val layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT)
+                    val layoutParams = Toolbar.LayoutParams(
+                        Toolbar.LayoutParams.WRAP_CONTENT,
+                        Toolbar.LayoutParams.WRAP_CONTENT
+                    )
                     layoutParams.gravity = Gravity.CENTER
 
                     when (Build.MODEL) {
-                        "Pixel 5" -> { Logger.i("Build.MODEL is ${Build.MODEL}") }
-                        else -> { layoutParams.topMargin = statusBarHeight - oriStatusBarHeight }
+                        "Pixel 5" -> {
+                            Logger.i("Build.MODEL is ${Build.MODEL}")
+                        }
+
+                        else -> {
+                            layoutParams.topMargin = statusBarHeight - oriStatusBarHeight
+                        }
                     }
                     binding.imageToolbarLogo.layoutParams = layoutParams
                     binding.textToolbarTitle.layoutParams = layoutParams
@@ -293,7 +325,11 @@ class MainActivity : BaseActivity() {
         binding.drawerLayout.clipToPadding = false
 
         actionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         ) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
@@ -302,6 +338,7 @@ class MainActivity : BaseActivity() {
                     true -> {
                         viewModel.checkUser()
                     }
+
                     else -> {
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
                         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
