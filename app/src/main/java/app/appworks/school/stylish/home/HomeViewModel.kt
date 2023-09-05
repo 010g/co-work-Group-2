@@ -1,8 +1,11 @@
 package app.appworks.school.stylish.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
@@ -23,10 +26,23 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
+//    val _ABTestVersion = MutableLiveData<String>()
+//
+//    val ABTestVersionx: LiveData<String>
+//        get() = _ABTestVersion
+
     private val _homeItems = MutableLiveData<List<HomeItem>>()
 
     val homeItems: LiveData<List<HomeItem>>
         get() = _homeItems
+
+    private val _UUID = MutableLiveData<String?>()
+    val UUID: LiveData<String?>
+        get() = _UUID
+
+    private val _ABVersion = MutableLiveData<String?>()
+    val ABVersion: LiveData<String?>
+        get() = _ABVersion
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -127,5 +143,23 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
     fun onDetailNavigated() {
         _navigateToDetail.value = null
+    }
+
+    fun getUUID(){
+        viewModelScope.launch {
+            try {
+                val result = stylishRepository.getUUID()
+                _UUID.value = result?.uuid
+                _ABVersion.value = result?.source
+                Log.i("elven test API", "Just call getUUID all done")
+            } catch (e:Exception){
+                Log.i("elven test API", "call getUUID fail")
+            }
+        }
+    }
+
+    fun getABVersion(){
+        Log.i("elven test API", "call getABVersion()")
+        _ABVersion.value = ABTestVersion.version
     }
 }

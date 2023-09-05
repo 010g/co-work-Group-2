@@ -8,9 +8,6 @@ object FBLoginResult {
 
 object NativeLoginResult{
     var nativeId : Int? = -1
-        set(value) {
-            field = value
-        }
     var nativeName : String = ""
     var nativeEmail : String = ""
     var nativePicture : String? = ""

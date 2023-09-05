@@ -14,6 +14,8 @@ interface StylishDataSource {
 
     suspend fun getProductList(type: String, paging: String? = null): Result<ProductListResult>
 
+    suspend fun getProductListWithFavorite (type: String, paging: String? = null,userId : Int?): Result<ProductFavoriteListResult>
+
     suspend fun getUserProfile(token: String): Result<User>
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
@@ -21,6 +23,14 @@ interface StylishDataSource {
     suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
 
     suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+
+    suspend fun insertProductToFavoriteList(userId: String, productId: Long)
+
+    suspend fun deleteProductFromFavoriteList(userId: String, productId: Long)
+
+    suspend fun getUserFavoriteList(userId: String) : Result<SingleUserProductFavoriteListResult>
+
+    suspend fun getUUID() : UUIDResult?
 
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 

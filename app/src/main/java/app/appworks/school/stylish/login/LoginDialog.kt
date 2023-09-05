@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -94,6 +95,33 @@ class LoginDialog : AppCompatDialogFragment() {
         binding.buttonRegisterNative.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToRegisterDialog())
         }
+
+        viewModel.forNativeLoginResultId.observe(viewLifecycleOwner, Observer {
+            val sharedPreferences = context?.getSharedPreferences("for_native_login_user_info", Context.MODE_PRIVATE)
+            sharedPreferences?.edit()?.putInt("userId", it!!)?.apply()
+
+        })
+
+        viewModel.forNativeLoginResultName.observe(viewLifecycleOwner, Observer {
+            val sharedPreferences = context?.getSharedPreferences("for_native_login_user_info", Context.MODE_PRIVATE)
+            sharedPreferences?.edit()?.putString("userName", it)?.apply()
+        })
+
+        viewModel.forNativeLoginResultEmail.observe(viewLifecycleOwner, Observer {
+            val sharedPreferences = context?.getSharedPreferences("for_native_login_user_info", Context.MODE_PRIVATE)
+            sharedPreferences?.edit()?.putString("userEmail", it)?.apply()
+        })
+
+        viewModel.forNativeLoginResultPicture.observe(viewLifecycleOwner, Observer {
+            val sharedPreferences = context?.getSharedPreferences("for_native_login_user_info", Context.MODE_PRIVATE)
+            sharedPreferences?.edit()?.putString("userPicture", it)?.apply()
+        })
+
+        viewModel.forNativeLoginResultProvider.observe(viewLifecycleOwner, Observer {
+            val sharedPreferences = context?.getSharedPreferences("for_native_login_user_info", Context.MODE_PRIVATE)
+            sharedPreferences?.edit()?.putString("userProvider", it)?.apply()
+        })
+
 
         return binding.root
     }

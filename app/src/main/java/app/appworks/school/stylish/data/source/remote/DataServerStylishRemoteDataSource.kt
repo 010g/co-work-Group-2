@@ -2,7 +2,6 @@ package app.appworks.school.stylish.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.CheckoutOrderResult
 import app.appworks.school.stylish.data.HomeItem
@@ -10,8 +9,11 @@ import app.appworks.school.stylish.data.NativeSignInBody
 import app.appworks.school.stylish.data.NativeSignUpBody
 import app.appworks.school.stylish.data.OrderDetail
 import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
 import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.data.UserSignInResult
 import app.appworks.school.stylish.data.UserSignUpResult
@@ -53,6 +55,30 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
             // this will run on a thread managed by Retrofit
             val listResult = DataServerStylishApi.retrofitService.getProductList(type = type, paging = paging)
             Log.i("elven test API","<getProductList> this api is call")
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getProductListWithFavorite(
+        type: String,
+        paging: String?,
+        userId: Int?
+    ): Result<ProductFavoriteListResult> {
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = DataServerStylishApi.retrofitService.getProductListWithFavorite(type = type, paging = paging, userId = userId)
+            Log.i("elven test API","<getProductListWithFavorite> this api is call")
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -155,6 +181,62 @@ object DataServerStylishRemoteDataSource : StylishDataSource {
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
+        }
+    }
+
+    override suspend fun insertProductToFavoriteList(userId: String, productId: Long) {
+        Log.i("elven test API", "<insertProductToFavoriteList> API is call")
+        try {
+            DataServerStylishApi.retrofitService.insertProductToFavoriteList(userId,productId)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun deleteProductFromFavoriteList(userId: String, productId: Long) {
+        Log.i("elven test API", "<deleteProductFromFavoriteList> API is call")
+        try {
+            DataServerStylishApi.retrofitService.deleteProductFromFavoriteList(userId,productId)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getUserFavoriteList(userId: String): Result<SingleUserProductFavoriteListResult> {
+        Log.i("Elven login", "<getUserFavoriteList> API is called")
+        if (!Util.isInternetConnected()) {
+            return Result.Fail(Util.getString(R.string.internet_not_connected))
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = DataServerStylishApi.retrofitService.getUserFavoriteList(
+                userId
+            )
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(listResult)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getUUID(): UUIDResult? {
+        Log.i("Elven login", "<getUUID> API is called")
+
+        return try {
+            // this will run on a thread managed by Retrofit
+
+            return DataServerStylishApi.retrofitService.getUUID()
+
+        } catch (e: Exception) {
+            Log.i("Elven login", "Exception : ${e}")
+            return null
         }
     }
 
