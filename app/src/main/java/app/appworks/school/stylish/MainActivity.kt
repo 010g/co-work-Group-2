@@ -15,28 +15,23 @@ import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
-import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
-import app.appworks.school.stylish.home.HomeFragment
-import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
@@ -395,6 +390,49 @@ class MainActivity : BaseActivity() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val navHostFragment = this.supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val currentDestination = navController.currentDestination?.label
+
+        when(currentDestination){
+            "HomeFragment" -> {
+                if (ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall == 1 ){
+                    ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall++
+                    Log.i("Elven login", "ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall = ${ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall}")
+                } else {
+                    viewModel.sendUserTrackingWhenUserLeave("HomePage")
+//                    Log.i("Elven login ","Leave currentDestination : $currentDestination ")
+                }
+            }
+            "CatalogFragment" ->{
+                viewModel.sendUserTrackingWhenUserLeave("CatalogPage")
+            }
+            "CartFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("CartPage")
+            }
+            "ProfileFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("ProfilePage")
+            }
+            "FavoriteFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("FavoritePage")
+            }
+            "DetailFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("ProductDetailPage")
+            }
+            "PaymentFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("PaymentPage")
+            }
+            "OrderHistoryFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("OrderHistoryPage")
+            }
+            "RecommendFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("RecommendationPage")
+            }
         }
     }
 }

@@ -42,7 +42,7 @@
     <string name="awaiting_review">待評價</string>
     <string name="exchange">退換貨</string>
     <string name="profile_service_title">更多服務</string>
-    <string name="starred">收藏</string>
+    <string name="starred">推薦</string>
     <string name="notification">貨到通知</string>
     <string name="refunded">帳戶退款</string>
     <string name="address">地址</string>

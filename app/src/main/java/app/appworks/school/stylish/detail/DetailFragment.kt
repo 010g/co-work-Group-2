@@ -99,7 +99,6 @@ class DetailFragment : Fragment() {
                             Log.i("Elven login", "recommendFragment")
                         }
                     }
-//                    Log.i("Elven login", "actionTo = ${findNavController().currentDestination!!.displayName}")
                 }
             }
         )
