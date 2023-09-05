@@ -83,6 +83,11 @@
             android:label="DetailOrderFragment"
             tools:layout="@layout/fragment_detail_order" />
 
+    <fragment
+            android:id="@+id/recommendFragment"
+            android:name="app.appworks.school.stylish.recommend.RecommendFragment"
+            android:label="RecommendFragment" />
+
     <dialog
             android:id="@+id/loginDialog"
             android:name="app.appworks.school.stylish.login.LoginDialog"
@@ -167,6 +172,9 @@
     <action
             android:id="@+id/navigate_to_order_history_fragment"
             app:destination="@id/orderHistoryFragment" />
+    <action
+            android:id="@+id/navigate_to_recommendFragment"
+            app:destination="@+id/recommendFragment" />
     <action
             android:id="@+id/navigate_to_detail_order_fragment"
             app:destination="@id/detailOrderFragment">

@@ -11,6 +11,7 @@ import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.LoginViewModel
 import app.appworks.school.stylish.login.RegisterViewModel
 import app.appworks.school.stylish.payment.PaymentViewModel
+import app.appworks.school.stylish.recommend.RecommendViewModel
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -48,6 +49,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
                     CheckoutSuccessViewModel(stylishRepository)
+
+                isAssignableFrom(RecommendViewModel::class.java) ->
+                    RecommendViewModel(stylishRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

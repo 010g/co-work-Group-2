@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="Product"
+                type="app.appworks.school.stylish.data.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <ImageView
+                android:id="@+id/big_picture"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toTopOf="@+id/small_picture1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="0.70"
+                app:imageUrl="@{Product.mainImage}"/>
+
+        <ImageView
+                android:id="@+id/small_picture1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/small_picture2"
+                app:layout_constraintVertical_weight="0.30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/big_picture"
+                app:imageUrl="@{Product.mainImage}"/>/>
+
+        <ImageView
+                android:id="@+id/small_picture2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toStartOf="@+id/small_picture3"
+                app:layout_constraintStart_toEndOf="@+id/small_picture1"
+                app:layout_constraintTop_toTopOf="@id/small_picture1"
+                app:layout_constraintBottom_toBottomOf="@id/small_picture1"
+                app:imageUrl="@{Product.mainImage}"/>/>
+
+        <ImageView
+                android:id="@+id/small_picture3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/small_picture2"
+                app:layout_constraintTop_toTopOf="@id/small_picture1"
+                app:layout_constraintBottom_toBottomOf="@id/small_picture1"
+                app:imageUrl="@{Product.mainImage}"/>/>
+
+        <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/small_picture2"
+                app:layout_constraintStart_toStartOf="@id/small_picture2"
+                app:layout_constraintEnd_toEndOf="@id/small_picture2"
+                android:layout_marginBottom="16dp"
+                android:text="@{Product.title}"
+                android:textSize="24sp"
+                />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
