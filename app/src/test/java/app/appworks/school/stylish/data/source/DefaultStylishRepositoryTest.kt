@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -105,7 +106,7 @@ class DefaultStylishRepositoryTest {
             "",
             Order(
                 "", "", 1L, 1L, 1L, Recipient(
-                    "", "", "", "", ""
+                    "", "", "", "", "", NativeLoginResult.nativeId
                 ), listOf()
             )
         )

@@ -29,7 +29,8 @@ data class Recipient(
     val phone: String,
     val email: String,
     val address: String,
-    val time: String
+    val time: String,
+    val user_id: String
 ) : Parcelable
 
 @Parcelize
