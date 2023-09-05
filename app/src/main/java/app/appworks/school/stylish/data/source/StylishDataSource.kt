@@ -32,6 +32,10 @@ interface StylishDataSource {
 
     suspend fun getUUID() : UUIDResult?
 
+    suspend fun sendUserTracking(
+        uuid: String, eventType: String, actionFrom: String, actionTo: String, source: String
+    )
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
