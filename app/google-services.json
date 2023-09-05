@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637688917963",
+    "project_id": "co-work-group-2",
+    "storage_bucket": "co-work-group-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637688917963:android:81c030b3cc62ed823f504e",
+        "android_client_info": {
+          "package_name": "app.appworks.school.stylish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637688917963-gabl3hag0odgs6r4edj99kv9mcescco4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg4TfhfaiSQYFaKe6rkGLQWiWRtk7sWW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637688917963-gabl3hag0odgs6r4edj99kv9mcescco4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

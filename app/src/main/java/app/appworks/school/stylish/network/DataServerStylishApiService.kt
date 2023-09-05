@@ -6,7 +6,10 @@ import app.appworks.school.stylish.data.NativeSignInBody
 import app.appworks.school.stylish.data.NativeSignUpBody
 import app.appworks.school.stylish.data.OrderDetail
 import app.appworks.school.stylish.data.OrderHistoryResult
+import app.appworks.school.stylish.data.ProductFavoriteListResult
 import app.appworks.school.stylish.data.ProductListResult
+import app.appworks.school.stylish.data.SingleUserProductFavoriteListResult
+import app.appworks.school.stylish.data.UUIDResult
 import app.appworks.school.stylish.data.UserProfileResult
 import app.appworks.school.stylish.data.UserSignInResult
 import app.appworks.school.stylish.data.UserSignUpResult
@@ -37,11 +40,20 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface DataServerStylishApiService {
+    // call when user is not login
     @GET("products/{catalogType}")
     suspend fun getProductList(
         @Path("catalogType") type: String,
         @Query("paging") paging: String? = null
     ): ProductListResult
+
+    // call when user is login
+    @GET("products/{catalogType}")
+    suspend fun getProductListWithFavorite(
+        @Path("catalogType") type: String,
+        @Query("paging") paging: String? = null,
+        @Query("user_id") userId: Int? = null
+    ): ProductFavoriteListResult
 
 
     @GET("marketing/hots")
@@ -69,17 +81,44 @@ interface DataServerStylishApiService {
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileResult
 
     //order history (need to be revise)
-     @GET("orderHistory")
+    @GET("orderHistory")
     suspend fun getOrderHistory(@Query("user_id") userId: String): OrderHistoryResult
+
 
     @POST("order/checkout")
     suspend fun checkoutOrder(
         @Header("Authorization") token: String,
         @Body orderDetail: OrderDetail
     ): CheckoutOrderResult
+
+    // add product to favorite list
+    @GET("product/favorite/insert_fav")
+    suspend fun insertProductToFavoriteList(
+        @Query("user_id") userId: String,
+        @Query("fav_product_id") productId: Long
+    )
+
+    // delete product from favorite list
+    @GET("product/favorite/delete_fav")
+    suspend fun deleteProductFromFavoriteList(
+        @Query("user_id") userId: String,
+        @Query("fav_product_id") productId: Long
+    )
+
+    // get user favorite list
+    @GET("product/favorite/get_fav")
+    suspend fun getUserFavoriteList(
+        @Query("user_id") userId: String? = null) : SingleUserProductFavoriteListResult
+
+    // get user AB test own UUID
+    @GET("uuid")
+    suspend fun getUUID() : UUIDResult?
 }
 
 object DataServerStylishApi {
-    val retrofitService: DataServerStylishApiService by lazy { retrofit.create(
-        DataServerStylishApiService::class.java) }
+    val retrofitService: DataServerStylishApiService by lazy {
+        retrofit.create(
+            DataServerStylishApiService::class.java
+        )
+    }
 }

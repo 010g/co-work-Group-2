@@ -1,9 +1,11 @@
 package app.appworks.school.stylish
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.component.ProfileAvatarOutlineProvider
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
@@ -69,6 +71,14 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
     val navigateToHomeByBottomNav: LiveData<Boolean?>
         get() = _navigateToHomeByBottomNav
+
+//    private val _UUID = MutableLiveData<String?>()
+//    val UUID: LiveData<String?>
+//        get() = _UUID
+//
+//    private val _ABVersion = MutableLiveData<String?>()
+//    val ABVersion: LiveData<String?>
+//        get() = _ABVersion
 
     // it for set up the circle image of an avatar
     val outlineProvider = ProfileAvatarOutlineProvider()
@@ -151,6 +161,20 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
     fun onHomeNavigated() {
         _navigateToHomeByBottomNav.value = null
     }
+
+//    fun getUUID(){
+//        viewModelScope.launch {
+//            try {
+//                val result = stylishRepository.getUUID()
+//                _UUID.value = result?.uuid
+//                _ABVersion.value = result?.source
+//                Log.i("elven test API", "Just call getUUID and get back info")
+//            } catch (e:Exception){
+//                Log.i("elven test API", "call getUUID fail")
+//            }
+//        }
+//    }
+
 
     /**
      * track [StylishRepository.getUserProfile]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
