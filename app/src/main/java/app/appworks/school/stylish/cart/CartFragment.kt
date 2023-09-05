@@ -41,9 +41,9 @@ class CartFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 it?.let {
+                    viewModel.sendUserTrackingFromCartPageToPaymentPage()
                     findNavController().navigate(CartFragmentDirections.navigateToPaymentFragment())
                     viewModel.onPaymentNavigated()
-                    viewModel.sendUserTrackingFromCartPageToPaymentPage()
                 }
             }
         )

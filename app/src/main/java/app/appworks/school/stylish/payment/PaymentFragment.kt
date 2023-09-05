@@ -54,9 +54,9 @@ class PaymentFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 it?.let {
+                    viewModel.sendUserTrackingFromPaymentPageToCheckoutSuccessFragment()
                     findNavController().navigate(NavigationDirections.navigateToCheckoutSuccessFragment())
                     viewModel.onCheckoutSuccessNavigated()
-                    viewModel.sendUserTrackingFromPaymentPageToCheckoutSuccessFragment()
                 }
             }
         )
