@@ -91,6 +91,26 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
 
     lateinit var fbCallbackManager: CallbackManager
 
+    private val _forNativeLoginResultId = MutableLiveData<Int?>()
+    val forNativeLoginResultId : LiveData<Int?>
+        get() = _forNativeLoginResultId
+
+    private val _forNativeLoginResultName = MutableLiveData<String>()
+    val forNativeLoginResultName : LiveData<String>
+        get() = _forNativeLoginResultName
+
+    private val _forNativeLoginResultEmail = MutableLiveData<String>()
+    val forNativeLoginResultEmail : LiveData<String>
+        get() = _forNativeLoginResultEmail
+
+    private val _forNativeLoginResultPicture = MutableLiveData<String?>()
+    val forNativeLoginResultPicture : LiveData<String?>
+        get() = _forNativeLoginResultPicture
+
+    private val _forNativeLoginResultProvider = MutableLiveData<String>()
+    val forNativeLoginResultProvider : LiveData<String>
+        get() = _forNativeLoginResultProvider
+
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -159,7 +179,11 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     NativeLoginResult.nativePicture = result.data.userSignIn.user.picture
                     NativeLoginResult.nativeProvider = result.data.userSignIn.user.provider
 
-
+                    _forNativeLoginResultId.value = result.data.userSignIn.user.id
+                    _forNativeLoginResultName.value = result.data.userSignIn.user.name
+                    _forNativeLoginResultEmail.value = result.data.userSignIn.user.email
+                    _forNativeLoginResultPicture.value = result.data.userSignIn.user.picture
+                    _forNativeLoginResultProvider.value = result.data.userSignIn.user.provider
 
                     Log.i("elven test profile","UserManager.userToken = ${UserManager.userToken}")
                     _user.value = result.data.userSignIn?.user

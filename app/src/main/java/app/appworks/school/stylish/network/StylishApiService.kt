@@ -71,6 +71,13 @@ interface StylishApiService {
         @Query("paging") paging: String? = null
     ): ProductListResult
 
+    @GET("products/{catalogType}")
+    suspend fun getProductListWithFavorite(
+        @Path("catalogType") type: String,
+        @Query("paging") paging: String? = null,
+        @Query("user_id") userId: Int? = null
+    ): ProductFavoriteListResult
+
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "user/profile" endpoint will be requested with the GET HTTP method
