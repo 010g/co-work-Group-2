@@ -77,6 +77,9 @@
     <!-- Recommend -->
     <string name="recommend_title">推薦商品</string>
 
+    <!-- ChatBot -->
+    <string name="chat_bot_title">客服訊息</string>
+
     <!-- Payment -->
     <string name="_payment_amount">x%d</string>
     <string name="checkout_product">結帳商品</string>

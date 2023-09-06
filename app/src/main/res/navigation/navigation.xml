@@ -88,6 +88,11 @@
             android:name="app.appworks.school.stylish.recommend.RecommendFragment"
             android:label="RecommendFragment" />
 
+    <fragment
+            android:id="@+id/ChatBotFragment"
+            android:name="app.appworks.school.stylish.chatbot.ChatBotFragment"
+            android:label="ChatBotFragment" />
+
     <dialog
             android:id="@+id/loginDialog"
             android:name="app.appworks.school.stylish.login.LoginDialog"
@@ -175,6 +180,10 @@
     <action
             android:id="@+id/navigate_to_recommendFragment"
             app:destination="@+id/recommendFragment" />
+
+    <action
+            android:id="@+id/navigate_to_chat_bot_fragment"
+            app:destination="@+id/ChatBotFragment" />
     <action
             android:id="@+id/navigate_to_detail_order_fragment"
             app:destination="@id/detailOrderFragment">

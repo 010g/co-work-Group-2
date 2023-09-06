@@ -10,8 +10,10 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnticipateInterpolator
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -24,7 +26,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import app.appworks.school.stylish.databinding.ActivityMainBinding
@@ -40,6 +41,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -68,6 +70,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+
 
         Log.i("elven test Time", "${ABTestVersion.time}")
 
@@ -172,6 +175,7 @@ class MainActivity : BaseActivity() {
         setupNavController()
     }
 
+
     /**
      * Set up [BottomNavigationView], add badge view through [BottomNavigationMenuView] and [BottomNavigationItemView]
      * to display the count of Cart
@@ -250,6 +254,7 @@ class MainActivity : BaseActivity() {
                 R.id.orderHistoryFragment -> CurrentFragmentType.OrderHistory
                 R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
                 R.id.recommendFragment -> CurrentFragmentType.RECOMMEND
+                R.id.ChatBotFragment -> CurrentFragmentType.CHATBOT
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -380,6 +385,8 @@ class MainActivity : BaseActivity() {
             }
         )
     }
+
+
 
     /**
      * override back key for the drawer design
