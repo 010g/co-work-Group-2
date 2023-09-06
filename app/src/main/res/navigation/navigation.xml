@@ -88,6 +88,13 @@
             android:name="app.appworks.school.stylish.recommend.RecommendFragment"
             android:label="RecommendFragment" />
 
+    <fragment
+            android:id="@+id/mapsActivity"
+            android:name="app.appworks.school.stylish.MapsActivity"
+            android:label="MapsActivity"
+            tools:layout="@layout/activity_maps" />
+
+
     <dialog
             android:id="@+id/loginDialog"
             android:name="app.appworks.school.stylish.login.LoginDialog"
@@ -182,4 +189,9 @@
                 android:name="orderHistory"
                 app:argType="app.appworks.school.stylish.profile.OrderHistoryItem" />
     </action>
+
+    <action
+            android:id="@+id/action_profileFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
+
 </navigation>

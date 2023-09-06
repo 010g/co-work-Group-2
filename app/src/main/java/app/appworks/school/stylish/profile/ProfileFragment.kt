@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.MainViewModel
+import app.appworks.school.stylish.MapsActivity
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.FragmentProfileBinding
 import app.appworks.school.stylish.ext.getVmFactory
@@ -53,6 +55,12 @@ class ProfileFragment : Fragment() {
                     }
                 }
             )
+        }
+
+        binding.buttonProfileAddress.setOnClickListener {
+            // Start the MapsActivity using an Intent
+            val intent = Intent(requireContext(), MapsActivity::class.java)
+            startActivity(intent)
         }
 
         binding.textProfileSeeAll.setOnClickListener {
