@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.ABTestUUID
 import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
@@ -146,14 +147,15 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
     }
 
     fun getUUID(){
+        Log.i("elven test API", "call getUUID()")
         viewModelScope.launch {
             try {
                 val result = stylishRepository.getUUID()
                 _UUID.value = result?.uuid
                 _ABVersion.value = result?.source
-                Log.i("elven test API", "Just call getUUID all done")
+                Log.i("elven test API", "Just call getUUID() all done")
             } catch (e:Exception){
-                Log.i("elven test API", "call getUUID fail")
+                Log.i("elven test API", "call getUUID() fail")
             }
         }
     }
@@ -161,5 +163,26 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
     fun getABVersion(){
         Log.i("elven test API", "call getABVersion()")
         _ABVersion.value = ABTestVersion.version
+    }
+
+    fun sendUserTrackingWhenUserLoginFirstTime(){
+        Log.i("Elven login", "HomeViewModel: sendUserTrackingWhenUserLoginFirstTime API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "", actionTo = "HomePage", source = ABTestVersion.version )
+            Log.i("Elven login", "HomeViewModel: sendUserTrackingWhenUserLoginFirstTime API finished")
+        }
+    }
+
+    val sendUserTrackingFromHomePageToProductDetailPage = fun(productId : Long){
+        Log.i("Elven login", "HomeViewModel: sendUserTrackingFromHomePageToProductDetailPage API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            Log.i("Elven login", "actionTo = $productId")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "HomePage", actionTo = "$productId", source = ABTestVersion.version )
+            Log.i("Elven login", "HomeViewModel: sendUserTrackingFromHomePageToProductDetailPage API finished")
+        }
     }
 }

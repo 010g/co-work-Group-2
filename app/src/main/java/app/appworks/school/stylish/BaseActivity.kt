@@ -1,12 +1,17 @@
 package app.appworks.school.stylish
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.DisplayCutout
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import app.appworks.school.stylish.util.Logger
 import kotlin.coroutines.CoroutineContext
@@ -18,7 +23,8 @@ import kotlinx.coroutines.withContext
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-open class BaseActivity : AppCompatActivity(), CoroutineScope {
+open class BaseActivity() : AppCompatActivity(), CoroutineScope {
+
 
     val job = Job()
 

@@ -2,6 +2,7 @@ package app.appworks.school.stylish.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import app.appworks.school.stylish.chatbot.ChatBotViewModel
 import app.appworks.school.stylish.MainViewModel
 import app.appworks.school.stylish.cart.CartViewModel
 import app.appworks.school.stylish.checkout.CheckoutSuccessViewModel
@@ -52,6 +53,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(RecommendViewModel::class.java) ->
                     RecommendViewModel(stylishRepository)
+
+                isAssignableFrom(ChatBotViewModel::class.java) ->
+                    ChatBotViewModel(stylishRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

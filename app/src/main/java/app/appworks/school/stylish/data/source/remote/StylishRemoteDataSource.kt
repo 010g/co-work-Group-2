@@ -201,6 +201,10 @@ object StylishRemoteDataSource : StylishDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getRecommendation(userId: String): Result<SingleUserRecommendationListResult> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

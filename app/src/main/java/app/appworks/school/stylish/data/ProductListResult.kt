@@ -26,3 +26,9 @@ data class SingleUserProductFavoriteListResult(
     val error: String? = null,
     @Json(name = "data") val products: List<Product>? = null
 ) : Parcelable
+
+@Parcelize
+data class SingleUserRecommendationListResult(
+    val error: String? = null,
+    @Json(name = "data") val products: List<Product>? = null
+) : Parcelable

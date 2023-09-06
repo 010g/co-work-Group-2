@@ -12,7 +12,10 @@ import app.appworks.school.stylish.databinding.ItemHomeFullBinding
 import app.appworks.school.stylish.databinding.ItemHomeTitleBinding
 import app.appworks.school.stylish.databinding.ItemHomeTitleOriginalBinding
 
-class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
+class HomeOriginalAdapter(
+    private val onClickListener: OnClickListener,
+    private val sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
@@ -23,7 +26,8 @@ class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
         fun onClick(product: Product) = clickListener(product)
     }
 
-    class TitleViewHolder(private var binding: ItemHomeTitleOriginalBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TitleViewHolder(private var binding: ItemHomeTitleOriginalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(title: String) {
 
@@ -35,20 +39,35 @@ class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
     class FullProductViewHolder(private var binding: ItemHomeFullBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, onClickListener: OnClickListener) {
+        fun bind(
+            product: Product,
+            onClickListener: OnClickListener,
+            sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+        ) {
 
             binding.product = product
-            binding.root.setOnClickListener { onClickListener.onClick(product) }
+            binding.root.setOnClickListener {
+                onClickListener.onClick(product)
+                sendUserTrackingFromHomePageToProductDetailPage(product.id)
+            }
             binding.executePendingBindings()
         }
     }
 
-    class CollageProductViewHolder(private var binding: ItemHomeCollageBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CollageProductViewHolder(private var binding: ItemHomeCollageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, onClickListener: OnClickListener) {
+        fun bind(
+            product: Product,
+            onClickListener: OnClickListener,
+            sendUserTrackingFromHomePageToProductDetailPage: (Long) -> Unit
+        ) {
 
             binding.product = product
-            binding.root.setOnClickListener { onClickListener.onClick(product) }
+            binding.root.setOnClickListener {
+                onClickListener.onClick(product)
+                sendUserTrackingFromHomePageToProductDetailPage(product.id)
+            }
             binding.executePendingBindings()
         }
     }
@@ -57,6 +76,7 @@ class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
         override fun areItemsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
             return oldItem === newItem
         }
+
         override fun areContentsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -73,16 +93,19 @@ class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
+
             ITEM_VIEW_TYPE_PRODUCT_FULL -> FullProductViewHolder(
                 ItemHomeFullBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
+
             ITEM_VIEW_TYPE_PRODUCT_COLLAGE -> CollageProductViewHolder(
                 ItemHomeCollageBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
+
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -96,11 +119,21 @@ class HomeOriginalAdapter(private val onClickListener: OnClickListener) :
             is TitleViewHolder -> {
                 holder.bind((getItem(position) as HomeItem.Title).title)
             }
+
             is FullProductViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.FullProduct).product, onClickListener)
+                holder.bind(
+                    (getItem(position) as HomeItem.FullProduct).product,
+                    onClickListener,
+                    sendUserTrackingFromHomePageToProductDetailPage
+                )
             }
+
             is CollageProductViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.CollageProduct).product, onClickListener)
+                holder.bind(
+                    (getItem(position) as HomeItem.CollageProduct).product,
+                    onClickListener,
+                    sendUserTrackingFromHomePageToProductDetailPage
+                )
             }
         }
     }

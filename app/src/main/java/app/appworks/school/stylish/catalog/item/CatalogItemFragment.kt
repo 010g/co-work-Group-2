@@ -71,6 +71,7 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
                                 else -> {}
                             }
                             CatalogItemScreen(pagingItems) {
+                                viewModel.sendUserTrackingFromCatalogPageToProductDetailPage(it.id)
                                 findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
                             }
                         }
