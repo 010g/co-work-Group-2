@@ -162,18 +162,17 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
         _navigateToHomeByBottomNav.value = null
     }
 
-//    fun getUUID(){
-//        viewModelScope.launch {
-//            try {
-//                val result = stylishRepository.getUUID()
-//                _UUID.value = result?.uuid
-//                _ABVersion.value = result?.source
-//                Log.i("elven test API", "Just call getUUID and get back info")
-//            } catch (e:Exception){
-//                Log.i("elven test API", "call getUUID fail")
-//            }
-//        }
-//    }
+
+    fun sendUserTrackingWhenUserLeave(leavingPage : String){
+        Log.i("Elven login", "MainViewModel: sendUserTrackingWhenUserLeave API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            Log.i("Elven login", "actionFrom = $leavingPage")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "leave", actionFrom = leavingPage, actionTo = "", source = ABTestVersion.version )
+            Log.i("Elven login", "MainViewModel: sendUserTrackingWhenUserLeave API finished")
+        }
+    }
 
 
     /**

@@ -10,33 +10,29 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnticipateInterpolator
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
-import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
-import app.appworks.school.stylish.home.HomeFragment
-import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
@@ -45,6 +41,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -73,6 +70,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+
 
         Log.i("elven test Time", "${ABTestVersion.time}")
 
@@ -177,6 +175,7 @@ class MainActivity : BaseActivity() {
         setupNavController()
     }
 
+
     /**
      * Set up [BottomNavigationView], add badge view through [BottomNavigationMenuView] and [BottomNavigationItemView]
      * to display the count of Cart
@@ -254,6 +253,8 @@ class MainActivity : BaseActivity() {
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
                 R.id.orderHistoryFragment -> CurrentFragmentType.OrderHistory
                 R.id.detailOrderFragment -> CurrentFragmentType.DetailOrder
+                R.id.recommendFragment -> CurrentFragmentType.RECOMMEND
+                R.id.ChatBotFragment -> CurrentFragmentType.CHATBOT
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -385,6 +386,8 @@ class MainActivity : BaseActivity() {
         )
     }
 
+
+
     /**
      * override back key for the drawer design
      */
@@ -394,6 +397,49 @@ class MainActivity : BaseActivity() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val navHostFragment = this.supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val currentDestination = navController.currentDestination?.label
+
+        when(currentDestination){
+            "HomeFragment" -> {
+                if (ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall == 1 ){
+                    ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall++
+                    Log.i("Elven login", "ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall = ${ABTestVersion.limitForHomePageFirstUserTrackingLeaveApiCall}")
+                } else {
+                    viewModel.sendUserTrackingWhenUserLeave("HomePage")
+//                    Log.i("Elven login ","Leave currentDestination : $currentDestination ")
+                }
+            }
+            "CatalogFragment" ->{
+                viewModel.sendUserTrackingWhenUserLeave("CatalogPage")
+            }
+            "CartFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("CartPage")
+            }
+            "ProfileFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("ProfilePage")
+            }
+            "FavoriteFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("FavoritePage")
+            }
+            "DetailFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("ProductDetailPage")
+            }
+            "PaymentFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("PaymentPage")
+            }
+            "OrderHistoryFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("OrderHistoryPage")
+            }
+            "RecommendFragment" -> {
+                viewModel.sendUserTrackingWhenUserLeave("RecommendationPage")
+            }
         }
     }
 }

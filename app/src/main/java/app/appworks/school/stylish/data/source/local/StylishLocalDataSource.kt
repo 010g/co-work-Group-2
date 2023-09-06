@@ -75,6 +75,10 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("Not yet implemented")
     }
 
+    override suspend fun getRecommendation(userId: String): Result<SingleUserRecommendationListResult> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun checkoutOrder(
         token: String,
         orderDetail: OrderDetail

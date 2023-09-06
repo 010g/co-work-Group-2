@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.databinding.ViewholderFavoriteGridSectionBinding
 
-class FavoriteListAdapter(val onClickListener: OnClickListener) :
+class FavoriteListAdapter(
+    val onClickListener: OnClickListener,
+    private val sendUserTrackingFromFavoritePageToProductDetailPage: (Long) -> Unit
+) :
     ListAdapter<Product, FavoriteListAdapter.FavoriteProductViewHolder>(DiffCallback) {
 
     class FavoriteProductViewHolder(private var binding: ViewholderFavoriteGridSectionBinding) :
@@ -42,7 +45,13 @@ class FavoriteListAdapter(val onClickListener: OnClickListener) :
         parent: ViewGroup,
         viewType: Int
     ): FavoriteProductViewHolder {
-        return FavoriteProductViewHolder(ViewholderFavoriteGridSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return FavoriteProductViewHolder(
+            ViewholderFavoriteGridSectionBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
     }
 
     /**
@@ -52,6 +61,7 @@ class FavoriteListAdapter(val onClickListener: OnClickListener) :
         val product = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(product)
+            sendUserTrackingFromFavoritePageToProductDetailPage(product.id)
         }
         holder.bind(product)
     }

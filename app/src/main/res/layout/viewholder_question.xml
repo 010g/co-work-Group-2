@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="QuestionItem"
+                type="app.appworks.school.stylish.chatbot.QuestionItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_999999"
+            app:layout_constraintGuide_percent="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/colum_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_999999"
+                android:paddingBottom="32dp"
+                app:layout_constraintEnd_toStartOf="@+id/colum_2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                    android:id="@+id/question_title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue_facebook"
+                    android:fontFamily="@font/noto_sans"
+                    android:textAlignment="center"
+                    android:letterSpacing="0.15"
+                    android:layout_marginEnd="4dp"
+                    android:text="商品配送"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                    android:id="@+id/title_1_button_1"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dialog_background_shape"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0.15"
+                    android:text="配送相關"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/question_title_1"
+                    app:layout_constraintStart_toStartOf="@+id/question_title_1"
+                    app:layout_constraintTop_toBottomOf="@id/question_title_1" />
+
+            <Button
+                    android:id="@+id/title_1_button_2"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dialog_background_shape"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0.15"
+                    android:text="進度查詢"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/question_title_1"
+                    app:layout_constraintStart_toStartOf="@+id/question_title_1"
+                    app:layout_constraintTop_toBottomOf="@id/title_1_button_1" />
+
+            <Button
+                    android:id="@+id/title_1_button_3"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dialog_background_shape"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0.15"
+                    android:text="退換貨說明"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/question_title_1"
+                    app:layout_constraintStart_toStartOf="@+id/question_title_1"
+                    app:layout_constraintTop_toBottomOf="@id/title_1_button_2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/colum_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_999999"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/colum_1"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                    android:id="@+id/question_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@color/blue_facebook"
+                    android:fontFamily="@font/noto_sans"
+                    android:letterSpacing="0.15"
+                    android:text="專屬服務"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                    android:id="@+id/title_2_button_1"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dialog_background_shape"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0.15"
+                    android:text="訂單查詢"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/question_title_2"
+                    app:layout_constraintStart_toStartOf="@+id/question_title_2"
+                    app:layout_constraintTop_toBottomOf="@id/question_title_2"/>
+
+            <Button
+                    android:id="@+id/title_2_button_2"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/dialog_background_shape"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0.15"
+                    android:text="更換客服"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/question_title_2"
+                    app:layout_constraintStart_toStartOf="@+id/question_title_2"
+                    app:layout_constraintTop_toBottomOf="@id/title_2_button_1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

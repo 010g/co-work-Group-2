@@ -36,6 +36,10 @@ interface StylishDataSource {
         uuid: String, eventType: String, actionFrom: String, actionTo: String, source: String
     )
 
+    suspend fun getRecommendation(
+        userId: String,
+    ): Result<SingleUserRecommendationListResult>
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>

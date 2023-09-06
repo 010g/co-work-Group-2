@@ -36,7 +36,7 @@ class FavoriteFragment : Fragment() {
 
         val adapter = FavoriteListAdapter(FavoriteListAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        }, viewModel.sendUserTrackingFromFavoritePageToProductDetailPage)
         binding.recyclerFavorite.adapter = adapter
 
         viewModel.navigateToDetail.observe(
@@ -52,7 +52,7 @@ class FavoriteFragment : Fragment() {
         viewModel.productListForAdapter.observe(
             viewLifecycleOwner,
             Observer {
-                if (it!!.isEmpty()){
+                if (it!!.isEmpty()) {
                     binding.textFavoriteNoProducts.visibility = View.VISIBLE
                 }
                 it?.let {

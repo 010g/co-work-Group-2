@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.FragmentFavoriteBinding
@@ -34,8 +36,11 @@ class RecommendFragment : Fragment() {
 
         val adapter = RecommendAdapter(RecommendAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        }, viewModel.sendUserTrackingFromRecommendationPageToProductDetailPage)
         binding.itemRecommendRecyclerview.adapter = adapter
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.itemRecommendRecyclerview)
+
 
         viewModel.navigateToDetail.observe(
             viewLifecycleOwner,
@@ -59,13 +64,6 @@ class RecommendFragment : Fragment() {
 
         return binding.root
     }
-
-
-
-
-
-
-
 
 
 //    override fun onCreateView(

@@ -9,7 +9,10 @@ import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.databinding.ItemRecommendBinding
 
 
-class RecommendAdapter(val onClickListener: OnClickListener) :
+class RecommendAdapter(
+    val onClickListener: OnClickListener,
+    private val sendUserTrackingFromRecommendationPageToProductDetailPage: (Long) -> Unit
+) :
     ListAdapter<Product, RecommendAdapter.RecommendViewHolder>(DiffCallback) {
 
     class RecommendViewHolder(private var binding: ItemRecommendBinding) :
@@ -43,7 +46,13 @@ class RecommendAdapter(val onClickListener: OnClickListener) :
         parent: ViewGroup,
         viewType: Int
     ): RecommendViewHolder {
-        return RecommendViewHolder(ItemRecommendBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return RecommendViewHolder(
+            ItemRecommendBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     /**
@@ -53,6 +62,7 @@ class RecommendAdapter(val onClickListener: OnClickListener) :
         val product = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(product)
+            sendUserTrackingFromRecommendationPageToProductDetailPage(product.id)
         }
         holder.bind(product)
     }
@@ -66,9 +76,6 @@ class RecommendAdapter(val onClickListener: OnClickListener) :
         fun onClick(product: Product) = clickListener(product)
     }
 }
-
-
-
 
 
 //class RecommendAdapter() : ListAdapter<Item, RecyclerView.ViewHolder>(ProductDiffCallback()) {

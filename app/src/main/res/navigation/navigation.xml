@@ -94,6 +94,11 @@
             android:label="MapsActivity"
             tools:layout="@layout/activity_maps" />
 
+    <fragment
+            android:id="@+id/ChatBotFragment"
+            android:name="app.appworks.school.stylish.chatbot.ChatBotFragment"
+            android:label="ChatBotFragment" />
+
 
     <dialog
             android:id="@+id/loginDialog"
@@ -182,6 +187,10 @@
     <action
             android:id="@+id/navigate_to_recommendFragment"
             app:destination="@+id/recommendFragment" />
+
+    <action
+            android:id="@+id/navigate_to_chat_bot_fragment"
+            app:destination="@+id/ChatBotFragment" />
     <action
             android:id="@+id/navigate_to_detail_order_fragment"
             app:destination="@id/detailOrderFragment">

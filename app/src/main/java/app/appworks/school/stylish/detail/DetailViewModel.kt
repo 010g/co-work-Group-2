@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import app.appworks.school.stylish.ABTestUUID
+import app.appworks.school.stylish.ABTestVersion
 import app.appworks.school.stylish.NativeLoginResult
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
@@ -206,5 +208,17 @@ class DetailViewModel(
         }
 
         _isFavorite.value = false
+    }
+
+    fun sendUserTrackingFromDetailPageToLastPage(lastPage:String){
+        Log.i("Elven login", "DetailViewModel: sendUserTrackingFromDetailPageToLastPage API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            Log.i("Elven login", "actionFrom = ${_product.value!!.id}")
+            Log.i("Elven login", "actionTo = $lastPage")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "${_product.value!!.id}", actionTo = "$lastPage", source = ABTestVersion.version )
+            Log.i("Elven login", "ProfileViewModel: sendUserTrackingFromDetailPageToLastPage API finished")
+        }
     }
 }

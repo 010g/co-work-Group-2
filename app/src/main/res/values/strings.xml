@@ -42,7 +42,7 @@
     <string name="awaiting_review">待評價</string>
     <string name="exchange">退換貨</string>
     <string name="profile_service_title">更多服務</string>
-    <string name="starred">收藏</string>
+    <string name="starred">推薦</string>
     <string name="notification">貨到通知</string>
     <string name="refunded">帳戶退款</string>
     <string name="address">地址</string>
@@ -73,6 +73,12 @@
     <string name="remove">移除</string>
     <string name="no_products">目前購物車沒有商品。</string>
     <string name="product_exist">此商品已存在購物車中。</string>
+
+    <!-- Recommend -->
+    <string name="recommend_title">推薦商品</string>
+
+    <!-- ChatBot -->
+    <string name="chat_bot_title">客服訊息</string>
 
     <!-- Payment -->
     <string name="_payment_amount">x%d</string>
@@ -121,6 +127,7 @@
     <string name="internet_not_connected">您尚未連接 Internet</string>
     <string name="you_know_nothing">You know nothing</string>
     <string name="love_u_3000">Love you 3000</string>
+
 
     <!-- Check Out Key -->
     <string name="tp_app_id">12348</string>

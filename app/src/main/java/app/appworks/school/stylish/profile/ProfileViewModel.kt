@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.ABTestUUID
 import app.appworks.school.stylish.ABTestVersion
-import app.appworks.school.stylish.NativeLoginResult
+
+
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.component.ProfileAvatarOutlineProvider
 import app.appworks.school.stylish.data.Result
@@ -137,6 +138,16 @@ class ProfileViewModel(
     fun sendUserTrackingFromProfilePageToOrderHistoryPage(){
         viewModelScope.launch {
             stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "ProfilePage", actionTo = "OrderHistoryPage", source = ABTestVersion.version )
+        }
+    }
+
+    fun sendUserTrackingFromProfilePageToRecommendationPage(){
+        Log.i("Elven login", "ProfileViewModel: sendUserTrackingFromProfilePageToRecommendationPage API is called")
+        viewModelScope.launch {
+            Log.i("Elven login", "ABTestUUID.UUID = ${ABTestUUID.UUID}")
+            Log.i("Elven login", "source = ${ABTestVersion.version}")
+            stylishRepository.sendUserTracking(uuid = ABTestUUID.UUID, eventType = "visit", actionFrom = "ProfilePage", actionTo = "RecommendationPage", source = ABTestVersion.version )
+            Log.i("Elven login", "ProfileViewModel: sendUserTrackingFromProfilePageToRecommendationPage API finished")
         }
     }
 

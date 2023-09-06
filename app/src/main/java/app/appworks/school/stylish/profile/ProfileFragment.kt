@@ -72,9 +72,13 @@ class ProfileFragment : Fragment() {
         binding.buttonProfileStarred.setOnClickListener {
             this.findNavController()
                 .navigate(R.id.navigate_to_recommendFragment)
-
-
+            viewModel.sendUserTrackingFromProfilePageToRecommendationPage()
         }
+
+        binding.buttonProfileCustomerService.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navigateToChatBotFragment())
+        }
+
         return binding.root
 //    private fun init() {
 //        activity?.let {

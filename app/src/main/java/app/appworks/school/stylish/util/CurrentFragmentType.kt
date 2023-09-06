@@ -13,5 +13,7 @@ enum class CurrentFragmentType(val value: String) {
     OrderHistory(getString(R.string.order_history)),
     DetailOrder(getString(R.string.detail_order)),
     DETAIL(""),
-    CHECKOUT_SUCCESS(getString(R.string.checkout_success_title))
+    CHECKOUT_SUCCESS(getString(R.string.checkout_success_title)),
+    RECOMMEND(getString(R.string.recommend_title)),
+    CHATBOT(getString(R.string.chat_bot_title))
 }
